@@ -22,6 +22,66 @@ export const theme = {
                 DEFAULT: 'var(--color-secondary)',
                 foreground: 'var(--color-secondary-foreground)',
             },
+            'color-swatch-blue': {
+                DEFAULT: 'var(--color-swatch-blue)',
+                foreground: 'var(--color-swatch-blue-foreground)',
+            },
+            'color-swatch-green': {
+                DEFAULT: 'var(--color-swatch-green)',
+                foreground: 'var(--color-swatch-green-foreground)',
+            },
+            'color-swatch-violet': {
+                DEFAULT: 'var(--color-swatch-violet)',
+                foreground: 'var(--color-swatch-violet-foreground)',
+            },
+            'color-swatch-brown': {
+                DEFAULT: 'var(--color-swatch-brown)',
+                foreground: 'var(--color-swatch-brown-foreground)',
+            },
+            'color-swatch-teal': {
+                DEFAULT: 'var(--color-swatch-teal)',
+                foreground: 'var(--color-swatch-teal-foreground)',
+            },
+            'color-swatch-blue-light': {
+                DEFAULT: 'var(--color-swatch-blue-light)',
+                foreground: 'var(--color-swatch-blue-light-foreground)',
+            },
+            'color-swatch-green-light': {
+                DEFAULT: 'var(--color-swatch-green-light)',
+                foreground: 'var(--color-swatch-green-light-foreground)',
+            },
+            'color-swatch-violet-light': {
+                DEFAULT: 'var(--color-swatch-violet-light)',
+                foreground: 'var(--color-swatch-violet-light-foreground)',
+            },
+            'color-swatch-brown-light': {
+                DEFAULT: 'var(--color-swatch-brown-light)',
+                foreground: 'var(--color-swatch-brown-light-foreground)',
+            },
+            'color-swatch-teal-light': {
+                DEFAULT: 'var(--color-swatch-teal-light)',
+                foreground: 'var(--color-swatch-teal-light-foreground)',
+            },
+            'color-swatch-blue-dark': {
+                DEFAULT: 'var(--color-swatch-blue-dark)',
+                foreground: 'var(--color-swatch-blue-dark-foreground)',
+            },
+            'color-swatch-green-dark': {
+                DEFAULT: 'var(--color-swatch-green-dark)',
+                foreground: 'var(--color-swatch-green-dark-foreground)',
+            },
+            'color-swatch-violet-dark': {
+                DEFAULT: 'var(--color-swatch-violet-dark)',
+                foreground: 'var(--color-swatch-violet-dark-foreground)',
+            },
+            'color-swatch-brown-dark': {
+                DEFAULT: 'var(--color-swatch-brown-dark)',
+                foreground: 'var(--color-swatch-brown-dark-foreground)',
+            },
+            'color-swatch-teal-dark': {
+                DEFAULT: 'var(--color-swatch-teal-dark)',
+                foreground: 'var(--color-swatch-teal-dark-foreground)',
+            },
             border: 'hsl(var(--border))',
             input: 'hsl(var(--input))',
             ring: 'hsl(var(--ring))',
@@ -79,6 +139,7 @@ export const theme = {
             loginGradient: 'url(/loginGradient.png)',
             loginMask: 'url(/mask-group.png)',
             heroVideoImage: 'url(/hero-video-image.png)',
+            banner: 'url(/bg-banner.png)',
         },
         fontFamily: {
             jakarta: ['Plus Jakarta Sans', ..._fontFamily.sans],

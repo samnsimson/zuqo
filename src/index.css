@@ -4,9 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
-a {
+/* a {
     color: #00539f;
-}
+} */
 
 @layer base {
     :root {
@@ -15,6 +15,41 @@ a {
 
         --color-secondary: #bb1865;
         --color-secondary-foreground: #bb1865;
+
+        --color-swatch-blue: #195fb2;
+        --color-swatch-blue-foreground: #195fb2;
+        --color-swatch-blue-light: #e4e2f5;
+        --color-swatch-blue-light-foreground: #e4e2f5;
+        --color-swatch-blue-dark: #d7d2f3;
+        --color-swatch-blue-dark-foreground: #d7d2f3;
+
+        --color-swatch-green: #19b296;
+        --color-swatch-green-foreground: #19b296;
+        --color-swatch-green-light: #e2f5f2;
+        --color-swatch-green-light-foreground: #e2f5f2;
+        --color-swatch-green-dark: #d2f3ee;
+        --color-swatch-green-dark-foreground: #d2f3ee;
+
+        --color-swatch-violet: #9d19b2;
+        --color-swatch-violet-foreground: #9d19b2;
+        --color-swatch-violet-light: #9d19b2;
+        --color-swatch-violet-light-foreground: #9d19b2;
+        --color-swatch-violet-dark: #9d19b2;
+        --color-swatch-violet-dark-foreground: #9d19b2;
+
+        --color-swatch-brown: #b29019;
+        --color-swatch-brown-foreground: #b29019;
+        --color-swatch-brown-light: #f5f3e2;
+        --color-swatch-brown-light-foreground: #f5f3e2;
+        --color-swatch-brown-dark: #f3ead2;
+        --color-swatch-brown-dark-foreground: #f3ead2;
+
+        --color-swatch-teal: #1996b2;
+        --color-swatch-teal-foreground: #1996b2;
+        --color-swatch-light: #1996b2;
+        --color-swatch-light-foreground: #1996b2;
+        --color-swatch-dark: #1996b2;
+        --color-swatch-dark-foreground: #1996b2;
 
         --background: 0 0% 100%;
         --foreground: 222.2 84% 4.9%;
@@ -82,9 +117,17 @@ a {
 
 @layer base {
     * {
-        @apply border-border;
+        @apply border-border font-jakarta;
     }
     body {
         @apply bg-background text-foreground;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-inter;
     }
 }

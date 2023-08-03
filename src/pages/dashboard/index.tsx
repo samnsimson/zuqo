@@ -1,7 +1,7 @@
 import { Header } from '@/components/header'
 import { Navbar, NavbarLinkProps } from '@/components/navbar'
 import { useAppStore } from '@/store'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 
 interface DashboardProps {
@@ -51,7 +51,9 @@ export const Dashboard: FC<DashboardProps> = () => {
     const { authenticated } = useAppStore((state) => state)
     const navigate = useNavigate()
 
-    if (!authenticated) navigate('/login')
+    useEffect(() => {
+        if (!authenticated) navigate('/login')
+    }, [authenticated, navigate])
 
     return (
         <div className="flex min-h-screen w-full flex-col">

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Header } from '@/components/header'
 import LoginForm from '@/components/login'
-import { ILinks, Navbar } from '@/components/navbar'
+import { NavbarLinkProps, Navbar } from '@/components/navbar'
 import { FC } from 'react'
 
 interface LoginPageProps {
@@ -9,7 +9,7 @@ interface LoginPageProps {
 }
 
 export const LoginPage: FC<LoginPageProps> = () => {
-    const navbarLinks: ILinks[] = [
+    const navbarLinks: NavbarLinkProps[] = [
         {
             name: 'Home',
             path: '/',

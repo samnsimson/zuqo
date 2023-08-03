@@ -2,21 +2,57 @@ import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { useAppStore } from '@/store'
+import { ChangeEvent, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const LoginForm = () => {
+    const { credentials, authenticated, authenticate } = useAppStore((state) => state)
+    const { username, password } = credentials
+    const navigate = useNavigate()
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    })
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setFormData((state) => ({ ...state, [e.target.name]: e.target.value }))
+    }
+
+    const handleSubmit = () => {
+        if (formData.email === username && formData.password === password) {
+            authenticate(true)
+            console.log('AUTHENTICATED')
+        } else {
+            console.log('WRONG CREDENTIALS')
+        }
+    }
+
+    useEffect(() => {
+        if (authenticated) navigate('/')
+    }, [authenticated, navigate])
+
     return (
         <div className="flex flex-col gap-5">
             <div className="grid w-full max-w-sm items-center gap-1.5">
                 <Label htmlFor="email" className="text-gray-700">
                     Email
                 </Label>
-                <Input id="email" type="email" placeholder="Enter your email" className="text-gray-500" />
+                <Input
+                    id="email"
+                    name="email"
+                    value={formData.email ?? ''}
+                    type="email"
+                    placeholder="Enter your email"
+                    className="text-gray-500"
+                    onChange={handleChange}
+                />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
                 <Label htmlFor="password" className="text-gray-700">
                     Password
                 </Label>
-                <Input id="password" type="password" className="text-gray-500" />
+                <Input id="password" name="password" value={formData.password ?? ''} type="password" className="text-gray-500" onChange={handleChange} />
             </div>
             <div className="flex justify-between">
                 <div className="flex items-center space-x-2">
@@ -29,7 +65,9 @@ const LoginForm = () => {
                     Forgot password
                 </Button>
             </div>
-            <Button className="bg-color-primary">Sign in</Button>
+            <Button className="bg-color-primary" type="button" onClick={handleSubmit}>
+                Sign in
+            </Button>
             <div className="text-center">
                 <p className="mb-0 text-xs">
                     <span className="text-gray-500">Don’t have an account?</span> <a href="/signup">Sign up</a>

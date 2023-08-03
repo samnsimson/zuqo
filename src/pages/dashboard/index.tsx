@@ -1,7 +1,8 @@
 import { Header } from '@/components/header'
 import { Navbar, NavbarLinkProps } from '@/components/navbar'
+import { useAppStore } from '@/store'
 import { FC } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 
 interface DashboardProps {
     [x: string]: any
@@ -47,6 +48,11 @@ const navbarLinks: NavbarLinkProps[] = [
 ]
 
 export const Dashboard: FC<DashboardProps> = () => {
+    const { authenticated } = useAppStore((state) => state)
+    const navigate = useNavigate()
+
+    if (!authenticated) navigate('/login')
+
     return (
         <div className="flex min-h-screen w-full flex-col">
             <Header variant="primary" className="flex gap-[27px]">

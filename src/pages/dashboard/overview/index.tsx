@@ -6,9 +6,13 @@ import { RecentActivitySummary } from '@/components/recentActivitySummary'
 import { SubHeader } from '@/components/subHeader'
 import { WelcomeMessage } from '@/components/welcomeMessage'
 import { YourTasksSummary } from '@/components/yourTasksSummary'
-import { useState } from 'react'
+import { FC, useState } from 'react'
 
-const HomePage = () => {
+interface OverviewPageProps {
+    [x: string]: any
+}
+
+export const OverviewPage: FC<OverviewPageProps> = () => {
     const [showBanner, setShowBanner] = useState(true)
     return (
         <div className="h-full flex-grow bg-[#F9FAFB]">
@@ -31,4 +35,3 @@ const HomePage = () => {
         </div>
     )
 }
-export default HomePage

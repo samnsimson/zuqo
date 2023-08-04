@@ -19,7 +19,7 @@ export const useAppStore = create(
             })),
             {
                 name: 'AppStore',
-                partialize: (state) => Object.fromEntries(Object.entries(state).filter(([key]) => !['authenticated'].includes(key))),
+                // partialize: (state) => Object.fromEntries(Object.entries(state).filter(([key]) => !['authenticated'].includes(key))),
             }
         )
     )

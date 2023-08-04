@@ -1,7 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { LoginPage } from '@/pages/login'
 import { Dashboard } from '@/pages/dashboard'
-import HomePage from '@/pages/dashboard/home'
+import { OverviewPage } from '@/pages/dashboard/overview'
+import { WorkflowStudio } from '@/pages/dashboard/workflow-studio'
+import { InteractionCenterPage } from '@/pages/dashboard/interaction-center'
 
 export const router = createBrowserRouter([
     {
@@ -9,8 +11,16 @@ export const router = createBrowserRouter([
         element: <Dashboard />,
         children: [
             {
-                path: '/',
-                element: <HomePage />,
+                path: '/overview',
+                element: <OverviewPage />,
+            },
+            {
+                path: '/workflow-studio',
+                element: <WorkflowStudio />,
+            },
+            {
+                path: '/interaction-center',
+                element: <InteractionCenterPage />,
             },
         ],
     },

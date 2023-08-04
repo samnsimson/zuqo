@@ -4,10 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* a {
-    color: #00539f;
-} */
-
 @layer base {
     :root {
         --color-primary: #00539f;

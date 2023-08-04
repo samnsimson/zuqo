@@ -29,7 +29,7 @@ const LoginForm = () => {
     }
 
     useEffect(() => {
-        if (authenticated) navigate('/')
+        if (authenticated) navigate('/overview')
     }, [authenticated, navigate])
 
     return (

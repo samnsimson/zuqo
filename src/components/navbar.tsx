@@ -1,12 +1,5 @@
 import { FC, ReactNode } from 'react'
-import {
-    NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuItem,
-    NavigationMenuLink,
-    NavigationMenuList,
-    NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu'
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from '@/components/ui/navigation-menu'
 import { Link } from 'react-router-dom'
 
 export interface NavbarLinkProps {
@@ -42,13 +35,13 @@ export const Navbar: FC<NavbarProps> = ({ links }) => {
                                                         key={key}
                                                         className="border-b-[1px] border-gray-200 px-2.5 py-4 font-jakarta font-semibold last:border-0"
                                                     >
-                                                        <NavigationMenuLink className="grid w-full gap-[6px]">
+                                                        <Link to={child.path ? child.path : ''} className="grid w-full gap-[6px]">
                                                             <div className="flex gap-[18px]">
                                                                 {child.icon && <img src={child.icon} />}
                                                                 <p>{child.name}</p>
                                                             </div>
                                                             <p className="text-sm font-thin text-gray-500">{child.description}</p>
-                                                        </NavigationMenuLink>
+                                                        </Link>
                                                     </li>
                                                 ))}
                                             </ul>

@@ -2,6 +2,8 @@ import { StartRattings } from '@/components/rattings'
 import { StatusBox } from '@/components/statusBox'
 import { FC } from 'react'
 import { VoiceConversations } from './voiceConversations'
+import { CustomerInsights } from './customerInsights'
+import { AgentInsights } from './agentInsights'
 
 interface OverviewTabContentProps {
     [x: string]: any
@@ -40,7 +42,10 @@ export const OverviewTabContent: FC<OverviewTabContentProps> = () => {
             <div className="col-span-12 h-full">
                 <div className="grid h-full grid-cols-2 gap-x-5">
                     <VoiceConversations className="bg-[#F6FFF9]"></VoiceConversations>
-                    <div className="bg-[#EEF2F3]"></div>
+                    <div className="grid grid-cols-1 gap-5">
+                        <CustomerInsights className="bg-[#EEF2F3]" />
+                        <AgentInsights className="bg-gradient-to-b from-[#F3EEF2] to-[#f7f9fbab]" />
+                    </div>
                 </div>
             </div>
         </div>

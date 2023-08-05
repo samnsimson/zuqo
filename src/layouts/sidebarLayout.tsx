@@ -1,4 +1,5 @@
 import { BreadCrumbs } from '@/components/breadCrumbs'
+import { DashboardFooter } from '@/components/dashboardFooter'
 import { SidebarSmall } from '@/components/sidebarSmall'
 import { cn } from '@/lib/utils'
 import { FC, HTMLAttributes } from 'react'
@@ -14,6 +15,7 @@ export const SidebarLayout: FC<SidebarLayoutProps> = ({ className, children, ...
             <main className="flex w-full flex-grow flex-col px-12">
                 <BreadCrumbs />
                 {children}
+                <DashboardFooter />
             </main>
         </div>
     )

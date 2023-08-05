@@ -145,6 +145,11 @@ export const theme = {
             jakarta: ['Plus Jakarta Sans', ..._fontFamily.sans],
             inter: ['Inter', ..._fontFamily.serif],
         },
+        gridTemplateColumns: {
+            16: 'repeat(16, minmax(0, 1fr))',
+            20: 'repeat(20, minmax(0, 1fr))',
+            24: 'repeat(24, minmax(0, 1fr))',
+        },
     },
 }
 export const plugins = [require('tailwindcss-animate'), require('@tailwindcss/typography')]

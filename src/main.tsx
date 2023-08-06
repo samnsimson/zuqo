@@ -1,3 +1,5 @@
+// site url:  https://frolicking-gingersnap-95d4aa.netlify.app
+
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import '@/index.css'

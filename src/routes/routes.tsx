@@ -4,6 +4,7 @@ import { Dashboard } from '@/pages/dashboard'
 import { OverviewPage } from '@/pages/dashboard/overview'
 import { WorkflowStudio } from '@/pages/dashboard/workflow-studio'
 import { InteractionCenterPage } from '@/pages/dashboard/interaction-center'
+import { AudioJson } from '@/pages/mock-pages/audioJson'
 
 export const router = createBrowserRouter([
     {
@@ -27,5 +28,9 @@ export const router = createBrowserRouter([
     {
         path: '/login',
         element: <LoginPage />,
+    },
+    {
+        path: '/audio-json',
+        element: <AudioJson />,
     },
 ])

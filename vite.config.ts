@@ -15,17 +15,12 @@ export default defineConfig({
     },
     build: {
         outDir,
-        assetsDir: path.resolve(root, 'assets'),
+        // assetsDir: path.resolve(root, 'assets'),
         emptyOutDir: true,
         sourcemap: true,
         rollupOptions: {
             input: {
                 main: path.resolve(root, 'index.html'),
-            },
-            output: {
-                assetFileNames: 'assets/[name]-[hash][extname]',
-                chunkFileNames: 'assets/js/[name]-[hash].js',
-                entryFileNames: 'assets/js/[name]-[hash].js',
             },
         },
     },

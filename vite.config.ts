@@ -9,10 +9,11 @@ const outDir = path.resolve(__dirname, 'dist')
 export default defineConfig({
     plugins: [react()],
     root,
-    base: './',
+    base: '/',
     server: {
         port: 3000,
         open: true,
+        host: true,
     },
     build: {
         outDir,

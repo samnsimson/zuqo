@@ -59,7 +59,7 @@ export const Dashboard: FC<DashboardProps> = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!authenticated) navigate('/login')
+        !authenticated ? navigate('/login') : navigate('/overview')
     }, [authenticated, navigate])
 
     return (

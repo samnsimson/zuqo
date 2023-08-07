@@ -32,7 +32,7 @@ export const RecentActivitySummary: FC<RecentActivitySummaryProps> = ({ classNam
             <SummaryCardHeader title="Recent Activity" />
             {!activities.length && (
                 <div className="grid w-full gap-4">
-                    {[...Array(4)].map((key) => (
+                    {[...Array(4)].map((_, key) => (
                         <SkeletonLoader key={key} />
                     ))}
                 </div>

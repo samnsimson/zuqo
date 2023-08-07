@@ -9,20 +9,15 @@ const outDir = path.resolve(__dirname, 'dist')
 export default defineConfig({
     plugins: [react()],
     root,
+    base: './',
     server: {
         port: 3000,
         open: true,
     },
     build: {
         outDir,
-        // assetsDir: path.resolve(root, 'assets'),
         emptyOutDir: true,
         sourcemap: true,
-        rollupOptions: {
-            input: {
-                main: path.resolve(root, 'index.html'),
-            },
-        },
     },
     resolve: {
         alias: {

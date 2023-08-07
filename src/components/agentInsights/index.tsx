@@ -4,6 +4,7 @@ import { ProfileCard, SatisfactionLevel } from '@/components/profileCard'
 import { StartRattings } from '@/components/rattings'
 import { TabContentSectionHeader } from '@/components/tabContentSectionHeader'
 import { Badge } from '@/components/ui/badge'
+import { assets } from '@/config/assets'
 import { cn } from '@/lib/utils'
 import { complianceCategories } from '@/mock-data/compliance-categories'
 import { ChevronRight } from 'lucide-react'
@@ -16,11 +17,11 @@ interface AgentInsightsProps extends HTMLAttributes<HTMLDivElement> {
 export const AgentInsights: FC<AgentInsightsProps> = ({ className, ...props }) => {
     return (
         <div className={cn('flex flex-col space-y-4', className)} {...props}>
-            <img src="rectangle-border-3.png" alt="border" className="w-full" />
+            <img src={assets.reactangleBorder3} alt="border" className="w-full" />
             <TabContentSectionHeader label="Agent Insights" className="p-4 pt-0" />
             <ProfileCard
                 name="Kiranmai Kulakarni"
-                avatar="kiranmai-kulakarni.svg"
+                avatar={assets.kiranmaiKulakarni}
                 phone="kiranmai@airtel.in"
                 activeDuration="4 years"
                 lastInteractionOn="12 May 2023, 04:00pm"
@@ -32,7 +33,7 @@ export const AgentInsights: FC<AgentInsightsProps> = ({ className, ...props }) =
                     <div className="grid h-full grid-cols-1 items-center justify-items-center gap-[5px]">
                         <BoxTitle title="Agent Sentiment" />
                         <div className="flex items-center space-x-[5px]">
-                            <img src="face-smile-regular.svg" alt="" />
+                            <img src={assets.faceSmileRegular} alt="" />
                             <div>
                                 <Badge variant="default" className="flex items-center space-x-2 bg-[#F0FFF3] font-inter text-[#008344]">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 6 6" fill="none">
@@ -73,7 +74,7 @@ export const AgentInsights: FC<AgentInsightsProps> = ({ className, ...props }) =
                 <div className="grid w-full grid-cols-12 gap-4 rounded bg-white shadow">
                     <div className="col-span-5 grid grid-cols-1 gap-4 p-4">
                         <BoxTitle title="CUSTOMER MENTIONS" />
-                        <img src="agent-mentions.png" alt="customer mention" className="justify-self-center" />
+                        <img src={assets.agentMentions} alt="customer mention" className="justify-self-center" />
                     </div>
                     <div className="col-span-7 grid grid-cols-1 gap-4 p-4">
                         <div className="grid w-full grid-cols-2 content-between">

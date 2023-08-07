@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import { cn } from '@/lib/utils'
 
 interface TabSectionProps {

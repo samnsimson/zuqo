@@ -1,3 +1,4 @@
+import { assets } from '@/config/assets'
 import { cn } from '@/lib/utils'
 import { FC, HTMLAttributes, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -25,15 +26,15 @@ export const SidebarSmall: FC<SidebarSmallProps> = ({ className, ...props }) => 
     useEffect(() => {
         setLinks([
             {
-                icon: 'dashboard-alt.svg',
+                icon: assets.dashboardAlt,
                 path: '',
             },
             {
-                icon: 'chat-bubble.svg',
+                icon: assets.chatBubble,
                 path: '',
             },
             {
-                icon: 'line-chart-alt.svg',
+                icon: assets.lineChartAlt,
                 path: '',
             },
         ])

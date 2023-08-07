@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Header } from '@/components/header'
-import LoginForm from '@/components/login'
+import LoginForm from '@/components/loginForm'
 import { NavbarLinkProps, Navbar } from '@/components/navbar'
+import { assets } from '@/config/assets'
 import { FC } from 'react'
 
 interface LoginPageProps {
@@ -28,7 +29,7 @@ export const LoginPage: FC<LoginPageProps> = () => {
             <div className="h-full w-full overflow-hidden bg-loginGradient bg-cover bg-no-repeat">
                 <div className="absolute bottom-0 h-[50%] w-full bg-loginMask" />
                 <Header variant="transparent" className="flex justify-between">
-                    <img src="logo.svg" alt="logo" />
+                    <img src={assets.logo} alt="logo" />
                     <Navbar links={navbarLinks} />
                 </Header>
                 <div className="flex h-full items-center justify-center">
@@ -46,7 +47,7 @@ export const LoginPage: FC<LoginPageProps> = () => {
                                     </p>
                                 </div>
                             </div>
-                            <img src="/hero-video-image.png" alt="hero-video" className="absolute -right-[140px] bottom-0" />
+                            <img src={assets.heroVideoImage} alt="hero-video" className="absolute -right-[140px] bottom-0" />
                         </div>
                         <div className="prose z-10 flex w-[432px] flex-col gap-9 rounded-lg bg-white p-5 shadow-lg">
                             <div className="grid w-full gap-3">

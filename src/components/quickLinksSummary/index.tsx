@@ -1,8 +1,9 @@
 import { cn } from '@/lib/utils'
 import { FC, HTMLAttributes, ReactNode, useEffect, useState } from 'react'
-import { Card } from './ui/card'
-import { SummaryCardHeader } from './summaryCardHeader'
+import { Card } from '../ui/card'
+import { SummaryCardHeader } from '../summaryCardHeader'
 import { Link } from 'react-router-dom'
+import { assets } from '@/config/assets'
 
 interface QuickLinksSummaryProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any
@@ -46,34 +47,34 @@ export const QuickLinksSummary: FC<QuickLinksSummaryProps> = ({ className, ...pr
             {
                 title: 'Inbox',
                 path: '',
-                icon: 'quick-link-inbox.svg',
+                icon: assets.quickLinkInbox,
                 iconBg: 'bg-color-swatch-green-dark',
                 titleBg: 'bg-color-swatch-green-light',
                 color: 'text-color-swatch-green-foreground',
-                iconRight: 'chevron-right-green.svg',
+                iconRight: assets.chevronRightGreen,
             },
             {
                 title: 'Manage Users',
                 path: '',
-                icon: 'quick-link-manage-user.svg',
+                icon: assets.quickLinkManageUser,
                 iconBg: 'bg-color-swatch-blue-dark',
                 titleBg: 'bg-color-swatch-blue-light',
                 color: 'text-color-swatch-blue-foreground',
-                iconRight: 'chevron-right-blue.svg',
+                iconRight: assets.chevronRightBlue,
             },
             {
                 title: 'Workflow Studio',
                 path: '',
-                icon: 'quick-link-workflow.svg',
+                icon: assets.quickLinkWorkflow,
                 iconBg: 'bg-color-swatch-brown-dark',
                 titleBg: 'bg-color-swatch-brown-light',
                 color: 'text-color-swatch-brown-foreground',
-                iconRight: 'chevron-right-brown.svg',
+                iconRight: assets.chevronRightBrown,
             },
             {
                 title: 'View All',
                 path: '',
-                icon: 'quick-link-grid.svg',
+                icon: assets.quickLinkGrid,
                 iconBg: 'bg-stone-200',
                 titleBg: 'bg-stone-100',
                 color: 'text-stone-700',

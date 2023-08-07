@@ -2,6 +2,7 @@ import { AudioPlayer } from '@/components/audioPlayer'
 import { TabContentSectionHeader } from '@/components/tabContentSectionHeader'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
+import { assets } from '@/config/assets'
 import { cn } from '@/lib/utils'
 import { chatConversations } from '@/mock-data/chat-conversations'
 import { FC, HTMLAttributes } from 'react'
@@ -13,7 +14,7 @@ interface VoiceConversationsProps extends HTMLAttributes<HTMLDivElement> {
 const SectionHeader: FC = () => {
     return (
         <div className="flex items-center justify-between p-4">
-            <TabContentSectionHeader label="Voice Conversation" icon="call-icon.svg" />
+            <TabContentSectionHeader label="Voice Conversation" icon={assets.callIcon} />
             <div className="flex items-center space-x-2">
                 <Switch id="airplane-mode" className="data-[state=checked]:bg-color-swatch-blue" />
                 <Label htmlFor="airplane-mode" className="font-jakarta text-sm text-[#5E5F62]">
@@ -31,7 +32,7 @@ export const VoiceConversations: FC<VoiceConversationsProps> = ({ className, ...
     }
     return (
         <div className={cn('relative', className)} {...props}>
-            <img src="rectangle-border-1.png" alt="border" className="w-full" />
+            <img src={assets.rectangleBorder1} alt="border" className="w-full" />
             <SectionHeader />
             <ul className="my-2.5 grid  w-full grid-cols-1 items-center gap-y-6 overflow-y-scroll px-4 pb-[100px]">
                 {chatConversations.map((chat, key) => (
@@ -55,7 +56,7 @@ export const VoiceConversations: FC<VoiceConversationsProps> = ({ className, ...
                                     ))}
                                 </div>
                                 <div className="col-span-1 px-2.5">
-                                    <img src="face-smile-regular.svg" alt="icon" width={13} height={13} className="my-0" />
+                                    <img src={assets.faceSmileRegular} alt="icon" width={13} height={13} className="my-0" />
                                 </div>
                             </div>
                         </div>

@@ -1,3 +1,4 @@
+import { assets } from '@/config/assets'
 import { cn } from '@/lib/utils'
 import { FC, HTMLAttributes } from 'react'
 
@@ -13,7 +14,7 @@ export const StartRattings: FC<StartRattingsProps> = ({ rating = 0, label = null
             <div className="flex w-full items-center justify-start">
                 {[...Array(5)].map((_, idx) => (
                     <div className={cn('h-12 w-8', starStyle)}>
-                        <img src={idx + 1 <= rating ? 'star-filled.svg' : 'star-unfilled.svg'} alt="rating" key={idx} className="object-cover" />
+                        <img src={idx + 1 <= rating ? assets.starFilled : assets.starUnFilled} alt="rating" key={idx} className="object-cover" />
                     </div>
                 ))}
             </div>

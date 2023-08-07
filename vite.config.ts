@@ -11,9 +11,13 @@ export default defineConfig({
     plugins: [react()],
     root,
     publicDir,
+    server: {
+        open: true,
+    },
     build: {
         outDir,
         emptyOutDir: true,
+        sourcemap: true,
         rollupOptions: {
             input: {
                 main: path.resolve(root, 'index.html'),

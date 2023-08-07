@@ -1,7 +1,8 @@
 import { cn } from '@/lib/utils'
 import { FC, HTMLAttributes, useEffect, useState } from 'react'
-import { Card, CardContent } from './ui/card'
-import { SummaryCardHeader } from './summaryCardHeader'
+import { Card, CardContent } from '../ui/card'
+import { SummaryCardHeader } from '../summaryCardHeader'
+import { assets } from '@/config/assets'
 
 interface YourTasksSummaryProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any
@@ -10,7 +11,7 @@ interface YourTasksSummaryProps extends HTMLAttributes<HTMLDivElement> {
 const NoTaskTemplate = () => {
     return (
         <div className="flex w-full flex-col items-center justify-center gap-3">
-            <img src="task-pad.svg" alt="task pad" />
+            <img src={assets.taskPad} alt="task pad" />
             <div className="flex flex-col items-center gap-6">
                 <p className="text-gray-600">Catch a Breath: No Tasks in Sight!</p>
                 <p className="text-center text-xs text-gray-500">

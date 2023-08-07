@@ -1,3 +1,4 @@
+import { assets } from '@/config/assets'
 import { FC, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -34,7 +35,7 @@ export const BreadCrumbs: FC<BreadCrumbsProps> = () => {
                         <Link to={path} className="text-xs">
                             {name}
                         </Link>
-                        {key !== paths.length - 1 && <img src="slash.svg" alt="slash" className="mx-2" />}
+                        {key !== paths.length - 1 && <img src={assets.slash} alt="slash" className="mx-2" />}
                     </div>
                 ))}
             </div>

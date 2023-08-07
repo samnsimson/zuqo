@@ -136,10 +136,10 @@ export const theme = {
             'accordion-up': 'accordion-up 0.2s ease-out',
         },
         backgroundImage: {
-            loginGradient: 'url(/loginGradient.png)',
-            loginMask: 'url(/mask-group.png)',
-            heroVideoImage: 'url(/hero-video-image.png)',
-            banner: 'url(/bg-banner.png)',
+            loginGradient: 'url(/assets/loginGradient.png)',
+            loginMask: 'url(/assets/mask-group.png)',
+            heroVideoImage: 'url(/assets/hero-video-image.png)',
+            banner: 'url(/assets/bg-banner.png)',
         },
         fontFamily: {
             jakarta: ['Plus Jakarta Sans', ..._fontFamily.sans],

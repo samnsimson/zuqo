@@ -3,6 +3,7 @@ import { BoxTitle } from '@/components/boxTitle'
 import { ProfileCard, SatisfactionLevel } from '@/components/profileCard'
 import { TabContentSectionHeader } from '@/components/tabContentSectionHeader'
 import { Badge } from '@/components/ui/badge'
+import { assets } from '@/config/assets'
 import { cn } from '@/lib/utils'
 import { FC, HTMLAttributes } from 'react'
 
@@ -13,11 +14,11 @@ interface CustomerInsightsProps extends HTMLAttributes<HTMLDivElement> {
 export const CustomerInsights: FC<CustomerInsightsProps> = ({ className, ...props }) => {
     return (
         <div className={cn('flex flex-col space-y-4', className)} {...props}>
-            <img src="rectangle-border-2.png" alt="border" className="w-full" />
+            <img src={assets.rectangleBorder2} alt="border" className="w-full" />
             <TabContentSectionHeader label="Customer Insights" className="p-4 pt-0" />
             <ProfileCard
                 name="Preetam Kulakarni"
-                avatar="preetham.svg"
+                avatar={assets.preetham}
                 phone="+91 849***8493"
                 activeDuration="4 years"
                 lastInteractionOn="12 May 2023, 04:00pm"
@@ -28,7 +29,7 @@ export const CustomerInsights: FC<CustomerInsightsProps> = ({ className, ...prop
                 <div className="col-span-5 space-y-2 rounded bg-white px-5 py-2.5 shadow">
                     <BoxTitle title="Customer Sentiment" />
                     <div className="flex items-center space-x-[5px]">
-                        <img src="face-smile-regular.svg" alt="" />
+                        <img src={assets.faceSmileRegular} alt="" />
                         <div>
                             <Badge variant="default" className="flex items-center space-x-2 bg-[#F0FFF3] font-inter text-[#008344]">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 6 6" fill="none">
@@ -78,7 +79,7 @@ export const CustomerInsights: FC<CustomerInsightsProps> = ({ className, ...prop
                 <div className="grid w-full grid-cols-12 gap-4 rounded bg-white shadow">
                     <div className="col-span-5 grid grid-cols-1 gap-4 p-4">
                         <BoxTitle title="CUSTOMER MENTIONS" />
-                        <img src="customer-mention-img.png" alt="customer mention" className="justify-self-center" />
+                        <img src={assets.cusomerMentions} alt="customer mention" className="justify-self-center" />
                     </div>
                     <div className="col-span-7 grid grid-cols-1 gap-4 p-4">
                         <div className="grid w-full grid-cols-2 content-between">

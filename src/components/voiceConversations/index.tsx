@@ -27,7 +27,8 @@ const SectionHeader: FC = () => {
 
 export const VoiceConversations: FC<VoiceConversationsProps> = ({ className, ...props }) => {
     const highlightKeywords = (text: string): string => {
-        const regex = /(thrilled|positive|impact|rewarding|friendly|fantastic)/gi
+        const keywords = ['thrilled', 'positive', 'impact', 'rewarding', 'friendly', 'fantastic']
+        const regex = new RegExp(`(${keywords.join('|')})`, 'gi')
         return text.replace(regex, "<span class='text-color-swatch-blue-foreground font-semibold'>$1</span>")
     }
     return (
@@ -63,7 +64,7 @@ export const VoiceConversations: FC<VoiceConversationsProps> = ({ className, ...
                     </li>
                 ))}
             </ul>
-            <AudioPlayer url="sample-audio.wav" />
+            <AudioPlayer url={assets.sampleAudio} />
         </div>
     )
 }

@@ -5,7 +5,6 @@ import { AgentInsights } from '../../../../../components/agentInsights'
 import { VoiceConversations } from '@/components/voiceConversations'
 import { CustomerInsights } from '@/components/customerInsights'
 import { assets } from '@/config/assets'
-
 interface OverviewTabContentProps {
     [x: string]: any
 }

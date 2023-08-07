@@ -3,7 +3,7 @@ import { Navbar, NavbarLinkProps } from '@/components/navbar'
 import { assets } from '@/config/assets'
 import { useAppStore } from '@/store'
 import { FC, useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 interface DashboardProps {
     [x: string]: any
@@ -57,10 +57,11 @@ const navbarLinks: NavbarLinkProps[] = [
 export const Dashboard: FC<DashboardProps> = () => {
     const { authenticated } = useAppStore((state) => state)
     const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(() => {
-        !authenticated ? navigate('/login') : navigate('/overview')
-    }, [authenticated, navigate])
+        !authenticated ? navigate('/login') : location.pathname === '/' && navigate('/overview')
+    }, [authenticated, navigate, location])
 
     return (
         <div className="flex min-h-screen w-full flex-col">

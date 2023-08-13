@@ -1,4 +1,3 @@
-import { BreadCrumbs } from '@/components/breadCrumbs'
 import { DashboardFooter } from '@/components/dashboardFooter'
 import { SidebarSmall } from '@/components/sidebarSmall'
 import { cn } from '@/lib/utils'
@@ -12,8 +11,7 @@ export const SidebarLayout: FC<SidebarLayoutProps> = ({ className, children, ...
     return (
         <div className={cn('flex h-full flex-grow justify-between bg-[#F9FAFB]', className)} {...props}>
             <SidebarSmall />
-            <main className="flex w-full flex-grow flex-col px-12">
-                <BreadCrumbs />
+            <main className="flex w-full flex-grow flex-col ">
                 {children}
                 <DashboardFooter />
             </main>

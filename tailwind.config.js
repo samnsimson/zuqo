@@ -140,6 +140,7 @@ export const theme = {
             loginMask: 'url(/assets/mask-group.png)',
             heroVideoImage: 'url(/assets/hero-video-image.png)',
             banner: 'url(/assets/bg-banner.png)',
+            rectangleBg1: 'url(/assets/rectangle-bg-1.png)',
         },
         fontFamily: {
             jakarta: ['Plus Jakarta Sans', ..._fontFamily.sans],

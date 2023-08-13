@@ -35,7 +35,7 @@ export const VoiceConversations: FC<VoiceConversationsProps> = ({ className, ...
         <div className={cn('relative', className)} {...props}>
             <img src={assets.rectangleBorder1} alt="border" className="w-full" />
             <SectionHeader />
-            <ul className="my-2.5 grid  w-full grid-cols-1 items-center gap-y-6 overflow-y-scroll px-4 pb-[100px]">
+            <ul className="my-2.5 grid  w-full grid-cols-1 items-center gap-y-6 overflow-y-scroll px-4 ">
                 {chatConversations.map((chat, key) => (
                     <li key={key} className="grid w-full grid-cols-12 items-start gap-x-[11px]">
                         <div className="col-span-1">

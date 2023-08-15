@@ -5,6 +5,7 @@ import { Progress } from '../ui/progress'
 import { Slider } from '../ui/slider'
 import { assets } from '@/config/assets'
 import Draggable, { DraggableData, DraggableEvent } from 'react-draggable'
+import { PauseIcon, PlayIcon } from 'lucide-react'
 
 interface AudioPlayerProps extends HTMLAttributes<HTMLDivElement> {
     url: string
@@ -22,6 +23,7 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({ className, url, sprite, onTi
     const [volume, setVolume] = useState(80)
     const [position, setPosition] = useState(originalPosition)
     const [isOnDrag, setIsOnDrag] = useState(false)
+    const [isPlaying, setIsPlaying] = useState(false)
     const snapThreshold = 100
 
     const playPauseAudio = () => {
@@ -41,9 +43,14 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({ className, url, sprite, onTi
     useEffect(() => {
         if (!waveForm) return
         waveForm.on('interaction', () => waveForm.playPause())
+        waveForm.on('play', () => setIsPlaying(true))
+        waveForm.on('pause', () => setIsPlaying(false))
         waveForm.on('decode', (duration) => setDuration(duration))
         waveForm.on('timeupdate', (currentTime) => setCurrentTime(currentTime))
-        waveForm.on('finish', () => onComplete && onComplete())
+        waveForm.on('finish', () => {
+            onComplete && onComplete()
+            setIsPlaying(false)
+        })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [waveForm])
 
@@ -62,7 +69,7 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({ className, url, sprite, onTi
                 <div ref={containerRef} className="flex flex-col-reverse">
                     <div className="mt-2 grid grid-cols-24 items-center gap-2 rounded-full bg-[#616669] py-2 pl-4 pr-2">
                         <div className="col-span-1 cursor-pointer" onClick={playPauseAudio}>
-                            <img src={assets.pauseIcon} alt="play pause" />
+                            {isPlaying ? <PauseIcon color="#fff" size={18} fill="#fff" /> : <PlayIcon color="#fff" size={18} fill="#fff" />}
                         </div>
                         <div className="col-span-4">
                             <div className="flex items-center space-x-1 text-sm tracking-tighter text-white">

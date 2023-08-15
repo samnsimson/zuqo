@@ -28,6 +28,7 @@ const SectionHeader: FC = () => {
 
 export const VoiceConversations: FC<VoiceConversationsProps> = ({ className, ...props }) => {
     const { sprite, audioSource, conversations } = UseAudioTranscript(conversationData)
+    const [seekTo, setSeekTo] = useState(0)
     const [activeConveration, setActiveConveration] = useState<string | null>(null)
 
     const highlightKeywords = (text: string): string => {
@@ -58,13 +59,14 @@ export const VoiceConversations: FC<VoiceConversationsProps> = ({ className, ...
                             </div>
                             <div className="grid w-full grid-cols-12 items-center">
                                 <div className="col-span-11">
-                                    {chat.message.map(({ id, text }) => (
+                                    {chat.message.map(({ id, text, start }) => (
                                         <p
-                                            className={cn('my-0 py-2.5 font-inter text-sm font-[500] text-[#3C3E42]', {
+                                            className={cn('my-0 cursor-pointer py-2.5 font-inter text-sm font-[500] text-[#3C3E42]', {
                                                 'font-bold text-sky-500 underline': activeConveration === id,
                                             })}
                                             key={id}
                                             dangerouslySetInnerHTML={{ __html: highlightKeywords(text) }}
+                                            onClick={() => setSeekTo(start)}
                                         />
                                     ))}
                                 </div>
@@ -76,7 +78,13 @@ export const VoiceConversations: FC<VoiceConversationsProps> = ({ className, ...
                     </li>
                 ))}
             </ul>
-            <AudioPlayer url={audioSource} sprite={sprite} onTimeStampChange={(time) => handleTimeChange(time)} onComplete={() => setActiveConveration(null)} />
+            <AudioPlayer
+                url={audioSource}
+                sprite={sprite}
+                seekTo={seekTo}
+                onTimeStampChange={(time) => handleTimeChange(time)}
+                onComplete={() => setActiveConveration(null)}
+            />
         </div>
     )
 }

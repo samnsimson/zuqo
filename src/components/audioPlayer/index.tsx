@@ -10,11 +10,12 @@ import { PauseIcon, PlayIcon } from 'lucide-react'
 interface AudioPlayerProps extends HTMLAttributes<HTMLDivElement> {
     url: string
     sprite: Array<number[]>
+    seekTo?: number
     onTimeStampChange?: (time: number) => void
     onComplete?: () => void
 }
 
-export const AudioPlayer: FC<AudioPlayerProps> = ({ className, url, sprite, onTimeStampChange, onComplete, ...props }) => {
+export const AudioPlayer: FC<AudioPlayerProps> = ({ className, url, sprite, seekTo, onTimeStampChange, onComplete, ...props }) => {
     const containerRef = useRef(null)
     const waveForm = useWaveForm(containerRef, url, sprite)
     const originalPosition = { x: 0, y: 0 }
@@ -62,6 +63,11 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({ className, url, sprite, onTi
     useEffect(() => {
         if (onTimeStampChange) onTimeStampChange(currentTime)
     }, [currentTime, onTimeStampChange])
+
+    useEffect(() => {
+        if (!waveForm || !seekTo) return
+        waveForm.seekTo(seekTo / duration)
+    }, [seekTo, waveForm, duration])
 
     return (
         <Draggable position={position} scale={1} onStart={() => setIsOnDrag(true)} onStop={handleDragStop} onDrag={handleDrag}>

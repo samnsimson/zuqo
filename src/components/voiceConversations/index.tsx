@@ -76,7 +76,7 @@ export const VoiceConversations: FC<VoiceConversationsProps> = ({ className, ...
                     </li>
                 ))}
             </ul>
-            <AudioPlayer url={audioSource} sprite={sprite} onTimeStampChange={(time) => handleTimeChange(time)} />
+            <AudioPlayer url={audioSource} sprite={sprite} onTimeStampChange={(time) => handleTimeChange(time)} onComplete={() => setActiveConveration(null)} />
         </div>
     )
 }

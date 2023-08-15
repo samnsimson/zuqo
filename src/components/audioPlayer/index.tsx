@@ -10,9 +10,10 @@ interface AudioPlayerProps extends HTMLAttributes<HTMLDivElement> {
     url: string
     sprite: Array<number[]>
     onTimeStampChange?: (time: number) => void
+    onComplete?: () => void
 }
 
-export const AudioPlayer: FC<AudioPlayerProps> = ({ className, url, sprite, onTimeStampChange, ...props }) => {
+export const AudioPlayer: FC<AudioPlayerProps> = ({ className, url, sprite, onTimeStampChange, onComplete, ...props }) => {
     const containerRef = useRef(null)
     const waveForm = useWaveForm(containerRef, url, sprite)
     const originalPosition = { x: 0, y: 0 }
@@ -42,6 +43,8 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({ className, url, sprite, onTi
         waveForm.on('interaction', () => waveForm.playPause())
         waveForm.on('decode', (duration) => setDuration(duration))
         waveForm.on('timeupdate', (currentTime) => setCurrentTime(currentTime))
+        waveForm.on('finish', () => onComplete && onComplete())
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [waveForm])
 
     useEffect(() => {

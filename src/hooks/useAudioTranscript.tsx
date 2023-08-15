@@ -1,7 +1,7 @@
 import { IConversation, ConversationData } from '@/types/types'
 import { useEffect, useState } from 'react'
 
-export const UseAudioTranscript = (data: ConversationData) => {
+export const useAudioTranscript = (data: ConversationData) => {
     const [sprite, setSprite] = useState<Array<number[]>>([])
     const [audioSource, setAudioSource] = useState<string>('')
     const [conversations, setConversations] = useState<IConversation[]>([])

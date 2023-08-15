@@ -3,7 +3,7 @@ import { TabContentSectionHeader } from '@/components/tabContentSectionHeader'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { assets } from '@/config/assets'
-import { UseAudioTranscript } from '@/hooks/useAudioTranscript'
+import { useAudioTranscript } from '@/hooks/useAudioTranscript'
 import { cn } from '@/lib/utils'
 import { conversationData } from '@/mock-data/chat-conversations'
 import { FC, HTMLAttributes, useState } from 'react'
@@ -27,7 +27,7 @@ const SectionHeader: FC = () => {
 }
 
 export const VoiceConversations: FC<VoiceConversationsProps> = ({ className, ...props }) => {
-    const { sprite, audioSource, conversations } = UseAudioTranscript(conversationData)
+    const { sprite, audioSource, conversations } = useAudioTranscript(conversationData)
     const [seekTo, setSeekTo] = useState(0)
     const [activeConveration, setActiveConveration] = useState<string | null>(null)
 

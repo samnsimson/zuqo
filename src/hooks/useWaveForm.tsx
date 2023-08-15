@@ -1,7 +1,7 @@
 import { RefObject, useEffect, useState } from 'react'
 import WaveSurfer from 'wavesurfer.js'
 
-export const useWaveForm = (containerRef: RefObject<HTMLDivElement>, url: string) => {
+export const useWaveForm = (containerRef: RefObject<HTMLDivElement>, url: string, sprite: Array<number[]>) => {
     const [waveForm, setWaveForm] = useState<WaveSurfer | null>(null)
 
     useEffect(() => {
@@ -17,9 +17,10 @@ export const useWaveForm = (containerRef: RefObject<HTMLDivElement>, url: string
             barRadius: 2,
             barGap: 2,
         })
+        // ws.load(url, sprite)
         setWaveForm(ws)
         return () => ws.destroy()
-    }, [url, containerRef])
+    }, [url, containerRef, sprite])
 
     return waveForm
 }

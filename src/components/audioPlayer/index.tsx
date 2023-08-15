@@ -8,11 +8,13 @@ import Draggable, { DraggableData, DraggableEvent } from 'react-draggable'
 
 interface AudioPlayerProps extends HTMLAttributes<HTMLDivElement> {
     url: string
+    sprite: Array<number[]>
+    onTimeStampChange?: (time: number) => void
 }
 
-export const AudioPlayer: FC<AudioPlayerProps> = ({ className, url, ...props }) => {
+export const AudioPlayer: FC<AudioPlayerProps> = ({ className, url, sprite, onTimeStampChange, ...props }) => {
     const containerRef = useRef(null)
-    const waveForm = useWaveForm(containerRef, url)
+    const waveForm = useWaveForm(containerRef, url, sprite)
     const originalPosition = { x: 0, y: 0 }
     const [duration, setDuration] = useState<number>(0)
     const [currentTime, setCurrentTime] = useState<number>(0)
@@ -46,6 +48,10 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({ className, url, ...props }) 
         if (!waveForm) return
         waveForm.setVolume(volume / 100)
     }, [waveForm, volume])
+
+    useEffect(() => {
+        if (onTimeStampChange) onTimeStampChange(currentTime)
+    }, [currentTime, onTimeStampChange])
 
     return (
         <Draggable position={position} scale={1} onStart={() => setIsOnDrag(true)} onStop={handleDragStop} onDrag={handleDrag}>

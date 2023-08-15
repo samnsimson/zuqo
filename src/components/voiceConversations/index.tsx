@@ -3,9 +3,10 @@ import { TabContentSectionHeader } from '@/components/tabContentSectionHeader'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { assets } from '@/config/assets'
+import { UseAudioTranscript } from '@/hooks/useAudioTranscript'
 import { cn } from '@/lib/utils'
-import { chatConversations } from '@/mock-data/chat-conversations'
-import { FC, HTMLAttributes } from 'react'
+import { conversationData } from '@/mock-data/chat-conversations'
+import { FC, HTMLAttributes, useState } from 'react'
 
 interface VoiceConversationsProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any
@@ -26,18 +27,27 @@ const SectionHeader: FC = () => {
 }
 
 export const VoiceConversations: FC<VoiceConversationsProps> = ({ className, ...props }) => {
+    const { sprite, audioSource, conversations } = UseAudioTranscript(conversationData)
+    const [activeConveration, setActiveConveration] = useState<string | null>(null)
+
     const highlightKeywords = (text: string): string => {
         const keywords = ['thrilled', 'positive', 'impact', 'rewarding', 'friendly', 'fantastic']
         const regex = new RegExp(`(${keywords.join('|')})`, 'gi')
         return text.replace(regex, "<span class='text-color-swatch-blue-foreground font-semibold'>$1</span>")
     }
+
+    const handleTimeChange = (time: number) => {
+        const targetMessage = conversations.flatMap((convo) => convo.message).find(({ start, end }) => start <= time && end >= time)
+        targetMessage && setActiveConveration(targetMessage.id)
+    }
+
     return (
         <div className={cn('relative', className)} {...props}>
             <img src={assets.rectangleBorder1} alt="border" className="w-full" />
             <SectionHeader />
             <ul className="my-2.5 grid  w-full grid-cols-1 items-center gap-y-6 overflow-y-scroll px-4 ">
-                {chatConversations.map((chat, key) => (
-                    <li key={key} className="grid w-full grid-cols-12 items-start gap-x-[11px]">
+                {conversations.map((chat) => (
+                    <li key={chat.id} className="grid w-full grid-cols-12 items-start gap-x-[11px]">
                         <div className="col-span-1">
                             <img src={chat.avatar} alt={chat.sender} />
                         </div>
@@ -48,11 +58,13 @@ export const VoiceConversations: FC<VoiceConversationsProps> = ({ className, ...
                             </div>
                             <div className="grid w-full grid-cols-12 items-center">
                                 <div className="col-span-11">
-                                    {chat.message.map((msg, key) => (
+                                    {chat.message.map(({ id, text }) => (
                                         <p
-                                            className="my-0 py-2.5 font-inter text-sm font-[500] text-[#3C3E42]"
-                                            key={key}
-                                            dangerouslySetInnerHTML={{ __html: highlightKeywords(msg.text) }}
+                                            className={cn('my-0 py-2.5 font-inter text-sm font-[500] text-[#3C3E42]', {
+                                                'font-bold text-sky-500 underline': activeConveration === id,
+                                            })}
+                                            key={id}
+                                            dangerouslySetInnerHTML={{ __html: highlightKeywords(text) }}
                                         />
                                     ))}
                                 </div>
@@ -64,7 +76,7 @@ export const VoiceConversations: FC<VoiceConversationsProps> = ({ className, ...
                     </li>
                 ))}
             </ul>
-            <AudioPlayer url={assets.sampleAudio} />
+            <AudioPlayer url={audioSource} sprite={sprite} onTimeStampChange={(time) => handleTimeChange(time)} />
         </div>
     )
 }

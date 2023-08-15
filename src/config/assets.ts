@@ -53,7 +53,7 @@ import transferRateIcon from '../assets/transfer-rate-icon.svg'
 import fcrIcon from '../assets/fcr-icon.svg'
 import callOutcomeIcon from '../assets/call-outcome-icon.svg'
 import callIntentIcon from '../assets/call-intent-icon.svg'
-import sampleAudio from '../assets/sample-audio.wav'
+import sampleAudio from '../assets/audio-source.wav'
 
 export const assets = {
     sampleAudio,

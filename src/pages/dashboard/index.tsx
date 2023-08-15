@@ -18,7 +18,7 @@ const navbarLinks: NavbarLinkProps[] = [
                 name: <span className="text-[#101828]">Overview</span>,
                 description: 'Manage users, roles and permissions',
                 icon: assets.navOverviewIcon,
-                path: '/overview',
+                path: '/',
             },
             {
                 name: <span className="text-[#0CA68D]">Inbox</span>,
@@ -60,7 +60,7 @@ export const Dashboard: FC<DashboardProps> = () => {
     const location = useLocation()
 
     useEffect(() => {
-        !authenticated ? navigate('/login') : location.pathname === '/' && navigate('/overview')
+        if (!authenticated) navigate('/login')
     }, [authenticated, navigate, location])
 
     return (

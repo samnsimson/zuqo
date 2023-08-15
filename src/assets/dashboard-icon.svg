@@ -1,10 +1,10 @@
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="Dashboard/circular">
 <g id="Vector">
-<path d="M4 8.66667C4 6.08934 6.08934 4 8.66667 4C11.244 4 13.3333 6.08934 13.3333 8.66667C13.3333 11.244 11.244 13.3333 8.66667 13.3333C6.08934 13.3333 4 11.244 4 8.66667Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M4 23.3333C4 20.756 6.08934 18.6667 8.66667 18.6667C11.244 18.6667 13.3333 20.756 13.3333 23.3333C13.3333 25.9107 11.244 28 8.66667 28C6.08934 28 4 25.9107 4 23.3333Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M18.6667 8.66667C18.6667 6.08934 20.756 4 23.3333 4C25.9107 4 28 6.08934 28 8.66667C28 11.244 25.9107 13.3333 23.3333 13.3333C20.756 13.3333 18.6667 11.244 18.6667 8.66667Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M18.6667 23.3333C18.6667 20.756 20.756 18.6667 23.3333 18.6667C25.9107 18.6667 28 20.756 28 23.3333C28 25.9107 25.9107 28 23.3333 28C20.756 28 18.6667 25.9107 18.6667 23.3333Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M4 8.66667C4 6.08934 6.08934 4 8.66667 4C11.244 4 13.3333 6.08934 13.3333 8.66667C13.3333 11.244 11.244 13.3333 8.66667 13.3333C6.08934 13.3333 4 11.244 4 8.66667Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M4 23.3333C4 20.756 6.08934 18.6667 8.66667 18.6667C11.244 18.6667 13.3333 20.756 13.3333 23.3333C13.3333 25.9107 11.244 28 8.66667 28C6.08934 28 4 25.9107 4 23.3333Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M18.6667 8.66667C18.6667 6.08934 20.756 4 23.3333 4C25.9107 4 28 6.08934 28 8.66667C28 11.244 25.9107 13.3333 23.3333 13.3333C20.756 13.3333 18.6667 11.244 18.6667 8.66667Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M18.6667 23.3333C18.6667 20.756 20.756 18.6667 23.3333 18.6667C25.9107 18.6667 28 20.756 28 23.3333C28 25.9107 25.9107 28 23.3333 28C20.756 28 18.6667 25.9107 18.6667 23.3333Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
 </g>
 </g>
 </svg>

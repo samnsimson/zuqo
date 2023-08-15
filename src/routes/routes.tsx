@@ -5,18 +5,23 @@ import { OverviewPage } from '@/pages/dashboard/overview'
 import { WorkflowStudio } from '@/pages/dashboard/workflow-studio'
 import { InteractionCenterPage } from '@/pages/dashboard/interaction-center'
 import { AudioJson } from '@/pages/mock-pages/audioJson'
+import { WorkFlowOverviewPage } from '@/pages/dashboard/workflow-studio/pages/overview'
+import { WorkflowListPage } from '@/pages/dashboard/workflow-studio/pages/list'
 
 export const AppRotues = () => {
     return (
         <HashRouter>
             <Routes>
                 <Route path="/" element={<Dashboard />}>
-                    <Route index path="/overview" element={<OverviewPage />} />
-                    <Route path="/workflow-studio" element={<WorkflowStudio />} />
-                    <Route path="/interaction-center" element={<InteractionCenterPage />} />
+                    <Route index element={<OverviewPage />} />
+                    <Route path="workflow-studio" element={<WorkflowStudio />}>
+                        <Route index element={<WorkFlowOverviewPage />} />
+                        <Route path="list" element={<WorkflowListPage />} />
+                    </Route>
+                    <Route path="interaction-center" element={<InteractionCenterPage />} />
                 </Route>
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/audio-json" element={<AudioJson />} />
+                <Route path="login" element={<LoginPage />} />
+                <Route path="audio-json" element={<AudioJson />} />
             </Routes>
         </HashRouter>
     )

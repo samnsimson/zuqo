@@ -2,13 +2,8 @@ import { IConversation, ConversationData } from '@/types/types'
 import { useEffect, useState } from 'react'
 
 export const useAudioTranscript = (data: ConversationData) => {
-    const [sprite, setSprite] = useState<Array<number[]>>([])
     const [audioSource, setAudioSource] = useState<string>('')
     const [conversations, setConversations] = useState<IConversation[]>([])
-
-    const generateSprite = ({ result: { conversation } }: ConversationData) => {
-        conversation.map(({ message }) => message.map(({ start, end }) => setSprite((state) => [...state, [start / 1000, end / 1000]])))
-    }
 
     const generateConversationData = ({ result: { conversation } }: ConversationData) => {
         const convoArr: IConversation[] = []
@@ -28,11 +23,10 @@ export const useAudioTranscript = (data: ConversationData) => {
 
     useEffect(() => {
         if (!data) return
-        generateSprite(data)
         setAudioSource(data.filename)
         generateConversationData(data)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data])
 
-    return { sprite, audioSource, conversations }
+    return { audioSource, conversations }
 }

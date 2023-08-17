@@ -7,6 +7,7 @@ import { useAudioTranscript } from '@/hooks/useAudioTranscript'
 import { cn } from '@/lib/utils'
 import { conversationData } from '@/mock-data/chat-conversations'
 import { FC, HTMLAttributes, useState } from 'react'
+import { Avatar, AvatarImage } from '../ui/avatar'
 
 interface VoiceConversationsProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any
@@ -27,7 +28,7 @@ const SectionHeader: FC = () => {
 }
 
 export const VoiceConversations: FC<VoiceConversationsProps> = ({ className, ...props }) => {
-    const { sprite, audioSource, conversations } = useAudioTranscript(conversationData)
+    const { audioSource, conversations } = useAudioTranscript(conversationData)
     const [seekTo, setSeekTo] = useState(0)
     const [activeConveration, setActiveConveration] = useState<string | null>(null)
 
@@ -50,7 +51,9 @@ export const VoiceConversations: FC<VoiceConversationsProps> = ({ className, ...
                 {conversations.map((chat) => (
                     <li key={chat.id} className="grid w-full grid-cols-12 items-start gap-x-[11px]">
                         <div className="col-span-1">
-                            <img src={chat.avatar} alt={chat.sender} />
+                            <Avatar>
+                                <AvatarImage src={chat.avatar} />
+                            </Avatar>
                         </div>
                         <div className="prose col-span-11 flex flex-col ">
                             <div className="flex items-center space-x-4">
@@ -78,13 +81,7 @@ export const VoiceConversations: FC<VoiceConversationsProps> = ({ className, ...
                     </li>
                 ))}
             </ul>
-            <AudioPlayer
-                url={audioSource}
-                sprite={sprite}
-                seekTo={seekTo}
-                onTimeStampChange={(time) => handleTimeChange(time)}
-                onComplete={() => setActiveConveration(null)}
-            />
+            <AudioPlayer url={audioSource} seekTo={seekTo} onTimeStampChange={(time) => handleTimeChange(time)} onComplete={() => setActiveConveration(null)} />
         </div>
     )
 }

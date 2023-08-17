@@ -9,15 +9,14 @@ import { PauseIcon, PlayIcon } from 'lucide-react'
 
 interface AudioPlayerProps extends HTMLAttributes<HTMLDivElement> {
     url: string
-    sprite: Array<number[]>
     seekTo?: number
     onTimeStampChange?: (time: number) => void
     onComplete?: () => void
 }
 
-export const AudioPlayer: FC<AudioPlayerProps> = ({ className, url, sprite, seekTo, onTimeStampChange, onComplete, ...props }) => {
+export const AudioPlayer: FC<AudioPlayerProps> = ({ className, url, seekTo, onTimeStampChange, onComplete, ...props }) => {
     const containerRef = useRef(null)
-    const waveForm = useWaveForm(containerRef, url, sprite)
+    const waveForm = useWaveForm(containerRef, url)
     const originalPosition = { x: 0, y: 0 }
     const [duration, setDuration] = useState<number>(0)
     const [currentTime, setCurrentTime] = useState<number>(0)

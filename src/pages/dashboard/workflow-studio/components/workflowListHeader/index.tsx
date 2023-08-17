@@ -1,3 +1,4 @@
+import { RefreshIcon } from '@/assets/svg/icons'
 import { FilterButton } from '@/components/filterButton'
 import { Button } from '@/components/ui/button'
 import * as constants from '@/constants/constants'
@@ -15,6 +16,7 @@ export const WorkflowListHeader: FC<WorkflowListHeaderProps> = ({ ...props }) =>
                 <div className="text-base font-bold text-[#00539F]">Workflows</div>
             </div>
             <div className="flex items-center justify-evenly space-x-[9px]">
+                <RefreshIcon />
                 <FilterButton label="Type" value={constants.TYPE_FILTER_VALUES} />
                 <FilterButton label="Status" value={constants.STATUS_FILTER_VALUES} />
                 <FilterButton label="Assigned by" value={constants.ASSIGNED_BY_FILTER_VALUES} />

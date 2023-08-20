@@ -1,6 +1,7 @@
 import { AddCircle, ChatBubbleIcon, FileQuestion, PhoneCall, PlaySquare, ThreeDots } from '@/assets/svg/icons'
 import { cn } from '@/lib/utils'
 import { FC, HTMLAttributes, ReactNode, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 interface RecentWorkflowsProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any
@@ -60,7 +61,9 @@ export const RecentWorkflows: FC<RecentWorkflowsProps> = ({ ...props }) => {
             <div className="flex items-center justify-between">
                 <div className="text-lg font-medium text-black">Recent Workflows</div>
                 <div className="inline-flex h-6 w-[114px] items-center justify-start gap-[29px]">
-                    <div className="text-base font-semibold text-sky-600">View All</div>
+                    <div className="text-base font-semibold text-sky-600">
+                        <Link to="/workflow-studio/list">View All</Link>
+                    </div>
                     <div className="relative h-6 w-6">
                         <AddCircle />
                     </div>

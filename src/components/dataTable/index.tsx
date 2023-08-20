@@ -1,10 +1,14 @@
 import { HTMLAttributes, useEffect, useState } from 'react'
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
+import { Button } from '../ui/button'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 export type ColumnProps<T, K> = {
     key: T
     value: K
+    sortable?: boolean
 }
 
 interface DataTableProps<TData, TColumns extends ColumnProps<any, any>> extends HTMLAttributes<HTMLDivElement> {
@@ -12,18 +16,28 @@ interface DataTableProps<TData, TColumns extends ColumnProps<any, any>> extends 
     data: TData[]
 }
 
-export function DataTable<TData, TColumns extends ColumnProps<any, any>>({ columns: cols, data, ...props }: DataTableProps<TData, TColumns>) {
+export function DataTable<TData, TColumns extends ColumnProps<any, any>>({ columns: cols, data, className, ...props }: DataTableProps<TData, TColumns>) {
     const [columns, setColumns] = useState<ColumnDef<TData>[]>([])
-    const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() })
+    const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel(), getPaginationRowModel: getPaginationRowModel() })
+    const pageCount = table.getPageCount()
     const headerGroups = table.getHeaderGroups()
+    const { pagination } = table.getState()
     const { rows } = table.getRowModel()
 
     useEffect(() => {
-        setColumns(cols.map(({ key, value }) => ({ accessorKey: key, header: value, cell: (info) => info.getValue() })))
+        setColumns(
+            cols.map(
+                ({ key, value }): ColumnDef<TData> => ({
+                    accessorKey: key,
+                    header: value,
+                    cell: (info) => info.getValue(),
+                })
+            )
+        )
     }, [cols])
 
     return (
-        <div {...props}>
+        <div className={cn('', className)} {...props}>
             <Table className="bg-white">
                 <TableHeader>
                     {headerGroups.map((headerGroup) => (
@@ -56,6 +70,39 @@ export function DataTable<TData, TColumns extends ColumnProps<any, any>>({ colum
                     )}
                 </TableBody>
             </Table>
+            <div className="my-5 flex items-center justify-between py-3">
+                <Button
+                    className="space-x-2 text-sm font-medium leading-tight text-gray-500"
+                    variant="link"
+                    onClick={() => table.previousPage()}
+                    disabled={!table.getCanPreviousPage()}
+                >
+                    <ArrowLeft /> <span>Previous</span>
+                </Button>
+                <div>
+                    {[...Array(pageCount).keys()].map((key) => (
+                        <Button
+                            key={key}
+                            variant="ghost"
+                            className={cn(
+                                'h-10 w-10 p-3 text-center text-sm font-medium leading-tight',
+                                pagination.pageIndex === key ? 'text-sky-700' : 'text-gray-500'
+                            )}
+                            onClick={() => table.setPageIndex(key)}
+                        >
+                            {key + 1}
+                        </Button>
+                    ))}
+                </div>
+                <Button
+                    className="space-x-2 text-sm font-medium leading-tight text-gray-500"
+                    variant="link"
+                    onClick={() => table.nextPage()}
+                    disabled={!table.getCanNextPage()}
+                >
+                    <span>Next</span> <ArrowRight />
+                </Button>
+            </div>
         </div>
     )
 }

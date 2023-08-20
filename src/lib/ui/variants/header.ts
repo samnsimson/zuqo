@@ -5,7 +5,7 @@ export const headerVariants = cva(['min-h-[64px] grid w-full items-center', 'px-
     variants: {
         variant: {
             primary: ['bg-gradient-to-r from-color-primary via-color-primary to-color-primary'],
-            transparent: ['bg-transparent'],
+            transparent: ['bg-transparent absolute'],
         },
     },
     defaultVariants: {

@@ -7,6 +7,7 @@ import { InteractionCenterPage } from '@/pages/dashboard/interaction-center'
 import { AudioJson } from '@/pages/mock-pages/audioJson'
 import { WorkFlowOverviewPage } from '@/pages/dashboard/workflow-studio/pages/overview'
 import { WorkflowListPage } from '@/pages/dashboard/workflow-studio/pages/list'
+import { InsightsPage } from '@/pages/dashboard/workflow-studio/pages/insights'
 
 export const AppRotues = () => {
     return (
@@ -17,6 +18,7 @@ export const AppRotues = () => {
                     <Route path="workflow-studio" element={<WorkflowStudio />}>
                         <Route index element={<WorkFlowOverviewPage />} />
                         <Route path="list" element={<WorkflowListPage />} />
+                        <Route path="insights" element={<InsightsPage />} />
                     </Route>
                     <Route path="interaction-center" element={<InteractionCenterPage />} />
                 </Route>

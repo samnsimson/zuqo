@@ -23,32 +23,38 @@ interface ChartProps extends HTMLAttributes<HTMLDivElement> {
     dataSet: OptionType[ChartProps['type']]
     width: number
     height: number
+    showCount?: boolean
 }
 
-export const Chart: FC<ChartProps> = ({ className, type, name, dataSet, width, height, ...props }) => {
+export const Chart: FC<ChartProps> = ({ className, type, name, dataSet, width, height, showCount = false, ...props }) => {
     const chartContainerRef = useRef(null)
 
-    const formChatoptions = (type: ChartType, name: string, data: OptionType[ChartProps['type']]) => {
+    const formChartoptions = (type: ChartType, name: string, data: OptionType[ChartProps['type']]) => {
         if (type === ChartType.DOUGHNUT) {
             return {
                 series: [
                     {
                         name,
-                        data,
+                        data: data.filter((item) => item.value > 0),
                         type: 'pie',
                         radius: ['60%', '90%'],
                         color: data.map((e) => e.color),
                         avoidLabelOverlap: false,
                         label: {
-                            show: false,
+                            show: showCount,
+                            color: '#4E545F',
+                            fontFamily: 'Inter',
+                            fontSize: 20,
+                            fontStyle: 'normal',
+                            fontWeight: 300,
+                            position: 'center',
+                            formatter: () => dataSet.reduce((a, b) => a + b.value, 0),
                         },
                         emphasis: {
+                            labelLine: false,
                             label: {
                                 show: false,
                             },
-                        },
-                        labelLine: {
-                            show: false,
                         },
                     },
                 ],
@@ -60,8 +66,9 @@ export const Chart: FC<ChartProps> = ({ className, type, name, dataSet, width, h
         if (!dataSet || !chartContainerRef.current) return
         const chartDOM = chartContainerRef.current
         const chartElement = echarts.init(chartDOM, null, { width, height })
-        const chartOptions = formChatoptions(type, name, dataSet)
+        const chartOptions = formChartoptions(type, name, dataSet)
         chartOptions && chartElement.setOption(chartOptions)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [chartContainerRef, dataSet, width, height, type, name])
 
     return (

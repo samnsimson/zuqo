@@ -38,7 +38,7 @@ export const Navbar: FC<NavbarProps> = ({ links }) => {
                             <NavigationMenuItem key={key}>
                                 {link.children?.length ? (
                                     <div key={key}>
-                                        <NavigationMenuTrigger className="bg-transparent font-jakarta hover:bg-transparent hover:text-white focus:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent">
+                                        <NavigationMenuTrigger className="bg-transparent px-0 font-jakarta hover:bg-transparent hover:text-white focus:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent">
                                             {activeMenu && activeMenu.label}
                                         </NavigationMenuTrigger>
                                         <NavigationMenuContent>
@@ -53,7 +53,7 @@ export const Navbar: FC<NavbarProps> = ({ links }) => {
                                                             className="grid w-full gap-[6px]"
                                                             onClick={() => setActiveMenu(child)}
                                                         >
-                                                            <div className="flex gap-[18px]">
+                                                            <div className="flex items-center gap-[18px]">
                                                                 {child.icon && child.icon({ strokeColor: '#00539F' })}
                                                                 <p>{child.name}</p>
                                                             </div>

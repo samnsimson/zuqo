@@ -343,3 +343,11 @@ export const SubtaskIcon: FC<ISVG> = ({ fill = 'none' }) => (
         />
     </svg>
 )
+
+export const StackIcon: FC<ISVG> = ({ fill = 'none' }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill={fill}>
+        <path d="M21 8L12 2L3 8L12 14L21 8Z" stroke="#015EB0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M21 12L12 18L3 12" stroke="#015EB0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M21 16L12 22L3 16" stroke="#015EB0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+)

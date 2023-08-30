@@ -4,6 +4,12 @@ import { assets } from '@/config/assets'
 import { useAppStore } from '@/store'
 import { FC, useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { ReactComponent as GridViewIcon } from '@/assets/grid-view-icon.svg'
+import { ReactComponent as NavOverviewIcon } from '@/assets/nav-overview-icon.svg'
+import { ReactComponent as NavInboxIcon } from '@/assets/nav-inbox-icon.svg'
+import { ReactComponent as NavWorkflowIcon } from '@/assets/nav-workflow-icon.svg'
+import { ReactComponent as NavChatIcon } from '@/assets/nav-chat-icon.svg'
+import { ReactComponent as NavAnalyticsIcon } from '@/assets/nav-analytics-icon.svg'
 
 interface DashboardProps {
     [x: string]: any
@@ -11,43 +17,50 @@ interface DashboardProps {
 
 const navbarLinks: NavbarLinkProps[] = [
     {
+        label: 'Overview',
         name: 'Overview',
-        icon: assets.gridViewIcon,
+        icon: ({ strokeColor }) => <GridViewIcon stroke={strokeColor || '#fff'} />,
         children: [
             {
+                label: 'Overview',
                 name: <span className="text-[#101828]">Overview</span>,
                 description: 'Manage users, roles and permissions',
-                icon: assets.navOverviewIcon,
+                icon: ({ strokeColor }) => <NavOverviewIcon stroke={strokeColor || '#fff'} />,
                 path: '/',
             },
             {
+                label: 'Inbox',
                 name: <span className="text-[#0CA68D]">Inbox</span>,
                 description: 'Are you an agent? Get your messages',
-                icon: assets.navInboxIcon,
+                icon: ({ strokeColor }) => <NavInboxIcon stroke={strokeColor || '#fff'} />,
                 path: '/inbox',
             },
             {
+                label: 'Workflow Studio',
                 name: <span className="text-[#B77615]">Workflow Studio</span>,
                 description: 'Build automation workflow with no code',
-                icon: assets.navWorkflowIcon,
+                icon: ({ strokeColor }) => <NavWorkflowIcon stroke={strokeColor || '#fff'} />,
                 path: '/workflow-studio',
             },
             {
+                label: 'Interaction Center',
                 name: <span className="text-[#B715A7]">Interaction Center</span>,
                 description: 'Manage, track customer interactions',
-                icon: assets.navChaticon,
+                icon: ({ strokeColor }) => <NavChatIcon stroke={strokeColor || '#fff'} />,
                 path: '/interaction-center',
             },
             {
+                label: 'AI Analytics',
                 name: <span className="text-[#40AC0E]">AI Analytics</span>,
                 description: 'AI generated analytics. need to discuss',
-                icon: assets.navAnalyticsIcon,
+                icon: ({ strokeColor }) => <NavAnalyticsIcon stroke={strokeColor || '#fff'} />,
                 path: '/ai-analytics',
             },
             {
+                label: 'User Management',
                 name: <span className="text-[#1815B7]">User Management</span>,
                 description: 'Manage users, roles and permissions',
-                icon: assets.navOverviewIcon,
+                icon: ({ strokeColor }) => <NavOverviewIcon stroke={strokeColor || '#fff'} />,
                 path: '/user-management',
             },
         ],

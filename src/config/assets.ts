@@ -54,6 +54,7 @@ import fcrIcon from '../assets/fcr-icon.svg'
 import callOutcomeIcon from '../assets/call-outcome-icon.svg'
 import callIntentIcon from '../assets/call-intent-icon.svg'
 import sampleAudio from '../assets/audio-source.wav'
+import rectangleBgTwo from '../assets/rectangle-bg-2.png'
 
 export const assets = {
     sampleAudio,
@@ -112,4 +113,5 @@ export const assets = {
     fcrIcon,
     callOutcomeIcon,
     callIntentIcon,
+    rectangleBgTwo,
 }

@@ -1,11 +1,12 @@
-import { FC, ReactNode } from 'react'
+import { FC, ReactNode, useEffect, useState } from 'react'
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from '@/components/ui/navigation-menu'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 export interface NavbarLinkProps {
+    label: string
     name: ReactNode | string
     path?: string
-    icon?: string
+    icon?: (props: IconProps) => ReactNode
     description?: string
     children?: NavbarLinkProps[]
 }
@@ -14,19 +15,31 @@ export interface NavbarProps {
     links: NavbarLinkProps[]
 }
 
+interface IconProps {
+    strokeColor: string
+}
+
 export const Navbar: FC<NavbarProps> = ({ links }) => {
+    const location = useLocation()
+    const [activeMenu, setActiveMenu] = useState(() => (links.length ? links[0] : null))
+
+    useEffect(() => {
+        const targetNav = links.flatMap((child) => child.children).find((child) => child?.path === location.pathname)
+        targetNav && setActiveMenu(targetNav)
+    }, [links, location])
+
     return (
         <NavigationMenu>
             <NavigationMenuList className="flex gap-12">
                 {links &&
                     links.map((link, key) => (
-                        <div className="flex gap-[7px]" key={key}>
-                            {link.icon && <img src={link.icon} />}
+                        <div className="flex items-center gap-[7px]" key={key}>
+                            {activeMenu && activeMenu.icon && activeMenu.icon({ strokeColor: '#fff' })}
                             <NavigationMenuItem key={key}>
                                 {link.children?.length ? (
                                     <div key={key}>
                                         <NavigationMenuTrigger className="bg-transparent font-jakarta hover:bg-transparent hover:text-white focus:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent">
-                                            {link.name}
+                                            {activeMenu && activeMenu.label}
                                         </NavigationMenuTrigger>
                                         <NavigationMenuContent>
                                             <ul className="grid w-full min-w-[310px] items-center">
@@ -35,9 +48,13 @@ export const Navbar: FC<NavbarProps> = ({ links }) => {
                                                         key={key}
                                                         className="border-b-[1px] border-gray-200 px-2.5 py-4 font-jakarta font-semibold last:border-0"
                                                     >
-                                                        <Link to={child.path ? child.path : ''} className="grid w-full gap-[6px]">
+                                                        <Link
+                                                            to={child.path ? child.path : ''}
+                                                            className="grid w-full gap-[6px]"
+                                                            onClick={() => setActiveMenu(child)}
+                                                        >
                                                             <div className="flex gap-[18px]">
-                                                                {child.icon && <img src={child.icon} />}
+                                                                {child.icon && child.icon({ strokeColor: '#00539F' })}
                                                                 <p>{child.name}</p>
                                                             </div>
                                                             <p className="text-sm font-thin text-gray-500">{child.description}</p>

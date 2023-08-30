@@ -32,7 +32,7 @@ export const AiAnalytics: FC<AiAnalyticsProps> = ({ ...props }) => {
                         </div>
                     </div>
                 </Stats>
-                <Stats className="col-span-5">
+                <Stats className="col-span-5 bg-white">
                     <div className="grid h-full grid-cols-5">
                         <div className="col-span-2 flex flex-col self-center">
                             <div className="text-base font-semibold leading-normal text-neutral-700">Inbound</div>

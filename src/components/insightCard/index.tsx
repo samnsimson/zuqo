@@ -17,9 +17,9 @@ interface InsightCardProps extends HTMLAttributes<HTMLDivElement> {
 
 export const InsightCard: FC<InsightCardProps> = ({ className, icon, iconBg, primaryColor, title, description, dataset, ...props }) => {
     return (
-        <div className="overflow-hidden rounded-lg">
+        <div className="overflow-hidden rounded-lg shadow-xl shadow-gray-200/50">
             <img src={assets.rectangleBgTwo} className="w-full" />
-            <Card {...props} className={cn('border-none px-5 py-4 shadow-xl shadow-gray-200/50', className)}>
+            <Card {...props} className={cn('border-none px-5 py-4', className)}>
                 <CardHeader className="mb-5 p-0">
                     <CardTitle className="flex items-center justify-start space-x-3">
                         <div className={cn('flex h-[34px] w-[34px] items-center justify-center rounded', iconBg)}>{icon}</div>

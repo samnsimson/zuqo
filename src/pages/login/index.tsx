@@ -12,14 +12,17 @@ interface LoginPageProps {
 export const LoginPage: FC<LoginPageProps> = () => {
     const navbarLinks: NavbarLinkProps[] = [
         {
+            label: 'Home',
             name: 'Home',
             path: '/',
         },
         {
+            label: 'Support',
             name: 'Support',
             path: '/support',
         },
         {
+            label: 'Docs',
             name: 'Docs',
             path: '/docs',
         },

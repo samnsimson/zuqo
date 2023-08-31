@@ -5,8 +5,10 @@ import { cn } from '@/lib/utils'
 import { Button } from '../ui/button'
 import { Chart, ChartType, PiechartDataSet } from '../chart'
 import { assets } from '@/config/assets'
+import { useChartData } from '@/hooks/useChartData'
 
 interface InsightCardProps extends HTMLAttributes<HTMLDivElement> {
+    chartType: 'PIE' | 'BAR' | 'DOUGHNUT'
     primaryColor: string
     iconBg: string
     title: string
@@ -15,7 +17,8 @@ interface InsightCardProps extends HTMLAttributes<HTMLDivElement> {
     dataset: PiechartDataSet[]
 }
 
-export const InsightCard: FC<InsightCardProps> = ({ className, icon, iconBg, primaryColor, title, description, dataset, ...props }) => {
+export const InsightCard: FC<InsightCardProps> = ({ className, chartType, icon, iconBg, primaryColor, title, description, dataset, ...props }) => {
+    const { dataset: IVRDataset } = useChartData({ type: chartType, name: 'IVR', data: dataset, labelType: 'counter' })
     return (
         <div className="overflow-hidden rounded-lg shadow-xl shadow-gray-200/50">
             <img src={assets.rectangleBgTwo} className="w-full" />
@@ -47,7 +50,7 @@ export const InsightCard: FC<InsightCardProps> = ({ className, icon, iconBg, pri
                         </ul>
                     </div>
                     <div className="flex items-center justify-center">
-                        <Chart name="Insight" type={ChartType.DOUGHNUT} dataSet={dataset} width={127} height={127} showCount={true} />
+                        <Chart name="Insight" type={ChartType.DOUGHNUT} dataSet={IVRDataset} width={127} height={127} showCount={true} />
                     </div>
                 </CardContent>
                 <CardFooter className="p-0">

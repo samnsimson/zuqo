@@ -17,7 +17,7 @@ export const AiAnalyticsSection: FC<AiAnalyticsSectionProps> = ({ ...props }) =>
         <div {...props} className="grid grid-cols-12 gap-5">
             <div className="col-span-full text-base font-bold text-sky-700">AI Analytics</div>
             <Stats className="col-span-2 h-full">
-                <div className="flex flex-col items-center bg-[#FAFEFF] p-2 px-[31px] ">
+                <div className="flex h-full flex-col items-center bg-[#FAFEFF] p-2 px-[31px]">
                     <div className="font-jakarta text-xl font-medium leading-[30px] text-neutral-700">Total Interactions</div>
                     <div className="flex items-center justify-between space-x-5">
                         <div className="rounded-full bg-[#CDECFA] p-2">

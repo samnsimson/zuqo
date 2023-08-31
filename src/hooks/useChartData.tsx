@@ -67,6 +67,7 @@ const buildDataSetForDoughnut = ({ data, name, labelType }: ChartDataProps): ECh
         center: ['50%', '50%'],
         color: data.map(({ color }) => color),
         avoidLabelOverlap: false,
+        roseType: 'radius',
         labelLine: {
             show: labelType === 'line',
             smooth: true,

@@ -7,6 +7,7 @@ export enum ChartType {
     DOUGHNUT = 'doughnut',
     PIE = 'pie',
     BAR = 'bar',
+    STACKED_BAR = 'stackedBar',
 }
 
 export type PiechartDataSet = {
@@ -28,6 +29,11 @@ interface PieChartProps {
     type: ChartType.PIE
 }
 
+interface StackedChartProps {
+    type: ChartType.STACKED_BAR
+    keys: Array<string | number>
+}
+
 interface BaseChartProps extends HTMLAttributes<HTMLDivElement> {
     name?: string
     dataSet: echarts.EChartsOption['series']
@@ -38,7 +44,7 @@ interface BaseChartProps extends HTMLAttributes<HTMLDivElement> {
     showCount?: boolean
 }
 
-type ChartProps = BaseChartProps & (BarChartProps | DoughnutChartProps | PieChartProps)
+type ChartProps = BaseChartProps & (BarChartProps | DoughnutChartProps | PieChartProps | StackedChartProps)
 
 export const Chart: FC<ChartProps> = ({ className, type, dataSet, width, height, ...props }) => {
     const chartContainerRef = useRef(null)
@@ -65,11 +71,33 @@ export const Chart: FC<ChartProps> = ({ className, type, dataSet, width, height,
             : {}
     }
 
+    const barChartStackedOption = () => {
+        return type === ChartType.STACKED_BAR
+            ? {
+                  grid: {
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      top: 10,
+                      containLabel: true,
+                  },
+                  xAxis: {
+                      type: 'category',
+                      data: (props as any).keys,
+                      axisLabel: { interval: 0 },
+                  },
+                  yAxis: {
+                      type: 'value',
+                  },
+              }
+            : {}
+    }
+
     useEffect(() => {
         if (!dataSet || !chartContainerRef.current) return
         const chartDOM = chartContainerRef.current
         const chartElement = echarts.init(chartDOM, null, { width, height })
-        chartElement.setOption({ ...barChartoptions(), series: dataSet })
+        chartElement.setOption({ ...barChartoptions(), ...barChartStackedOption(), series: dataSet })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [chartContainerRef, dataSet, width, height, type])
 

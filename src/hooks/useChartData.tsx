@@ -1,17 +1,43 @@
 import { EChartsOption } from 'echarts'
 import { useMemo } from 'react'
 
-export interface ChartDataProps {
-    type: 'PIE' | 'DOUGHNUT' | 'BAR'
-    data: ChartDataSet[]
+interface ChartDataBaseProps {
     name: string
     labelType: 'counter' | 'line' | 'none'
 }
+
+interface BarChartProps {
+    type: 'BAR'
+    data: ChartDataSet[]
+}
+
+interface DoughnutChartProps {
+    type: 'DOUGHNUT'
+    data: ChartDataSet[]
+}
+
+interface PieChartProps {
+    type: 'PIE'
+    data: ChartDataSet[]
+}
+
+interface StackedBarProps {
+    type: 'STACKED_BAR'
+    data: ChartDataSetStackedBar[]
+}
+
+type ChartDataProps = ChartDataBaseProps & (StackedBarProps | PieChartProps | DoughnutChartProps | BarChartProps)
 
 export interface ChartDataSet {
     name: string
     value: number
     color: string
+}
+export interface ChartDataSetStackedBar {
+    name: string
+    value: number
+    color: string
+    category: string
 }
 
 const getLableForLineType = (name: string, value: number, color: string): any => ({
@@ -89,6 +115,16 @@ const buildDataSetForBar = ({ data, name }: ChartDataProps): EChartsOption['seri
     }
 }
 
+const buildDataSetForStackedBar = ({ data }: ChartDataProps) => {
+    const d = data as ChartDataSetStackedBar[]
+    return d.reduce((acc: any[], { value, color, category }) => {
+        const index = acc.findIndex((obj: ChartDataSetStackedBar) => obj.name === category)
+        if (index === -1) acc.push({ name: category, type: 'bar', stack: 'bar', barWidth: 13, data: [{ value, itemStyle: { color, borderRadius: 0 } }] })
+        else acc[index].data.push({ value, itemStyle: { color, borderRadius: 0 } })
+        return acc
+    }, [])
+}
+
 export const useChartData = (props: ChartDataProps): { dataset: EChartsOption['series'] } => {
     const buildDataSet = (props: ChartDataProps) => {
         switch (props.type) {
@@ -98,6 +134,8 @@ export const useChartData = (props: ChartDataProps): { dataset: EChartsOption['s
                 return buildDataSetForPie(props)
             case 'DOUGHNUT':
                 return buildDataSetForDoughnut(props)
+            case 'STACKED_BAR':
+                return buildDataSetForStackedBar(props)
             default:
                 return []
         }

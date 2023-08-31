@@ -93,3 +93,132 @@ export const barChartDataWordUsage = [
         color: '#015EB0',
     },
 ]
+
+export const sentimentDataSet = [
+    {
+        name: 'Jan',
+        value: 13,
+        color: '#76C94F',
+        category: 'Positive',
+    },
+    {
+        name: 'Feb',
+        value: 5,
+        color: '#76C94F',
+        category: 'Positive',
+    },
+    {
+        name: 'Mar',
+        value: 5,
+        color: '#76C94F',
+        category: 'Positive',
+    },
+    {
+        name: 'Apr',
+        value: 13,
+        color: '#76C94F',
+        category: 'Positive',
+    },
+    {
+        name: 'May',
+        value: 3,
+        color: '#76C94F',
+        category: 'Positive',
+    },
+    {
+        name: 'Jun',
+        value: 17,
+        color: '#76C94F',
+        category: 'Positive',
+    },
+    {
+        name: 'Jul',
+        value: 13,
+        color: '#76C94F',
+        category: 'Positive',
+    },
+    {
+        name: 'Jan',
+        value: 2,
+        color: '#EC2020',
+        category: 'Critical',
+    },
+    {
+        name: 'Feb',
+        value: 13,
+        color: '#EC2020',
+        category: 'Critical',
+    },
+    {
+        name: 'Mar',
+        value: 6,
+        color: '#EC2020',
+        category: 'Critical',
+    },
+    {
+        name: 'Apr',
+        value: 10,
+        color: '#EC2020',
+        category: 'Critical',
+    },
+    {
+        name: 'May',
+        value: 3,
+        color: '#EC2020',
+        category: 'Critical',
+    },
+    {
+        name: 'Jun',
+        value: 7,
+        color: '#EC2020',
+        category: 'Critical',
+    },
+    {
+        name: 'Jul',
+        value: 3,
+        color: '#EC2020',
+        category: 'Critical',
+    },
+    {
+        name: 'Jan',
+        value: 3,
+        color: '#FEBB38',
+        category: 'Negative',
+    },
+    {
+        name: 'Feb',
+        value: 5,
+        color: '#FEBB38',
+        category: 'Negative',
+    },
+    {
+        name: 'Mar',
+        value: 6,
+        color: '#FEBB38',
+        category: 'Negative',
+    },
+    {
+        name: 'Apr',
+        value: 3,
+        color: '#FEBB38',
+        category: 'Negative',
+    },
+    {
+        name: 'May',
+        value: 3,
+        color: '#FEBB38',
+        category: 'Negative',
+    },
+    {
+        name: 'Jun',
+        value: 7,
+        color: '#FEBB38',
+        category: 'Negative',
+    },
+    {
+        name: 'Jul',
+        value: 13,
+        color: '#FEBB38',
+        category: 'Negative',
+    },
+]

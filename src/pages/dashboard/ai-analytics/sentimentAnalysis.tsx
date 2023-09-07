@@ -1,7 +1,8 @@
 import { Chart, ChartType } from '@/components/chart'
 import { ChartContainer } from '@/components/chartContainer'
+import { WordCloud } from '@/components/wordCloud'
 import { useChartData } from '@/hooks/useChartData'
-import { barChartDataWordUsage, sentimentDataSet } from '@/mock-data/chart-data'
+import { barChartDataWordUsage, sentimentDataSet, wordCloudData } from '@/mock-data/chart-data'
 import { FC, HTMLAttributes } from 'react'
 
 interface SentimentAnalysisProps extends HTMLAttributes<HTMLDivElement> {
@@ -11,6 +12,9 @@ interface SentimentAnalysisProps extends HTMLAttributes<HTMLDivElement> {
 export const SentimentAnalysis: FC<SentimentAnalysisProps> = ({ ...props }) => {
     const { dataset } = useChartData({ type: 'BAR', data: barChartDataWordUsage, name: 'Sentiment', labelType: 'none' })
     const { dataset: sentimentData } = useChartData({ type: 'STACKED_BAR', data: sentimentDataSet, name: 'Sentiment', labelType: 'none' })
+    const { dataset: wordBubbleData } = useChartData({ type: 'WORDBUBBLE', data: wordCloudData, name: 'Wordcloud', labelType: 'none' })
+    console.log(wordBubbleData)
+
     return (
         <div {...props} className="space-y-5">
             <div className="text-base font-bold uppercase leading-tight tracking-wider text-sky-700">Sentiment Analysis</div>
@@ -38,7 +42,10 @@ export const SentimentAnalysis: FC<SentimentAnalysisProps> = ({ ...props }) => {
                         />
                     )}
                 </ChartContainer>
-                <ChartContainer title="Customer Words Cloud"></ChartContainer>
+                <ChartContainer title="Customer Words Cloud">
+                    {/* {wordBubbleData && <Chart dataSet={wordBubbleData} width={500} height={400} type={ChartType.WORDBUBBLE} />} */}
+                    <WordCloud data={wordCloudData} width={500} height={400} concentration={0.7} space={0.3} scale={0.4} />
+                </ChartContainer>
             </div>
         </div>
     )

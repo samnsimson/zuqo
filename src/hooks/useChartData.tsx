@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 
 interface ChartDataBaseProps {
     name: string
-    labelType: 'counter' | 'line' | 'none'
+    labelType?: 'counter' | 'line' | 'none'
 }
 
 interface BarChartProps {
@@ -21,12 +21,17 @@ interface PieChartProps {
     data: ChartDataSet[]
 }
 
+interface WordBubbleProps {
+    type: 'WORDBUBBLE'
+    data: ChartDataSet[]
+}
+
 interface StackedBarProps {
     type: 'STACKED_BAR'
     data: ChartDataSetStackedBar[]
 }
 
-type ChartDataProps = ChartDataBaseProps & (StackedBarProps | PieChartProps | DoughnutChartProps | BarChartProps)
+type ChartDataProps = ChartDataBaseProps & (StackedBarProps | PieChartProps | DoughnutChartProps | BarChartProps | WordBubbleProps)
 
 export interface ChartDataSet {
     name: string

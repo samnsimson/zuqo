@@ -8,6 +8,7 @@ export enum ChartType {
     PIE = 'pie',
     BAR = 'bar',
     STACKED_BAR = 'stackedBar',
+    WORDBUBBLE = 'wordbubble',
 }
 
 export type PiechartDataSet = {
@@ -29,6 +30,10 @@ interface PieChartProps {
     type: ChartType.PIE
 }
 
+interface WordBubbleProps {
+    type: ChartType.WORDBUBBLE
+}
+
 interface StackedChartProps {
     type: ChartType.STACKED_BAR
     keys: Array<string | number>
@@ -44,60 +49,65 @@ interface BaseChartProps extends HTMLAttributes<HTMLDivElement> {
     showCount?: boolean
 }
 
-type ChartProps = BaseChartProps & (BarChartProps | DoughnutChartProps | PieChartProps | StackedChartProps)
+type ChartProps = BaseChartProps & (BarChartProps | DoughnutChartProps | PieChartProps | StackedChartProps | WordBubbleProps)
 
 export const Chart: FC<ChartProps> = ({ className, type, dataSet, width, height, ...props }) => {
     const chartContainerRef = useRef(null)
 
-    const barChartoptions = () => {
-        return type === ChartType.BAR
-            ? {
-                  grid: {
-                      top: 10,
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      containLabel: true,
-                  },
-                  xAxis: {
-                      type: 'category',
-                      data: (props as any).keys,
-                      axisLabel: { interval: 0, rotate: 30 },
-                  },
-                  yAxis: {
-                      type: 'value',
-                  },
-              }
-            : {}
-    }
-
-    const barChartStackedOption = () => {
-        return type === ChartType.STACKED_BAR
-            ? {
-                  grid: {
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      top: 10,
-                      containLabel: true,
-                  },
-                  xAxis: {
-                      type: 'category',
-                      data: (props as any).keys,
-                      axisLabel: { interval: 0 },
-                  },
-                  yAxis: {
-                      type: 'value',
-                  },
-              }
-            : {}
+    const chartOptions = (type: ChartType) => {
+        switch (type) {
+            case ChartType.BAR:
+                return {
+                    grid: {
+                        top: 10,
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        containLabel: true,
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: (props as any).keys,
+                        axisLabel: { interval: 0, rotate: 30 },
+                    },
+                    yAxis: {
+                        type: 'value',
+                    },
+                }
+            case ChartType.STACKED_BAR:
+                return {
+                    grid: {
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        top: 10,
+                        containLabel: true,
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: (props as any).keys,
+                        axisLabel: { interval: 0 },
+                    },
+                    yAxis: {
+                        type: 'value',
+                    },
+                }
+            case ChartType.WORDBUBBLE:
+                return {
+                    xAxis: { show: false },
+                    yAxis: { show: false },
+                }
+            default:
+                return {}
+        }
     }
 
     useEffect(() => {
         if (!dataSet || !chartContainerRef.current) return
         const chartDOM = chartContainerRef.current
         const chartElement = echarts.init(chartDOM, null, { width, height })
-        chartElement.setOption({ ...barChartoptions(), ...barChartStackedOption(), series: dataSet })
+        console.log('chart optinos', { ...chartOptions(type), series: dataSet })
+        chartElement.setOption({ ...chartOptions(type), series: dataSet })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [chartContainerRef, dataSet, width, height, type])
 

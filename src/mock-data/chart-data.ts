@@ -222,3 +222,41 @@ export const sentimentDataSet = [
         category: 'Negative',
     },
 ]
+
+export const wordCloudData = [
+    {
+        name: 'Welcome',
+        value: 100,
+        color: '#14b8a6',
+    },
+    {
+        name: 'Thank you',
+        value: 90,
+        color: '#84cc16',
+    },
+    {
+        name: 'Good',
+        value: 80,
+        color: '#22c55e',
+    },
+    {
+        name: 'Love',
+        value: 70,
+        color: '#f59e0b',
+    },
+    {
+        name: 'Bad',
+        value: 60,
+        color: '#f87171',
+    },
+    {
+        name: 'Later',
+        value: 50,
+        color: '#e879f9',
+    },
+    {
+        name: 'Later',
+        value: 40,
+        color: '#0ea5e9',
+    },
+]

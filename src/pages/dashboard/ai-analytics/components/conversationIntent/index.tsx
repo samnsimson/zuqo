@@ -16,7 +16,7 @@ export const ConversationIntent: FC<ConversationIntentProps> = ({ ...props }) =>
                     <ul className="w-full space-y-[14px]">
                         {conversationIntentData.map((data) => (
                             <li className="flex items-center space-x-[6px] font-inter text-sm text-[#5D6881]">
-                                <div className="h-3 w-3 rounded-sm" style={{ backgroundColor: data.color }} />
+                                <div className="h-[13px] w-3 rounded-sm" style={{ backgroundColor: data.color }} />
                                 <div className="flex-1">{data.name}</div>
                                 <div className="font-bold">{data.value}%</div>
                             </li>

@@ -260,3 +260,68 @@ export const wordCloudData = [
         color: '#0ea5e9',
     },
 ]
+
+export const conversationIntentOutcomeData = [
+    {
+        name: 'Successful Resolution',
+        value: 70,
+        color: '#38bdf8',
+    },
+    {
+        name: 'Unsatisfactory Resolution',
+        value: 80,
+        color: '#fb923c',
+    },
+    {
+        name: 'Escalation',
+        value: 40,
+        color: '#8b5cf6',
+    },
+    {
+        name: 'Abandoned Conversation',
+        value: 70,
+        color: '#f43f5e',
+    },
+    {
+        name: 'Transfer to Specialist',
+        value: 30,
+        color: '#bef264',
+    },
+    {
+        name: 'Sales Conversion',
+        value: 80,
+        color: '#f59e0b',
+    },
+]
+export const conversationIntentData = [
+    {
+        name: 'Cancellation of product',
+        value: 11,
+        color: '#FE6AA5',
+    },
+    {
+        name: 'Complaint calls',
+        value: 12,
+        color: '#FA8B0C',
+    },
+    {
+        name: 'Technical Support',
+        value: 20.75,
+        color: '#138EFF',
+    },
+    {
+        name: 'Billing Inquiries',
+        value: 18,
+        color: '#3EBB03',
+    },
+    {
+        name: 'Account Management',
+        value: 25.5,
+        color: '#5F63F2',
+    },
+    {
+        name: 'Service Outages',
+        value: 12.5,
+        color: '#20C997',
+    },
+]

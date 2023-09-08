@@ -12,8 +12,6 @@ interface SentimentAnalysisProps extends HTMLAttributes<HTMLDivElement> {
 export const SentimentAnalysis: FC<SentimentAnalysisProps> = ({ ...props }) => {
     const { dataset } = useChartData({ type: 'BAR', data: barChartDataWordUsage, name: 'Sentiment', labelType: 'none' })
     const { dataset: sentimentData } = useChartData({ type: 'STACKED_BAR', data: sentimentDataSet, name: 'Sentiment', labelType: 'none' })
-    const { dataset: wordBubbleData } = useChartData({ type: 'WORDBUBBLE', data: wordCloudData, name: 'Wordcloud', labelType: 'none' })
-    console.log(wordBubbleData)
 
     return (
         <div {...props} className="space-y-5">

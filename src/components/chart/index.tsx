@@ -92,11 +92,6 @@ export const Chart: FC<ChartProps> = ({ className, type, dataSet, width, height,
                         type: 'value',
                     },
                 }
-            case ChartType.WORDBUBBLE:
-                return {
-                    xAxis: { show: false },
-                    yAxis: { show: false },
-                }
             default:
                 return {}
         }

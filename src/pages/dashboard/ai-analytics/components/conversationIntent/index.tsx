@@ -8,7 +8,14 @@ interface ConversationIntentProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const ConversationIntent: FC<ConversationIntentProps> = ({ ...props }) => {
-    const { dataset } = useChartData({ type: 'DOUGHNUT', data: conversationIntentData, name: 'Conversation Intent', labelType: 'none' })
+    const { dataset } = useChartData({
+        type: 'DOUGHNUT',
+        data: conversationIntentData,
+        name: 'Conversation Intent',
+        labelType: 'none',
+        showLabel: true,
+        radius: [40, 90],
+    })
     return (
         <div {...props}>
             <div className="grid grid-cols-12 gap-x-10">

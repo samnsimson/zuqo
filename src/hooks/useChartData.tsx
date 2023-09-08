@@ -14,6 +14,9 @@ interface BarChartProps {
 interface DoughnutChartProps {
     type: 'DOUGHNUT'
     data: ChartDataSet[]
+    showCount?: boolean
+    showLabel?: boolean
+    radius?: Array<number>
 }
 
 interface PieChartProps {
@@ -78,27 +81,46 @@ const buildDataSetForPie = (props: ChartDataProps) => {
     return buildDataSetForDoughnut(props)
 }
 
-const getDataSet = (data: ChartDataSet[], labelType: ChartDataProps['labelType']) => {
+const getDataSet = (data: ChartDataSet[], labelType: ChartDataProps['labelType'], showCount: boolean = false, showLabel: boolean = false) => {
     const nonZeroData = data.filter(({ value }) => value > 0)
     const sum = nonZeroData.reduce((a, b) => a + b.value, 0)
     return nonZeroData.map(({ name, value, color }) => ({
         name,
         value,
-        label: labelType === 'line' ? getLableForLineType(name, value, color) : getLableForCounterType(sum),
+        label:
+            labelType === 'line'
+                ? getLableForLineType(name, value, color)
+                : showCount
+                ? getLableForCounterType(sum)
+                : {
+                      show: showLabel,
+                      formatter: '{c}%',
+                      position: 'inside', // You can change the position to 'inside' or 'outside' as needed
+                      textStyle: {
+                          fontSize: 12,
+                          fontWeight: 'normal',
+                          color: '#fff',
+                      },
+                  },
         itemStyle: getItemStyle(color),
     }))
 }
 
-const buildDataSetForDoughnut = ({ data, name, labelType }: ChartDataProps): EChartsOption['series'] => {
+const buildDataSetForDoughnut = ({ data, name, labelType = 'none', ...props }: ChartDataProps): EChartsOption['series'] => {
     return {
         name,
-        data: getDataSet(data, labelType),
+        data: getDataSet(data, labelType, (props as any).showCount, (props as any).showLabel),
         type: 'pie',
-        radius: ['60%', '90%'],
+        radius: ['radius' in props ? `${props['radius']![0]}%` : '60%', 'radius' in props ? `${props['radius']![1]}%` : '90%'],
         center: ['50%', '50%'],
         color: data.map(({ color }) => color),
         avoidLabelOverlap: false,
         roseType: 'radius',
+        emphasis: {
+            label: {
+                show: false,
+            },
+        },
         labelLine: {
             show: labelType === 'line',
             smooth: true,

@@ -42,7 +42,7 @@ export const OverviewTabContent: FC<OverviewTabContentProps> = () => {
             <div className="col-span-12 h-full">
                 <div className="grid h-full grid-cols-2 gap-x-5">
                     <div className="col-span-1">
-                        <VoiceConversations className="bg-[#F6FFF9]"></VoiceConversations>
+                        <VoiceConversations className="bg-[#F6FFF9]" />
                     </div>
                     <div className="grid grid-cols-1 gap-5">
                         <CustomerInsights className="bg-[#EEF2F3]" />

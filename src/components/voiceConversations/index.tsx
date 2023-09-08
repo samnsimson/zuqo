@@ -47,7 +47,7 @@ export const VoiceConversations: FC<VoiceConversationsProps> = ({ className, ...
         <div className={cn('relative', className)} {...props}>
             <img src={assets.rectangleBorder1} alt="border" className="w-full" />
             <SectionHeader />
-            <ul className="my-2.5 grid  w-full grid-cols-1 items-center gap-y-6 overflow-y-scroll px-4 ">
+            <ul className="relative my-2.5  grid w-full grid-cols-1 items-center gap-y-6 overflow-y-scroll px-4">
                 {conversations.map((chat) => (
                     <li key={chat.id} className="grid w-full grid-cols-12 items-start gap-x-[11px]">
                         <div className="col-span-1">
@@ -81,7 +81,13 @@ export const VoiceConversations: FC<VoiceConversationsProps> = ({ className, ...
                     </li>
                 ))}
             </ul>
-            <AudioPlayer url={audioSource} seekTo={seekTo} onTimeStampChange={(time) => handleTimeChange(time)} onComplete={() => setActiveConveration(null)} />
+            <AudioPlayer
+                url={audioSource}
+                seekTo={seekTo}
+                onTimeStampChange={(time) => handleTimeChange(time)}
+                onComplete={() => setActiveConveration(null)}
+                className="sticky bottom-0"
+            />
         </div>
     )
 }

@@ -152,7 +152,7 @@ const buildDataSetForStackedBar = ({ data }: ChartDataProps) => {
     }, [])
 }
 
-const buildDataSetForScatter = ({ data }: ChartDataProps) => {
+const buildDataSetForScatter = ({ data }: ChartDataProps): EChartsOption['series'] => {
     const transformedData = data.map(({ name, value, color }) => ({ name, value: [Math.random(), Math.random(), value], color }))
     return {
         type: 'scatter',

@@ -8,7 +8,7 @@ export enum ChartType {
     PIE = 'pie',
     BAR = 'bar',
     STACKED_BAR = 'stackedBar',
-    WORDBUBBLE = 'wordbubble',
+    SCATTER = 'scatter',
 }
 
 export type PiechartDataSet = {
@@ -30,8 +30,8 @@ interface PieChartProps {
     type: ChartType.PIE
 }
 
-interface WordBubbleProps {
-    type: ChartType.WORDBUBBLE
+interface Scatter {
+    type: ChartType.SCATTER
 }
 
 interface StackedChartProps {
@@ -42,14 +42,14 @@ interface StackedChartProps {
 interface BaseChartProps extends HTMLAttributes<HTMLDivElement> {
     name?: string
     dataSet: echarts.EChartsOption['series']
-    width: number
+    width?: number
     height: number
     canvasWidth?: number
     canvasHeight?: number
     showCount?: boolean
 }
 
-type ChartProps = BaseChartProps & (BarChartProps | DoughnutChartProps | PieChartProps | StackedChartProps | WordBubbleProps)
+type ChartProps = BaseChartProps & (BarChartProps | DoughnutChartProps | PieChartProps | StackedChartProps | Scatter)
 
 export const Chart: FC<ChartProps> = ({ className, type, dataSet, width, height, ...props }) => {
     const chartContainerRef = useRef(null)
@@ -92,6 +92,11 @@ export const Chart: FC<ChartProps> = ({ className, type, dataSet, width, height,
                         type: 'value',
                     },
                 }
+            case ChartType.SCATTER:
+                return {
+                    xAxis: { show: false },
+                    yAxis: { show: false },
+                }
             default:
                 return {}
         }
@@ -103,6 +108,10 @@ export const Chart: FC<ChartProps> = ({ className, type, dataSet, width, height,
         const chartElement = echarts.init(chartDOM, null, { width, height })
         console.log('chart optinos', { ...chartOptions(type), series: dataSet })
         chartElement.setOption({ ...chartOptions(type), series: dataSet })
+        const resizeChart = () => chartElement.resize()
+        window.addEventListener('resize', resizeChart)
+
+        return () => window.removeEventListener('resize', resizeChart)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [chartContainerRef, dataSet, width, height, type])
 

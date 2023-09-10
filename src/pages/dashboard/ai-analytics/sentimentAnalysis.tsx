@@ -18,31 +18,16 @@ export const SentimentAnalysis: FC<SentimentAnalysisProps> = ({ ...props }) => {
             <div className="text-base font-bold uppercase leading-tight tracking-wider text-sky-700">Sentiment Analysis</div>
             <div className="grid grid-cols-3 gap-[18px]">
                 <ChartContainer title="Customer Words Usage Frequency">
-                    {dataset && (
-                        <Chart
-                            dataSet={dataset}
-                            width={500}
-                            height={400}
-                            name="Sentiment"
-                            type={ChartType.BAR}
-                            keys={barChartDataWordUsage.map((d) => d.name)}
-                        />
-                    )}
+                    {dataset && <Chart dataSet={dataset} height={400} name="Sentiment" type={ChartType.BAR} keys={barChartDataWordUsage.map((d) => d.name)} />}
                 </ChartContainer>
                 <ChartContainer title="Customer Sentiment Breakdown">
                     {sentimentData && (
-                        <Chart
-                            dataSet={sentimentData}
-                            width={500}
-                            height={400}
-                            type={ChartType.STACKED_BAR}
-                            keys={[...new Set(sentimentDataSet.map((d) => d.name))]}
-                        />
+                        <Chart dataSet={sentimentData} height={400} type={ChartType.STACKED_BAR} keys={[...new Set(sentimentDataSet.map((d) => d.name))]} />
                     )}
                 </ChartContainer>
                 <ChartContainer title="Customer Words Cloud">
                     {/* {wordBubbleData && <Chart dataSet={wordBubbleData} width={500} height={400} type={ChartType.WORDBUBBLE} />} */}
-                    <WordCloud data={wordCloudData} width={500} height={400} concentration={0.7} space={0.3} scale={0.4} />
+                    <WordCloud data={wordCloudData} height={400} concentration={0.7} space={0.3} scale={0.4} />
                 </ChartContainer>
             </div>
         </div>

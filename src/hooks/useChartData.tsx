@@ -24,8 +24,8 @@ interface PieChartProps {
     data: ChartDataSet[]
 }
 
-interface WordBubbleProps {
-    type: 'WORDBUBBLE'
+interface Scatter {
+    type: 'SCATTER'
     data: ChartDataSet[]
 }
 
@@ -34,7 +34,7 @@ interface StackedBarProps {
     data: ChartDataSetStackedBar[]
 }
 
-type ChartDataProps = ChartDataBaseProps & (StackedBarProps | PieChartProps | DoughnutChartProps | BarChartProps | WordBubbleProps)
+type ChartDataProps = ChartDataBaseProps & (StackedBarProps | PieChartProps | DoughnutChartProps | BarChartProps | Scatter)
 
 export interface ChartDataSet {
     name: string
@@ -152,6 +152,28 @@ const buildDataSetForStackedBar = ({ data }: ChartDataProps) => {
     }, [])
 }
 
+const buildDataSetForScatter = ({ data }: ChartDataProps) => {
+    const transformedData = data.map(({ name, value, color }) => ({ name, value: [Math.random(), Math.random(), value], color }))
+    return {
+        type: 'scatter',
+        data: transformedData.map((item) => ({
+            name: item.name,
+            value: item.value.slice(0, 2),
+            symbolSize: Math.max(5, item.value[2]),
+            itemStyle: {
+                color: item.color,
+            },
+            label: {
+                show: true,
+                position: 'inside',
+                color: '#fff',
+                fontWeight: 'bold',
+                formatter: (param: any) => param.data.name.toUpperCase(),
+            },
+        })),
+    }
+}
+
 export const useChartData = (props: ChartDataProps): { dataset: EChartsOption['series'] } => {
     const buildDataSet = (props: ChartDataProps) => {
         switch (props.type) {
@@ -163,6 +185,8 @@ export const useChartData = (props: ChartDataProps): { dataset: EChartsOption['s
                 return buildDataSetForDoughnut(props)
             case 'STACKED_BAR':
                 return buildDataSetForStackedBar(props)
+            case 'SCATTER':
+                return buildDataSetForScatter(props)
             default:
                 return []
         }

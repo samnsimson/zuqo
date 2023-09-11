@@ -12,11 +12,18 @@ export type ColumnProps<T, K> = {
 }
 
 interface DataTableProps<TData, TColumns extends ColumnProps<any, any>> extends HTMLAttributes<HTMLDivElement> {
+    darkHeader?: boolean
     columns: TColumns[]
     data: TData[]
 }
 
-export function DataTable<TData, TColumns extends ColumnProps<any, any>>({ columns: cols, data, className, ...props }: DataTableProps<TData, TColumns>) {
+export function DataTable<TData, TColumns extends ColumnProps<any, any>>({
+    columns: cols,
+    data,
+    className,
+    darkHeader,
+    ...props
+}: DataTableProps<TData, TColumns>) {
     const [columns, setColumns] = useState<ColumnDef<TData>[]>([])
     const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel(), getPaginationRowModel: getPaginationRowModel() })
     const pageCount = table.getPageCount()
@@ -43,7 +50,10 @@ export function DataTable<TData, TColumns extends ColumnProps<any, any>>({ colum
                     {headerGroups.map((headerGroup) => (
                         <TableRow key={headerGroup.id}>
                             {headerGroup.headers.map((header) => (
-                                <TableHead key={header.id} className="text-xs font-normal leading-snug text-gray-900 opacity-70">
+                                <TableHead
+                                    key={header.id}
+                                    className={cn('text-xs font-normal leading-snug text-gray-900 opacity-70', { 'border-t bg-[#F8FAFB]': darkHeader })}
+                                >
                                     {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                                 </TableHead>
                             ))}

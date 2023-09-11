@@ -1,5 +1,4 @@
 import { ITabContent, TabSection } from '@/components/tabSection'
-import { SidebarLayout } from '@/layouts/sidebarLayout'
 import { FC } from 'react'
 import { OverviewTabContent } from './tabs/overview'
 import { BreadCrumbs } from '@/components/breadCrumbs'
@@ -48,11 +47,9 @@ const tabContent: ITabContent[] = [
 
 export const InteractionCenterPage: FC<InteractionCenterPageProps> = () => {
     return (
-        <SidebarLayout>
-            <div className="px-12">
-                <BreadCrumbs />
-                <TabSection content={tabContent} />
-            </div>
-        </SidebarLayout>
+        <div className="px-12">
+            <BreadCrumbs />
+            <TabSection content={tabContent} />
+        </div>
     )
 }

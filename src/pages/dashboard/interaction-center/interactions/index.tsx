@@ -1,4 +1,4 @@
-import { ChannelChat, ChannelEmail, ChannelPhone, FaceSadIcon, FaceSmileIcon, MoreFiltersIcon } from '@/assets/svg/icons'
+import { ChannelChat, ChannelEmail, ChannelPhone, FaceSadIcon, FaceSmileIcon, MoreActionIcon, MoreFiltersIcon } from '@/assets/svg/icons'
 import { ColumnProps, DataTable } from '@/components/dataTable'
 import { PageSectionTitle } from '@/components/pageSectionTitle'
 import { Badge } from '@/components/ui/badge'
@@ -12,6 +12,7 @@ import moment from 'moment'
 import { FC, HTMLAttributes, ReactNode, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { v4 as UUID } from 'uuid'
+import { ActionButton } from '../../workflow-studio/components/actionButton'
 
 interface InteractionsProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any
@@ -83,6 +84,14 @@ const Sentiment: FC<{ sentiment: string }> = ({ sentiment }) => {
         )
 }
 
+const ActionList: FC<{ id: string | number; showLabel: boolean }> = ({ id, showLabel }) => {
+    return (
+        <div className="flex space-x-[25px]">
+            <ActionButton label={showLabel ? 'More' : null} icon={<MoreActionIcon color="#015EB0" />} onClick={() => console.log(id)} />
+        </div>
+    )
+}
+
 export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
     const menuItem = [{ name: 'All' }, { name: 'Inbound' }, { name: 'Outbound' }]
     const buttonGroup = [{ name: 'All' }, { name: 'Voice' }, { name: 'Chat' }, { name: 'Email' }]
@@ -96,6 +105,7 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
         { key: 'overall_call_rating', value: 'Overall Call Rating' },
         { key: 'ai_confidence_score', value: 'AI Confidence Score' },
         { key: 'happened_on', value: 'Happened on' },
+        { key: 'actions', value: null },
     ]
 
     const tableData = useMemo(
@@ -115,6 +125,7 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
                 overall_call_rating: <span className="font-bold text-[#008344]">{data.overallCallRating}</span>,
                 ai_confidence_score: <span className="font-bold text-[#008344]">{data.aiConfidenceScore}</span>,
                 happened_on: moment(data.timeStamp).format('DD/mm/yyyy hh:mm:ss'),
+                actions: <ActionList id={UUID()} showLabel={false} />,
             })),
         []
     )

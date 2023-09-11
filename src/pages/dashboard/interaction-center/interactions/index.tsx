@@ -150,7 +150,7 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
                     </div>
                 </CardHeader>
                 <CardContent className="px-0">
-                    <DataTable columns={tableColumns} data={tableData} darkHeader />
+                    <DataTable columns={tableColumns} data={tableData} darkHeader headerClass="uppercase text-[#6E6893] font-semibold tracking-[0.6px]" />
                 </CardContent>
             </Card>
         </div>

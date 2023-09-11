@@ -13,6 +13,7 @@ export type ColumnProps<T, K> = {
 
 interface DataTableProps<TData, TColumns extends ColumnProps<any, any>> extends HTMLAttributes<HTMLDivElement> {
     darkHeader?: boolean
+    headerClass?: string
     columns: TColumns[]
     data: TData[]
 }
@@ -22,6 +23,7 @@ export function DataTable<TData, TColumns extends ColumnProps<any, any>>({
     data,
     className,
     darkHeader,
+    headerClass,
     ...props
 }: DataTableProps<TData, TColumns>) {
     const [columns, setColumns] = useState<ColumnDef<TData>[]>([])
@@ -52,7 +54,11 @@ export function DataTable<TData, TColumns extends ColumnProps<any, any>>({
                             {headerGroup.headers.map((header) => (
                                 <TableHead
                                     key={header.id}
-                                    className={cn('text-xs font-normal leading-snug text-gray-900 opacity-70', { 'border-t bg-[#F8FAFB]': darkHeader })}
+                                    className={cn(
+                                        'text-xs font-normal leading-snug text-gray-900 opacity-70',
+                                        { 'border-t bg-[#F8FAFB]': darkHeader },
+                                        headerClass
+                                    )}
                                 >
                                     {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                                 </TableHead>

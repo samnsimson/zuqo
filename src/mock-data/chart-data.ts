@@ -325,3 +325,16 @@ export const conversationIntentData = [
         color: '#20C997',
     },
 ]
+
+export const InteractionsBoundData = [
+    {
+        name: 'Inbound',
+        value: 359,
+        color: '#015EB0',
+    },
+    {
+        name: 'Outbound',
+        value: 540,
+        color: '#C61764',
+    },
+]

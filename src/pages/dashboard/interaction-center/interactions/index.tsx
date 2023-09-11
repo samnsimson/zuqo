@@ -134,7 +134,7 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
         <div {...props} className="space-y-[18px] px-[56px] py-[15px]">
             <PageSectionTitle title="Interactions" />
             <Card>
-                <CardHeader className="flex flex-row items-center justify-between">
+                <CardHeader className="flex flex-row items-center justify-between pb-[15px]">
                     <NavigationMenu className="-z-1">
                         <NavigationMenuList className="gap-4 font-jakarta text-sm text-[#6E6893]">
                             {menuItem.map((item, key) => (

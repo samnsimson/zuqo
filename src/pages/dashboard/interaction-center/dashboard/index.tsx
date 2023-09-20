@@ -4,6 +4,11 @@ import { InteractionOverviewStat } from '../components/interactionOverviewStat'
 import { InteractionsStat } from '../components/interactionsStat'
 import { Card, CardContent } from '@/components/ui/card'
 import { ArrowUp } from 'lucide-react'
+import { ChartContainer } from '@/components/chartContainer'
+import { LeaderBoard } from '../components/leaderBoard'
+import { useChartData } from '@/hooks/useChartData'
+import { SpeedChartData, callVolumeData } from '@/mock-data/chart-data'
+import { Chart, ChartType } from '@/components/chart'
 
 interface InteractionCenterDashboardProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any
@@ -14,6 +19,9 @@ const StatHeading: FC<{ title: string }> = ({ title }) => (
 )
 
 export const InteractionCenterDashboard: FC<InteractionCenterDashboardProps> = ({ ...props }) => {
+    const { dataset } = useChartData({ type: 'BAR', data: SpeedChartData, name: 'Average Speed' })
+    const { dataset: lineChartData } = useChartData({ type: 'LINE', name: 'line', data: [] })
+    const { dataset: callVolume } = useChartData({ type: 'BAR', name: 'call volume', data: callVolumeData() })
     return (
         <div {...props} className="my-[15px] grid grid-cols-1 gap-[18px] px-[56px]">
             <PageSectionTitle title="Interactions Dashboard" />
@@ -73,6 +81,29 @@ export const InteractionCenterDashboard: FC<InteractionCenterDashboardProps> = (
                         </div>
                     </CardContent>
                 </Card>
+            </div>
+            <div className="grid grid-cols-12 gap-8">
+                <ChartContainer title="Call Volume" className="col-span-4">
+                    <Chart type={ChartType.BAR} name="CV" dataSet={callVolume} keys={callVolumeData().map((e) => e.name)} height={450} />
+                </ChartContainer>
+                <ChartContainer title="Peak Hour Traffic" className="col-span-4"></ChartContainer>
+                <ChartContainer title="Cost Per Call" className="col-span-4"></ChartContainer>
+                <ChartContainer title="AHT Trend" className="col-span-4">
+                    <Chart type={ChartType.LINE} dataSet={lineChartData} name="AHT Trend" height={450} />
+                </ChartContainer>
+                <ChartContainer title="Average Speed of Answer" className="col-span-4">
+                    <Chart
+                        dataSet={dataset}
+                        type={ChartType.BAR}
+                        name="Average Speed"
+                        height={450}
+                        keys={SpeedChartData.map((e) => e.name + 1)}
+                        rotateLabel={false}
+                    />
+                </ChartContainer>
+                <ChartContainer title="Leaderboard" className="col-span-4">
+                    <LeaderBoard />
+                </ChartContainer>
             </div>
         </div>
     )

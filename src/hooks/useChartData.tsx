@@ -9,6 +9,7 @@ interface ChartDataBaseProps {
 interface BarChartProps {
     type: 'BAR'
     data: ChartDataSet[]
+    rounded?: boolean
 }
 
 interface DoughnutChartProps {
@@ -34,10 +35,15 @@ interface StackedBarProps {
     data: ChartDataSetStackedBar[]
 }
 
-type ChartDataProps = ChartDataBaseProps & (StackedBarProps | PieChartProps | DoughnutChartProps | BarChartProps | Scatter)
+interface LineChartProps {
+    type: 'LINE'
+    data: any[]
+}
+
+type ChartDataProps = ChartDataBaseProps & (StackedBarProps | PieChartProps | DoughnutChartProps | BarChartProps | Scatter | LineChartProps)
 
 export interface ChartDataSet {
-    name: string
+    name: string | number
     value: number
     color: string
 }
@@ -48,7 +54,7 @@ export interface ChartDataSetStackedBar {
     category: string
 }
 
-const getLableForLineType = (name: string, value: number, color: string): any => ({
+const getLableForLineType = (name: string | number, value: number, color: string): any => ({
     show: true,
     formatter: (params: any) => [`{title|${name}}`, `{subTitle|${value}}\t\t{percent|${Math.ceil(params.percent)}%}`].join('\n'),
     rich: {
@@ -132,13 +138,13 @@ const buildDataSetForDoughnut = ({ data, name, labelType = 'none', ...props }: C
     }
 }
 
-const buildDataSetForBar = ({ data, name }: ChartDataProps): EChartsOption['series'] => {
+const buildDataSetForBar = ({ data, name, ...props }: ChartDataProps): EChartsOption['series'] => {
     return {
         name,
         type: 'bar',
         barWidth: 13,
         barGap: 34,
-        data: data.map(({ value, color }) => ({ value, itemStyle: { color, borderRadius: 25 } })),
+        data: data.map(({ value, color }) => ({ value, itemStyle: { color, borderRadius: (props as BarChartProps).rounded ? 25 : 0 } })),
     }
 }
 
@@ -174,6 +180,29 @@ const buildDataSetForScatter = ({ data }: ChartDataProps): EChartsOption['series
     }
 }
 
+const buildDataSetForLine = (): EChartsOption['series'] => {
+    let base = +new Date()
+    const oneHour = 60 * 60
+    const d = [[base, Math.random() * 100]]
+    for (let i = 1; i < 3600; i++) {
+        const now = new Date((base += oneHour))
+        d.push([+now, +Math.round((Math.random() - 0.5) * 10 + d[i - 1][1])])
+    }
+    return {
+        name: 'Fake Data',
+        type: 'line',
+        smooth: false,
+        symbol: 'none',
+        lineStyle: {
+            color: '#015EB0',
+        },
+        areaStyle: {
+            color: '#015eb07e',
+        },
+        data: d,
+    }
+}
+
 export const useChartData = (props: ChartDataProps): { dataset: EChartsOption['series'] } => {
     const buildDataSet = (props: ChartDataProps) => {
         switch (props.type) {
@@ -187,6 +216,8 @@ export const useChartData = (props: ChartDataProps): { dataset: EChartsOption['s
                 return buildDataSetForStackedBar(props)
             case 'SCATTER':
                 return buildDataSetForScatter(props)
+            case 'LINE':
+                return buildDataSetForLine()
             default:
                 return []
         }

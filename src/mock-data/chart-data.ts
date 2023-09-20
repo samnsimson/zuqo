@@ -338,3 +338,21 @@ export const InteractionsBoundData = [
         color: '#C61764',
     },
 ]
+
+export const SpeedChartData = [...Array(12).keys()].map((n) => ({ name: n, value: Math.floor(Math.random() * 2) + 1, color: '#C61764', category: 'bar' }))
+
+export const callVolumeData = () => {
+    let n: number = 0
+    const colors: Array<string> = ['#2D956F', '#E58A48', '#CFC92E']
+    const categories: Array<string> = ['green', 'orange', 'yellow']
+    const data: any[] = []
+    while (n < 3) {
+        const iterator = [...Array(3).keys()]
+        iterator.forEach((key) =>
+            data.push({ color: colors[n], name: new Date().getHours(), value: Math.floor(Math.random() * 25) + 1, category: categories[key] })
+        )
+        n++
+    }
+    console.log('🚀 ~ file: chart-data.ts:355 ~ callVolumeData ~ data:', data)
+    return data
+}

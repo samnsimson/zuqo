@@ -13,3 +13,10 @@ export const secondsToHms = (seconds: number): string => {
 export const uniqueBy = (data: any[], key: string) => {
     return [...new Map(data.map((item) => [item[key], item])).values()]
 }
+
+export const splitLeaderboard = (data: any) => {
+    const sortedData = data.sort((a: any, b: any) => b.points - a.points)
+    const topThree = sortedData.slice(0, 3)
+    const rest = sortedData.slice(3)
+    return { topThree, rest }
+}

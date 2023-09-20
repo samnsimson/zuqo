@@ -9,6 +9,7 @@ export enum ChartType {
     BAR = 'bar',
     STACKED_BAR = 'stackedBar',
     SCATTER = 'scatter',
+    LINE = 'line',
 }
 
 export type PiechartDataSet = {
@@ -20,6 +21,7 @@ export type PiechartDataSet = {
 interface BarChartProps {
     type: ChartType.BAR
     keys: Array<string | number>
+    rotateLabel?: boolean
 }
 
 interface DoughnutChartProps {
@@ -32,6 +34,10 @@ interface PieChartProps {
 
 interface Scatter {
     type: ChartType.SCATTER
+}
+
+interface Line {
+    type: ChartType.LINE
 }
 
 interface StackedChartProps {
@@ -49,26 +55,20 @@ interface BaseChartProps extends HTMLAttributes<HTMLDivElement> {
     showCount?: boolean
 }
 
-type ChartProps = BaseChartProps & (BarChartProps | DoughnutChartProps | PieChartProps | StackedChartProps | Scatter)
+type ChartProps = BaseChartProps & (BarChartProps | DoughnutChartProps | PieChartProps | StackedChartProps | Scatter | Line)
 
 export const Chart: FC<ChartProps> = ({ className, type, dataSet, width, height, ...props }) => {
     const chartContainerRef = useRef(null)
-
+    const grid = (top: number = 0, right: number = 0, bottom: number = 0, left: number = 0) => ({ top, bottom, left, right, containLabel: true })
     const chartOptions = (type: ChartType) => {
         switch (type) {
             case ChartType.BAR:
                 return {
-                    grid: {
-                        top: 10,
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        containLabel: true,
-                    },
+                    grid: grid(10),
                     xAxis: {
                         type: 'category',
-                        data: (props as any).keys,
-                        axisLabel: { interval: 0, rotate: 30 },
+                        data: (props as BarChartProps).keys,
+                        axisLabel: { interval: 0, rotate: (props as BarChartProps).rotateLabel ? 30 : 0 },
                     },
                     yAxis: {
                         type: 'value',
@@ -76,13 +76,7 @@ export const Chart: FC<ChartProps> = ({ className, type, dataSet, width, height,
                 }
             case ChartType.STACKED_BAR:
                 return {
-                    grid: {
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        top: 10,
-                        containLabel: true,
-                    },
+                    grid: grid(10),
                     xAxis: {
                         type: 'category',
                         data: (props as any).keys,
@@ -96,6 +90,18 @@ export const Chart: FC<ChartProps> = ({ className, type, dataSet, width, height,
                 return {
                     xAxis: { show: false },
                     yAxis: { show: false },
+                }
+            case ChartType.LINE:
+                return {
+                    grid: grid(10),
+                    xAxis: {
+                        type: 'time',
+                        boundaryGap: false,
+                    },
+                    yAxis: {
+                        type: 'value',
+                        boundaryGap: [0, '100%'],
+                    },
                 }
             default:
                 return {}

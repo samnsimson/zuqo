@@ -1,5 +1,5 @@
 import { PageSectionTitle } from '@/components/pageSectionTitle'
-import { FC, HTMLAttributes } from 'react'
+import { FC, HTMLAttributes, useEffect } from 'react'
 import { InteractionOverviewStat } from '../components/interactionOverviewStat'
 import { InteractionsStat } from '../components/interactionsStat'
 import { Card, CardContent } from '@/components/ui/card'
@@ -19,9 +19,15 @@ const StatHeading: FC<{ title: string }> = ({ title }) => (
 )
 
 export const InteractionCenterDashboard: FC<InteractionCenterDashboardProps> = ({ ...props }) => {
+    const callVolumeDataSet = callVolumeData()
     const { dataset } = useChartData({ type: 'BAR', data: SpeedChartData, name: 'Average Speed' })
     const { dataset: lineChartData } = useChartData({ type: 'LINE', name: 'line', data: [] })
-    const { dataset: callVolume } = useChartData({ type: 'BAR', name: 'call volume', data: callVolumeData() })
+    const { dataset: callVolume } = useChartData({ type: 'BAR_GROUP', name: 'call volume', data: callVolumeDataSet })
+
+    useEffect(() => {
+        console.log('callVolume', callVolume)
+    }, [callVolume])
+
     return (
         <div {...props} className="my-[15px] grid grid-cols-1 gap-[18px] px-[56px]">
             <PageSectionTitle title="Interactions Dashboard" />
@@ -84,7 +90,7 @@ export const InteractionCenterDashboard: FC<InteractionCenterDashboardProps> = (
             </div>
             <div className="grid grid-cols-12 gap-8">
                 <ChartContainer title="Call Volume" className="col-span-4">
-                    <Chart type={ChartType.BAR} name="CV" dataSet={callVolume} keys={callVolumeData().map((e) => e.name)} height={450} />
+                    <Chart type={ChartType.BAR_GROUP} name="CV" dataSet={callVolume} height={450} data={callVolumeDataSet} />
                 </ChartContainer>
                 <ChartContainer title="Peak Hour Traffic" className="col-span-4"></ChartContainer>
                 <ChartContainer title="Cost Per Call" className="col-span-4"></ChartContainer>

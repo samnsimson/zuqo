@@ -1,5 +1,6 @@
 import { EChartsOption } from 'echarts'
 import { useMemo } from 'react'
+import * as _ from 'lodash'
 
 interface ChartDataBaseProps {
     name: string
@@ -40,7 +41,12 @@ interface LineChartProps {
     data: any[]
 }
 
-type ChartDataProps = ChartDataBaseProps & (StackedBarProps | PieChartProps | DoughnutChartProps | BarChartProps | Scatter | LineChartProps)
+interface BarGroupProps {
+    type: 'BAR_GROUP'
+    data: any[]
+}
+
+type ChartDataProps = ChartDataBaseProps & (StackedBarProps | PieChartProps | DoughnutChartProps | BarChartProps | Scatter | LineChartProps | BarGroupProps)
 
 export interface ChartDataSet {
     name: string | number
@@ -203,6 +209,11 @@ const buildDataSetForLine = (): EChartsOption['series'] => {
     }
 }
 
+const buildDataSetForBarGroup = ({ data }: ChartDataProps): EChartsOption['series'] => {
+    const barGroup = _.groupBy(data, 'color')
+    return Object.keys(barGroup).map((color) => ({ type: 'bar', color }))
+}
+
 export const useChartData = (props: ChartDataProps): { dataset: EChartsOption['series'] } => {
     const buildDataSet = (props: ChartDataProps) => {
         switch (props.type) {
@@ -218,6 +229,8 @@ export const useChartData = (props: ChartDataProps): { dataset: EChartsOption['s
                 return buildDataSetForScatter(props)
             case 'LINE':
                 return buildDataSetForLine()
+            case 'BAR_GROUP':
+                return buildDataSetForBarGroup(props)
             default:
                 return []
         }

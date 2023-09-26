@@ -1,7 +1,9 @@
+/* eslint-disable no-case-declarations */
 /* eslint-disable react-refresh/only-export-components */
 import { FC, HTMLAttributes, useEffect, useRef } from 'react'
 import * as echarts from 'echarts'
 import { cn } from '@/lib/utils'
+import _ from 'lodash'
 
 export enum ChartType {
     DOUGHNUT = 'doughnut',
@@ -10,6 +12,7 @@ export enum ChartType {
     STACKED_BAR = 'stackedBar',
     SCATTER = 'scatter',
     LINE = 'line',
+    BAR_GROUP = 'barGroup',
 }
 
 export type PiechartDataSet = {
@@ -40,6 +43,11 @@ interface Line {
     type: ChartType.LINE
 }
 
+interface BarGroupProps {
+    type: ChartType.BAR_GROUP
+    data: any[]
+}
+
 interface StackedChartProps {
     type: ChartType.STACKED_BAR
     keys: Array<string | number>
@@ -55,7 +63,7 @@ interface BaseChartProps extends HTMLAttributes<HTMLDivElement> {
     showCount?: boolean
 }
 
-type ChartProps = BaseChartProps & (BarChartProps | DoughnutChartProps | PieChartProps | StackedChartProps | Scatter | Line)
+type ChartProps = BaseChartProps & (BarChartProps | DoughnutChartProps | PieChartProps | StackedChartProps | Scatter | Line | BarGroupProps)
 
 export const Chart: FC<ChartProps> = ({ className, type, dataSet, width, height, ...props }) => {
     const chartContainerRef = useRef(null)
@@ -103,6 +111,17 @@ export const Chart: FC<ChartProps> = ({ className, type, dataSet, width, height,
                         boundaryGap: [0, '100%'],
                     },
                 }
+            case ChartType.BAR_GROUP:
+                const { data } = props as BarGroupProps
+                const dataGroup = _.groupBy(data, 'name')
+                const dataSetSource = Object.entries(dataGroup).map(([key, value]) => [key, ...value.map((val) => val.value)])
+                return {
+                    xAxis: { type: 'category' },
+                    yAxis: {},
+                    dataset: {
+                        source: dataSetSource,
+                    },
+                }
             default:
                 return {}
         }
@@ -112,7 +131,6 @@ export const Chart: FC<ChartProps> = ({ className, type, dataSet, width, height,
         if (!dataSet || !chartContainerRef.current) return
         const chartDOM = chartContainerRef.current
         const chartElement = echarts.init(chartDOM, null, { width, height })
-        console.log('chart optinos', { ...chartOptions(type), series: dataSet })
         chartElement.setOption({ ...chartOptions(type), series: dataSet })
         const resizeChart = () => chartElement.resize()
         window.addEventListener('resize', resizeChart)

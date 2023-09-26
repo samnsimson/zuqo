@@ -1,5 +1,5 @@
 import { PageSectionTitle } from '@/components/pageSectionTitle'
-import { FC, HTMLAttributes, useEffect } from 'react'
+import { FC, HTMLAttributes } from 'react'
 import { InteractionOverviewStat } from '../components/interactionOverviewStat'
 import { InteractionsStat } from '../components/interactionsStat'
 import { Card, CardContent } from '@/components/ui/card'
@@ -7,7 +7,7 @@ import { ArrowUp } from 'lucide-react'
 import { ChartContainer } from '@/components/chartContainer'
 import { LeaderBoard } from '../components/leaderBoard'
 import { useChartData } from '@/hooks/useChartData'
-import { SpeedChartData, callVolumeData } from '@/mock-data/chart-data'
+import { SpeedChartData, callCostData, callVolumeData } from '@/mock-data/chart-data'
 import { Chart, ChartType } from '@/components/chart'
 
 interface InteractionCenterDashboardProps extends HTMLAttributes<HTMLDivElement> {
@@ -21,12 +21,20 @@ const StatHeading: FC<{ title: string }> = ({ title }) => (
 export const InteractionCenterDashboard: FC<InteractionCenterDashboardProps> = ({ ...props }) => {
     const callVolumeDataSet = callVolumeData()
     const { dataset } = useChartData({ type: 'BAR', data: SpeedChartData, name: 'Average Speed' })
-    const { dataset: lineChartData } = useChartData({ type: 'LINE', name: 'line', data: [] })
+    const { dataset: lineChartData } = useChartData({ type: 'AREA', name: 'line', data: [], borderColor: '#015EB0', areaColor: '#015eb07e' })
+    const { dataset: peakHourTraficData } = useChartData({ type: 'AREA', name: 'line', data: [], borderColor: 'transparent', areaColor: '#015eb07e' })
     const { dataset: callVolume } = useChartData({ type: 'BAR_GROUP', name: 'call volume', data: callVolumeDataSet })
-
-    useEffect(() => {
-        console.log('callVolume', callVolume)
-    }, [callVolume])
+    const { dataset: pieData } = useChartData({
+        type: 'DOUGHNUT',
+        name: 'call cost',
+        data: callCostData,
+        radius: [70, 20],
+        labelType: 'naked',
+        labelPosition: 'inside',
+        showLabel: true,
+        labelFormatter: '{b}',
+        labelColor: '#5E5F62',
+    })
 
     return (
         <div {...props} className="my-[15px] grid grid-cols-1 gap-[18px] px-[56px]">
@@ -92,8 +100,12 @@ export const InteractionCenterDashboard: FC<InteractionCenterDashboardProps> = (
                 <ChartContainer title="Call Volume" className="col-span-4">
                     <Chart type={ChartType.BAR_GROUP} name="CV" dataSet={callVolume} height={450} data={callVolumeDataSet} />
                 </ChartContainer>
-                <ChartContainer title="Peak Hour Traffic" className="col-span-4"></ChartContainer>
-                <ChartContainer title="Cost Per Call" className="col-span-4"></ChartContainer>
+                <ChartContainer title="Peak Hour Traffic" className="col-span-4">
+                    <Chart type={ChartType.LINE} dataSet={peakHourTraficData} name="AHT Trend" height={450} />
+                </ChartContainer>
+                <ChartContainer title="Cost Per Call" className="col-span-4">
+                    <Chart type={ChartType.PIE} dataSet={pieData} name="Call Cost" height={450} />
+                </ChartContainer>
                 <ChartContainer title="AHT Trend" className="col-span-4">
                     <Chart type={ChartType.LINE} dataSet={lineChartData} name="AHT Trend" height={450} />
                 </ChartContainer>
@@ -108,7 +120,7 @@ export const InteractionCenterDashboard: FC<InteractionCenterDashboardProps> = (
                     />
                 </ChartContainer>
                 <ChartContainer title="Leaderboard" className="col-span-4">
-                    <LeaderBoard />
+                    <LeaderBoard className="px-[81px]" />
                 </ChartContainer>
             </div>
         </div>

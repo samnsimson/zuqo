@@ -4,7 +4,10 @@ import * as _ from 'lodash'
 
 interface ChartDataBaseProps {
     name: string
-    labelType?: 'counter' | 'line' | 'none'
+    labelType?: 'counter' | 'line' | 'naked' | 'none'
+    labelPosition?: 'inside' | 'outside'
+    labelFormatter?: string
+    labelColor?: string
 }
 
 interface BarChartProps {
@@ -36,9 +39,11 @@ interface StackedBarProps {
     data: ChartDataSetStackedBar[]
 }
 
-interface LineChartProps {
-    type: 'LINE'
+interface AreaChartProps {
+    type: 'AREA'
     data: any[]
+    borderColor: string
+    areaColor: string
 }
 
 interface BarGroupProps {
@@ -46,7 +51,7 @@ interface BarGroupProps {
     data: any[]
 }
 
-type ChartDataProps = ChartDataBaseProps & (StackedBarProps | PieChartProps | DoughnutChartProps | BarChartProps | Scatter | LineChartProps | BarGroupProps)
+type ChartDataProps = ChartDataBaseProps & (StackedBarProps | PieChartProps | DoughnutChartProps | BarChartProps | Scatter | AreaChartProps | BarGroupProps)
 
 export interface ChartDataSet {
     name: string | number
@@ -93,7 +98,15 @@ const buildDataSetForPie = (props: ChartDataProps) => {
     return buildDataSetForDoughnut(props)
 }
 
-const getDataSet = (data: ChartDataSet[], labelType: ChartDataProps['labelType'], showCount: boolean = false, showLabel: boolean = false) => {
+const getDataSet = (
+    data: ChartDataSet[],
+    labelType: ChartDataProps['labelType'],
+    labelPosition: ChartDataProps['labelPosition'],
+    labelFormatter: ChartDataProps['labelFormatter'],
+    labelColor = '#fff',
+    showCount: boolean = false,
+    showLabel: boolean = false
+) => {
     const nonZeroData = data.filter(({ value }) => value > 0)
     const sum = nonZeroData.reduce((a, b) => a + b.value, 0)
     return nonZeroData.map(({ name, value, color }) => ({
@@ -106,22 +119,31 @@ const getDataSet = (data: ChartDataSet[], labelType: ChartDataProps['labelType']
                 ? getLableForCounterType(sum)
                 : {
                       show: showLabel,
-                      formatter: '{c}%',
-                      position: 'inside', // You can change the position to 'inside' or 'outside' as needed
+                      formatter: labelFormatter,
+                      position: labelPosition, // You can change the position to 'inside' or 'outside' as needed
                       textStyle: {
                           fontSize: 12,
                           fontWeight: 'normal',
-                          color: '#fff',
+                          fontFamily: 'Plus Jakarta Sans',
+                          color: labelColor,
                       },
                   },
         itemStyle: getItemStyle(color),
     }))
 }
 
-const buildDataSetForDoughnut = ({ data, name, labelType = 'none', ...props }: ChartDataProps): EChartsOption['series'] => {
+const buildDataSetForDoughnut = ({
+    data,
+    name,
+    labelType = 'none',
+    labelPosition = 'inside',
+    labelFormatter,
+    labelColor,
+    ...props
+}: ChartDataProps): EChartsOption['series'] => {
     return {
         name,
-        data: getDataSet(data, labelType, (props as any).showCount, (props as any).showLabel),
+        data: getDataSet(data, labelType, labelPosition, labelFormatter, labelColor, (props as any).showCount, (props as any).showLabel),
         type: 'pie',
         radius: ['radius' in props ? `${props['radius']![0]}%` : '60%', 'radius' in props ? `${props['radius']![1]}%` : '90%'],
         center: ['50%', '50%'],
@@ -132,6 +154,10 @@ const buildDataSetForDoughnut = ({ data, name, labelType = 'none', ...props }: C
             label: {
                 show: false,
             },
+        },
+        label: {
+            show: labelType !== 'none',
+            position: labelPosition,
         },
         labelLine: {
             show: labelType === 'line',
@@ -186,7 +212,7 @@ const buildDataSetForScatter = ({ data }: ChartDataProps): EChartsOption['series
     }
 }
 
-const buildDataSetForLine = (): EChartsOption['series'] => {
+const buildDataSetForArea = ({ borderColor, areaColor }: ChartDataProps & AreaChartProps): EChartsOption['series'] => {
     let base = +new Date()
     const oneHour = 60 * 60
     const d = [[base, Math.random() * 100]]
@@ -200,10 +226,10 @@ const buildDataSetForLine = (): EChartsOption['series'] => {
         smooth: false,
         symbol: 'none',
         lineStyle: {
-            color: '#015EB0',
+            color: borderColor || '#015EB0',
         },
         areaStyle: {
-            color: '#015eb07e',
+            color: areaColor || '#015eb07e',
         },
         data: d,
     }
@@ -227,8 +253,8 @@ export const useChartData = (props: ChartDataProps): { dataset: EChartsOption['s
                 return buildDataSetForStackedBar(props)
             case 'SCATTER':
                 return buildDataSetForScatter(props)
-            case 'LINE':
-                return buildDataSetForLine()
+            case 'AREA':
+                return buildDataSetForArea(props)
             case 'BAR_GROUP':
                 return buildDataSetForBarGroup(props)
             default:

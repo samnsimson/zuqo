@@ -12,7 +12,7 @@ interface InteractionOverviewStatProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const InteractionOverviewStat: FC<InteractionOverviewStatProps> = ({ ...props }) => {
-    const { dataset } = useChartData({ type: 'DOUGHNUT', data: InteractionsBoundData, labelType: 'line', name: 'Bound data' })
+    const { dataset } = useChartData({ type: 'DOUGHNUT', data: InteractionsBoundData, labelType: 'line', name: 'Bound data', labelPosition: 'outside' })
     const interactionsInfoData = [
         {
             name: 'Voice',

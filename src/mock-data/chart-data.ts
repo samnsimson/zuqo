@@ -355,3 +355,26 @@ export const callVolumeData = () => {
     })
     return data
 }
+
+export const callCostData = [
+    {
+        name: 'More than ₹11',
+        value: 150,
+        color: '#FEB6AC',
+    },
+    {
+        name: 'Under ₹5',
+        value: 150,
+        color: '#A6EAB5',
+    },
+    {
+        name: '₹2 - ₹5',
+        value: 150,
+        color: '#A6B5EA',
+    },
+    {
+        name: '₹5 - ₹11',
+        value: 150,
+        color: '#FFE5A4',
+    },
+]

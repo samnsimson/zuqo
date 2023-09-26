@@ -5,11 +5,27 @@ import { AgentInsights } from '../../../../../components/agentInsights'
 import { VoiceConversations } from '@/components/voiceConversations'
 import { CustomerInsights } from '@/components/customerInsights'
 import { assets } from '@/config/assets'
+import { EmailConversations } from '@/components/emailConversations'
+import { ChatConversations } from '@/components/chatConversations'
 interface OverviewTabContentProps {
     [x: string]: any
+    channel: string | null
 }
 
-export const OverviewTabContent: FC<OverviewTabContentProps> = () => {
+const SwitchChannels: FC<{ channel: string | null }> = ({ channel }) => {
+    switch (channel) {
+        case 'email':
+            return <EmailConversations />
+        case 'phone':
+            return <VoiceConversations className="bg-[#F6FFF9]" />
+        case 'chat':
+            return <ChatConversations />
+        default:
+            break
+    }
+}
+
+export const OverviewTabContent: FC<OverviewTabContentProps> = ({ channel }) => {
     return (
         <div className="grid w-full grid-cols-12 items-center gap-y-[30px]">
             <div className="col-span-9">
@@ -42,7 +58,7 @@ export const OverviewTabContent: FC<OverviewTabContentProps> = () => {
             <div className="col-span-12 h-full">
                 <div className="grid h-full grid-cols-2 gap-x-5">
                     <div className="col-span-1">
-                        <VoiceConversations className="bg-[#F6FFF9]" />
+                        <SwitchChannels channel={channel} />
                     </div>
                     <div className="grid grid-cols-1 gap-5">
                         <CustomerInsights className="bg-[#EEF2F3]" />

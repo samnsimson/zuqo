@@ -3,7 +3,6 @@ import { LoginPage } from '@/pages/login'
 import { Dashboard } from '@/pages/dashboard'
 import { OverviewPage } from '@/pages/dashboard/overview'
 import { WorkflowStudio } from '@/pages/dashboard/workflow-studio'
-import { InteractionCenterPage } from '@/pages/dashboard/interaction-center'
 import { AudioJson } from '@/pages/mock-pages/audioJson'
 import { WorkFlowOverviewPage } from '@/pages/dashboard/workflow-studio/pages/overview'
 import { WorkflowListPage } from '@/pages/dashboard/workflow-studio/pages/list'
@@ -11,7 +10,8 @@ import { InsightsPage } from '@/pages/dashboard/workflow-studio/pages/insights'
 import { AiAnalytics } from '@/pages/dashboard/ai-analytics'
 import { Interactions } from '@/pages/dashboard/interaction-center/interactions'
 import { InteractionCenterHome } from '@/pages/dashboard/interaction-center/home'
-import { InteractionCenterDashboard } from '@/pages/dashboard/interaction-center/dashboard'
+import { InteractionCenterDashboard } from '@/pages/dashboard/interaction-center'
+import { CoversationPage } from '@/pages/dashboard/interaction-center/conversations'
 
 export const AppRotues = () => {
     return (
@@ -25,9 +25,9 @@ export const AppRotues = () => {
                         <Route path="insights" element={<InsightsPage />} />
                     </Route>
                     <Route path="interaction-center" element={<InteractionCenterHome />}>
-                        <Route index element={<InteractionCenterPage />} />
-                        <Route path="dashboard" element={<InteractionCenterDashboard />} />
+                        <Route index element={<InteractionCenterDashboard />} />
                         <Route path="interactions" element={<Interactions />} />
+                        <Route path="conversation" element={<CoversationPage />} />
                     </Route>
                     <Route path="ai-analytics" element={<AiAnalytics />} />
                 </Route>

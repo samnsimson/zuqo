@@ -84,10 +84,10 @@ const Sentiment: FC<{ sentiment: string }> = ({ sentiment }) => {
         )
 }
 
-const ActionList: FC<{ id: string | number; showLabel: boolean }> = ({ id, showLabel }) => {
+const ActionList: FC<{ id: string | number; showLabel: boolean; channel: string }> = ({ showLabel, id, channel }) => {
     return (
         <div className="flex space-x-[25px]">
-            <ActionButton label={showLabel ? 'More' : null} icon={<MoreActionIcon color="#015EB0" />} onClick={() => console.log(id)} />
+            <ActionButton label={showLabel ? 'More' : null} icon={<MoreActionIcon color="#015EB0" />} actionId={id} channel={channel} />
         </div>
     )
 }
@@ -125,7 +125,7 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
                 overall_call_rating: <span className="font-bold text-[#008344]">{data.overallCallRating}</span>,
                 ai_confidence_score: <span className="font-bold text-[#008344]">{data.aiConfidenceScore}</span>,
                 happened_on: moment(data.timeStamp).format('DD/mm/yyyy hh:mm:ss'),
-                actions: <ActionList id={UUID()} showLabel={false} />,
+                actions: <ActionList id={UUID()} showLabel={false} channel={data.channel} />,
             })),
         []
     )

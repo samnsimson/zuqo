@@ -55,6 +55,8 @@ import callOutcomeIcon from '../assets/call-outcome-icon.svg'
 import callIntentIcon from '../assets/call-intent-icon.svg'
 import sampleAudio from '../assets/audio-source.wav'
 import rectangleBgTwo from '../assets/rectangle-bg-2.png'
+import attachmentOne from '../assets/attachment-1.png'
+import attachmentTwo from '../assets/attachment-1.png'
 
 export const assets = {
     sampleAudio,
@@ -114,4 +116,6 @@ export const assets = {
     callOutcomeIcon,
     callIntentIcon,
     rectangleBgTwo,
+    attachmentOne,
+    attachmentTwo,
 }

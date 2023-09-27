@@ -15,11 +15,11 @@ interface OverviewTabContentProps {
 const SwitchChannels: FC<{ channel: string | null }> = ({ channel }) => {
     switch (channel) {
         case 'email':
-            return <EmailConversations />
+            return <EmailConversations className="bg-[#FEFFF6]" />
         case 'phone':
             return <VoiceConversations className="bg-[#F6FFF9]" />
         case 'chat':
-            return <ChatConversations />
+            return <ChatConversations className="bg-[#FFFDF6] pb-10" />
         default:
             break
     }

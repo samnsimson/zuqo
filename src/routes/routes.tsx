@@ -20,13 +20,13 @@ export const AppRotues = () => {
                 <Route path="/" element={<Dashboard />}>
                     <Route index element={<OverviewPage />} />
                     <Route path="workflow-studio" element={<WorkflowStudio />}>
-                        <Route index element={<WorkFlowOverviewPage />} />
+                        <Route index element={<InsightsPage />} />
                         <Route path="list" element={<WorkflowListPage />} />
-                        <Route path="insights" element={<InsightsPage />} />
+                        <Route path="overview" element={<WorkFlowOverviewPage />} />
                     </Route>
                     <Route path="interaction-center" element={<InteractionCenterHome />}>
-                        <Route index element={<InteractionCenterDashboard />} />
-                        <Route path="interactions" element={<Interactions />} />
+                        <Route index element={<Interactions />} />
+                        <Route path="dashboard" element={<InteractionCenterDashboard />} />
                         <Route path="conversation" element={<CoversationPage />} />
                     </Route>
                     <Route path="ai-analytics" element={<AiAnalytics />} />

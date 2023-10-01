@@ -57,6 +57,7 @@ import sampleAudio from '../assets/audio-source.wav'
 import rectangleBgTwo from '../assets/rectangle-bg-2.png'
 import attachmentOne from '../assets/attachment-1.png'
 import attachmentTwo from '../assets/attachment-1.png'
+import userProfileIcon from '../assets/user.png'
 
 export const assets = {
     sampleAudio,
@@ -118,4 +119,5 @@ export const assets = {
     rectangleBgTwo,
     attachmentOne,
     attachmentTwo,
+    userProfileIcon,
 }

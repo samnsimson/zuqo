@@ -1,50 +1,108 @@
+import { GitBranchIcon, GraphLineIcon, HexagonIcon } from '@/assets/svg/icons'
 import { assets } from '@/config/assets'
 import { cn } from '@/lib/utils'
-import { FC, HTMLAttributes, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useAppStore } from '@/store'
+import { FC, HTMLAttributes, ReactNode, useEffect, useState } from 'react'
+import { Link, Location, useLocation } from 'react-router-dom'
 
 interface SidebarSmallProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any
 }
 
-interface SidebarLinkProps {
-    icon: string
+interface SidebarLinkProps extends HTMLAttributes<HTMLDivElement> {
+    icon: string | ReactNode
     path: string
-}
-
-const SidebarLink: FC<SidebarLinkProps> = ({ icon, path }) => {
-    return (
-        <Link to={path} className="mx-2.5 flex items-center justify-center rounded py-2.5 transition-colors hover:bg-slate-100">
-            <img src={icon} alt="sidebar icon" />
-        </Link>
-    )
+    isActive: boolean
 }
 
 export const SidebarSmall: FC<SidebarSmallProps> = ({ className, ...props }) => {
     const [links, setLinks] = useState<SidebarLinkProps[]>([])
+    const location = useLocation()
+    const { sidebarActiveIconIndex, setSidebarIndex } = useAppStore((state) => state)
+
+    const getSidebarMenus = (location: Location) => {
+        const target = location.pathname.split('/')
+        switch (target[1]) {
+            case 'interaction-center':
+                setLinks([
+                    {
+                        icon: assets.dashboardAlt,
+                        path: '/interaction-center/dashboard',
+                        isActive: ['/interaction-center/dashboard'].includes(sidebarActiveIconIndex),
+                    },
+                    {
+                        icon: assets.chatBubble,
+                        path: '/interaction-center',
+                        isActive: ['/interaction-center', '/interaction-center/conversation'].includes(sidebarActiveIconIndex),
+                    },
+                    {
+                        icon: assets.lineChartAlt,
+                        path: '',
+                        isActive: [''].includes(sidebarActiveIconIndex),
+                    },
+                ])
+                break
+            case 'ai-analytics':
+                setLinks([
+                    {
+                        icon: assets.dashboardAlt,
+                        path: '/ai-analytics',
+                        isActive: ['/ai-analytics'].includes(sidebarActiveIconIndex),
+                    },
+                    {
+                        icon: assets.lineChartAlt,
+                        path: '',
+                        isActive: [''].includes(sidebarActiveIconIndex),
+                    },
+                ])
+                break
+            case 'workflow-studio':
+                setLinks([
+                    {
+                        icon: assets.dashboardAlt,
+                        path: '/workflow-studio/',
+                        isActive: ['/workflow-studio/'].includes(sidebarActiveIconIndex),
+                    },
+                    {
+                        icon: <GitBranchIcon />,
+                        path: '/workflow-studio/list',
+                        isActive: ['/workflow-studio/list'].includes(sidebarActiveIconIndex),
+                    },
+                    {
+                        icon: <GraphLineIcon />,
+                        path: '/ai-analytics',
+                        isActive: ['/ai-analytics'].includes(sidebarActiveIconIndex),
+                    },
+                    {
+                        icon: <HexagonIcon />,
+                        path: '',
+                        isActive: [''].includes(sidebarActiveIconIndex),
+                    },
+                ])
+                break
+
+            default:
+                break
+        }
+    }
 
     useEffect(() => {
-        setLinks([
-            {
-                icon: assets.dashboardAlt,
-                path: '',
-            },
-            {
-                icon: assets.chatBubble,
-                path: '',
-            },
-            {
-                icon: assets.lineChartAlt,
-                path: '',
-            },
-        ])
-    }, [])
+        setSidebarIndex(location.pathname)
+        getSidebarMenus(location)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location.pathname, sidebarActiveIconIndex])
 
     return (
         <div className={cn('z-10 min-h-full w-[71px] bg-white shadow', className)} {...props}>
             <ul className="grid w-full gap-7 py-5">
-                {links.map((link, key) => (
-                    <SidebarLink key={key} {...link} />
+                {links.map(({ path, icon }, key) => (
+                    <Link
+                        key={key}
+                        className="mx-2.5 flex cursor-pointer items-center justify-center rounded py-2.5 transition-colors hover:bg-slate-100"
+                        to={path}
+                    >
+                        {typeof icon === 'string' ? <img src={icon} alt="sidebar icon" /> : icon}
+                    </Link>
                 ))}
             </ul>
         </div>

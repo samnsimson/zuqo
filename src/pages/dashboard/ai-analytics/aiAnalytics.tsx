@@ -11,13 +11,21 @@ interface AiAnalyticsSectionProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const AiAnalyticsSection: FC<AiAnalyticsSectionProps> = ({ ...props }) => {
-    const { dataset: inboundDataSet } = useChartData({ type: 'DOUGHNUT', data: doughnutChartDataInbound, name: 'Inbound', labelType: 'line', radius: [40, 60] })
+    const { dataset: inboundDataSet } = useChartData({
+        type: 'DOUGHNUT',
+        data: doughnutChartDataInbound,
+        name: 'Inbound',
+        labelType: 'line',
+        radius: [40, 60],
+        labelPosition: 'outside',
+    })
     const { dataset: outBoundDataSet } = useChartData({
         type: 'DOUGHNUT',
         data: doughnutChartDataOutbound,
         name: 'Outbound',
         labelType: 'line',
         radius: [40, 60],
+        labelPosition: 'outside',
     })
     return (
         <div {...props} className="grid grid-cols-12 gap-5">

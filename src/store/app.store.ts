@@ -1,21 +1,26 @@
 import { create } from 'zustand'
 import { combine, devtools, persist } from 'zustand/middleware'
 
-const initialState = {
-    bears: 0,
+interface StateProps {
+    authenticated: boolean
+    credentials: { username: string; password: string }
+    sidebarActiveIconIndex: string
+}
+
+const defaultCredentials = { username: 'admin', password: 'admin' }
+
+const initialState: StateProps = {
     authenticated: false,
-    credentials: {
-        username: 'admin',
-        password: 'admin',
-    },
+    credentials: defaultCredentials,
+    sidebarActiveIconIndex: '',
 }
 
 export const useAppStore = create(
     devtools(
         persist(
             combine(initialState, (set) => ({
-                increase: (by: number) => set((state) => ({ bears: state.bears + by })),
                 authenticate: (value: boolean) => set(() => ({ authenticated: value })),
+                setSidebarIndex: (value: string) => set(() => ({ sidebarActiveIconIndex: value })),
             })),
             {
                 name: 'AppStore',

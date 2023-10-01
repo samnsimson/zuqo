@@ -7,7 +7,9 @@ import { BadgeCustom } from '@/components/badgeCustom'
 import { AvatarGroup } from '@/components/avatarGroup'
 import { StatusBadge } from '../../components/statusBadge'
 import { ActionButton } from '../../components/actionButton'
-import { EditActionIcon, MoreActionIcon, TestActionIcon } from '@/assets/svg/icons'
+import { ActiveWorkflowIcon, CheckIcon, ClockIcon, EditActionIcon, MoreActionIcon, TestActionIcon } from '@/assets/svg/icons'
+import { Link } from 'react-router-dom'
+import { User } from 'lucide-react'
 
 interface WorkflowListPageProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any
@@ -65,7 +67,35 @@ export const WorkflowListPage: FC<WorkflowListPageProps> = ({ ...props }) => {
     return (
         <div {...props}>
             <WorkflowListHeader />
-            <DataTable columns={tableColumns} data={tableData} className="bg-white" />
+            <div className="grid grid-cols-12">
+                <div className="col-span-2">
+                    <ul className="flex flex-col gap-y-4 px-2 py-4">
+                        <Link to="#" className="group flex items-center gap-x-3 rounded px-4 py-1 hover:bg-sky-700 hover:bg-opacity-5">
+                            <ActiveWorkflowIcon />
+                            <div className="font-jakarta text-sm font-medium text-gray-900 group-hover:font-bold group-hover:text-pink-700">
+                                Active Workflows
+                            </div>
+                        </Link>
+                        <Link to="#" className="group flex items-center gap-x-3 rounded px-4 py-1 hover:bg-sky-700 hover:bg-opacity-5">
+                            <User />
+                            <div className="font-jakarta text-sm font-medium text-gray-900 group-hover:font-bold group-hover:text-pink-700">Assigned to Me</div>
+                        </Link>
+                        <Link to="#" className="group flex items-center gap-x-3 rounded px-4 py-1 hover:bg-sky-700 hover:bg-opacity-5">
+                            <ClockIcon />
+                            <div className="font-jakarta text-sm font-medium text-gray-900 group-hover:font-bold group-hover:text-pink-700">Overdue</div>
+                        </Link>
+                        <Link to="#" className="group flex items-center gap-x-3 rounded px-4 py-1 hover:bg-sky-700 hover:bg-opacity-5">
+                            <CheckIcon />
+                            <div className="font-jakarta text-sm font-medium text-gray-900 group-hover:font-bold group-hover:text-pink-700">
+                                Recently Completed
+                            </div>
+                        </Link>
+                    </ul>
+                </div>
+                <div className="col-span-10">
+                    <DataTable columns={tableColumns} data={tableData} className="bg-white shadow" />
+                </div>
+            </div>
         </div>
     )
 }

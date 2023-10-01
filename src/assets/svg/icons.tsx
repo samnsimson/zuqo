@@ -780,3 +780,39 @@ export const HexagonIcon: FC<ISVG> = ({ fill = 'none', color }) => (
         />
     </svg>
 )
+
+export const ActiveWorkflowIcon: FC<ISVG> = ({ fill = 'none', color }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill={fill}>
+        <path
+            d="M8 4C6.34315 4 5 5.34315 5 7V9C5 10.6569 3.65685 12 2 12C3.65685 12 5 13.3431 5 15V17C5 18.6569 6.34315 20 8 20M16 4C17.6569 4 19 5.34315 19 7V9C19 10.6569 20.3431 12 22 12C20.3431 12 19 13.3431 19 15V17C19 18.6569 17.6569 20 16 20M9 12.2587L11.0362 14.2927C12.0155 12.5802 13.3709 11.1125 15 10"
+            stroke={color || '#BB1865'}
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
+    </svg>
+)
+
+export const ClockIcon: FC<ISVG> = ({ fill = 'none', color }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill={fill}>
+        <path
+            d="M12 8V12.8164C12 12.9874 12.0873 13.1465 12.2316 13.2383L15 15M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+            stroke={color || '#303A47'}
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
+    </svg>
+)
+
+export const CheckIcon: FC<ISVG> = ({ fill = 'none', color }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill={fill}>
+        <path
+            d="M4 12.3744L9.3513 17.7199L9.77885 16.9723C12.0713 12.9638 15.2438 9.52807 19.0572 6.92405L20 6.28027"
+            stroke={color || '#303A47'}
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
+    </svg>
+)

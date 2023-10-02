@@ -344,13 +344,28 @@ export const SpeedChartData = [...Array(12).keys()].map((n) => ({ name: n, value
 export const callVolumeData = () => {
     const colors: Array<string> = ['#2D956F', '#E58A48', '#CFC92E']
     const categories: Array<string> = ['green', 'orange', 'yellow']
-    const times: Array<string> = ['8am', '10am', '12pm', '2pm', '4pm', '6pm']
+    const keys: Array<string> = ['8am', '10am', '12pm', '2pm', '4pm', '6pm']
     const data: any[] = []
-    times.forEach((time) => {
+    keys.forEach((key) => {
         for (let index = 0; index < categories.length; index++) {
             const category = categories[index]
             const color = colors[index]
-            data.push({ color, name: time, value: Math.floor(Math.random() * 25) + 1, category })
+            data.push({ color, name: key, value: Math.floor(Math.random() * 25) + 1, category })
+        }
+    })
+    return data
+}
+
+export const errorRateData = () => {
+    const colors: Array<string> = ['#95402D', '#E58A48', '#CCCF2E']
+    const categories: Array<string> = ['user input error', 'technical error', 'system failure']
+    const keys: Array<string> = ['Week 2 - 8', 'Week 9 - 15', 'Week 16 - 22', 'Week 23 - 29', 'Week 30 - 5']
+    const data: any[] = []
+    keys.forEach((key) => {
+        for (let index = 0; index < categories.length; index++) {
+            const category = categories[index]
+            const color = colors[index]
+            data.push({ color, name: key, value: Math.floor(Math.random() * 10) + 1, category })
         }
     })
     return data
@@ -376,5 +391,207 @@ export const callCostData = [
         name: '₹5 - ₹11',
         value: 150,
         color: '#FFE5A4',
+    },
+]
+
+export const SuccessfulInteractionData = [
+    {
+        name: 'IVR',
+        value: 450,
+        color: '#ACBEE2',
+    },
+    {
+        name: 'Message Bot',
+        value: 160,
+        color: '#ACBEE2',
+    },
+    {
+        name: 'Lead Generation',
+        value: 275,
+        color: '#ACBEE2',
+    },
+    {
+        name: 'Inbound Voice',
+        value: 75,
+        color: '#ACBEE2',
+    },
+    {
+        name: 'Inbound Voice',
+        value: 300,
+        color: '#ACBEE2',
+    },
+]
+
+export const successRateData = [
+    {
+        name: 'Workflow 1',
+        value: 30,
+        color: '#55DC83',
+        category: 'Success Rate',
+    },
+    {
+        name: 'Workflow 2',
+        value: 70,
+        color: '#55DC83',
+        category: 'Success Rate',
+    },
+    {
+        name: 'Workflow 3',
+        value: 10,
+        color: '#55DC83',
+        category: 'Success Rate',
+    },
+    {
+        name: 'Workflow 4',
+        value: 70,
+        color: '#55DC83',
+        category: 'Success Rate',
+    },
+    {
+        name: 'Workflow 5',
+        value: 40,
+        color: '#55DC83',
+        category: 'Success Rate',
+    },
+    {
+        name: 'Workflow 6',
+        value: 60,
+        color: '#55DC83',
+        category: 'Success Rate',
+    },
+    {
+        name: 'Workflow 7',
+        value: 10,
+        color: '#55DC83',
+        category: 'Success Rate',
+    },
+    {
+        name: 'Workflow 1',
+        value: 40,
+        color: '#FF9472',
+        category: 'Error Rate',
+    },
+    {
+        name: 'Workflow 2',
+        value: 10,
+        color: '#FF9472',
+        category: 'Error Rate',
+    },
+    {
+        name: 'Workflow 3',
+        value: 20,
+        color: '#FF9472',
+        category: 'Error Rate',
+    },
+    {
+        name: 'Workflow 4',
+        value: 40,
+        color: '#FF9472',
+        category: 'Error Rate',
+    },
+    {
+        name: 'Workflow 5',
+        value: 10,
+        color: '#FF9472',
+        category: 'Error Rate',
+    },
+    {
+        name: 'Workflow 6',
+        value: 10,
+        color: '#FF9472',
+        category: 'Error Rate',
+    },
+    {
+        name: 'Workflow 7',
+        value: 0,
+        color: '#FF9472',
+        category: 'Error Rate',
+    },
+]
+
+export const interactionMonitoringData = [
+    {
+        name: 'Mon',
+        value: 150,
+        color: '#FE6C6C',
+        category: 'first',
+    },
+    {
+        name: 'Tue',
+        value: 130,
+        color: '#FE6C6C',
+        category: 'first',
+    },
+    {
+        name: 'Wed',
+        value: 140,
+        color: '#FE6C6C',
+        category: 'first',
+    },
+    {
+        name: 'Thu',
+        value: 150,
+        color: '#FE6C6C',
+        category: 'first',
+    },
+    {
+        name: 'Fri',
+        value: 160,
+        color: '#FE6C6C',
+        category: 'first',
+    },
+    {
+        name: 'Sat',
+        value: 140,
+        color: '#FE6C6C',
+        category: 'first',
+    },
+    {
+        name: 'Sun',
+        value: 130,
+        color: '#FE6C6C',
+        category: 'first',
+    },
+    {
+        name: 'Mon',
+        value: 30,
+        color: '#FE6C6C',
+        category: 'second',
+    },
+    {
+        name: 'Tue',
+        value: 40,
+        color: '#FE6C6C',
+        category: 'second',
+    },
+    {
+        name: 'Wed',
+        value: 50,
+        color: '#FE6C6C',
+        category: 'second',
+    },
+    {
+        name: 'Thu',
+        value: 40,
+        color: '#FE6C6C',
+        category: 'second',
+    },
+    {
+        name: 'Fri',
+        value: 60,
+        color: '#FE6C6C',
+        category: 'second',
+    },
+    {
+        name: 'Sat',
+        value: 50,
+        color: '#FE6C6C',
+        category: 'second',
+    },
+    {
+        name: 'Sun',
+        value: 40,
+        color: '#FE6C6C',
+        category: 'second',
     },
 ]

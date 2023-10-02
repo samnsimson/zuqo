@@ -70,8 +70,8 @@ export const SidebarSmall: FC<SidebarSmallProps> = ({ className, ...props }) => 
                     },
                     {
                         icon: <GraphLineIcon />,
-                        path: '/ai-analytics',
-                        isActive: ['/ai-analytics'].includes(sidebarActiveIconIndex),
+                        path: '/workflow-studio/analytics',
+                        isActive: ['/workflow-studio/analytics'].includes(sidebarActiveIconIndex),
                     },
                     {
                         icon: <HexagonIcon />,

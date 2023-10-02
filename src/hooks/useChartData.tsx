@@ -4,6 +4,7 @@ import * as _ from 'lodash'
 
 interface ChartDataBaseProps {
     name: string
+    data: ChartDataSet[]
     labelType?: 'counter' | 'line' | 'naked' | 'none'
     labelPosition?: 'inside' | 'outside'
     labelFormatter?: string
@@ -12,13 +13,11 @@ interface ChartDataBaseProps {
 
 interface BarChartProps {
     type: 'BAR'
-    data: ChartDataSet[]
     rounded?: boolean
 }
 
 interface DoughnutChartProps {
     type: 'DOUGHNUT'
-    data: ChartDataSet[]
     showCount?: boolean
     showLabel?: boolean
     radius?: Array<number>
@@ -26,43 +25,38 @@ interface DoughnutChartProps {
 
 interface PieChartProps {
     type: 'PIE'
-    data: ChartDataSet[]
 }
 
 interface Scatter {
     type: 'SCATTER'
-    data: ChartDataSet[]
 }
 
 interface StackedBarProps {
     type: 'STACKED_BAR'
-    data: ChartDataSetStackedBar[]
 }
 
 interface AreaChartProps {
     type: 'AREA'
-    data: any[]
     borderColor: string
     areaColor: string
 }
 
 interface BarGroupProps {
     type: 'BAR_GROUP'
-    data: any[]
 }
 
-type ChartDataProps = ChartDataBaseProps & (StackedBarProps | PieChartProps | DoughnutChartProps | BarChartProps | Scatter | AreaChartProps | BarGroupProps)
+interface LineChartProps {
+    type: 'LINE'
+}
+
+type ChartDataProps = ChartDataBaseProps &
+    (LineChartProps | StackedBarProps | PieChartProps | DoughnutChartProps | BarChartProps | Scatter | AreaChartProps | BarGroupProps)
 
 export interface ChartDataSet {
     name: string | number
     value: number
     color: string
-}
-export interface ChartDataSetStackedBar {
-    name: string
-    value: number
-    color: string
-    category: string
+    category?: string
 }
 
 const getLableForLineType = (name: string | number, value: number, color: string): any => ({
@@ -133,17 +127,18 @@ const getDataSet = (
 }
 
 const buildDataSetForDoughnut = ({
-    data,
     name,
+    data,
     labelType = 'none',
     labelPosition = 'inside',
     labelFormatter,
     labelColor,
     ...props
 }: ChartDataProps): EChartsOption['series'] => {
+    props = props as DoughnutChartProps
     return {
         name,
-        data: getDataSet(data, labelType, labelPosition, labelFormatter, labelColor, (props as any).showCount, (props as any).showLabel),
+        data: getDataSet(data, labelType, labelPosition, labelFormatter, labelColor, props.showCount, props.showLabel),
         type: 'pie',
         radius: ['radius' in props ? `${props['radius']![0]}%` : '60%', 'radius' in props ? `${props['radius']![1]}%` : '90%'],
         center: ['50%', '50%'],
@@ -170,7 +165,7 @@ const buildDataSetForDoughnut = ({
     }
 }
 
-const buildDataSetForBar = ({ data, name, ...props }: ChartDataProps): EChartsOption['series'] => {
+const buildDataSetForBar = ({ name, data, ...props }: ChartDataProps): EChartsOption['series'] => {
     return {
         name,
         type: 'bar',
@@ -181,9 +176,8 @@ const buildDataSetForBar = ({ data, name, ...props }: ChartDataProps): EChartsOp
 }
 
 const buildDataSetForStackedBar = ({ data }: ChartDataProps) => {
-    const d = data as ChartDataSetStackedBar[]
-    return d.reduce((acc: any[], { value, color, category }) => {
-        const index = acc.findIndex((obj: ChartDataSetStackedBar) => obj.name === category)
+    return data.reduce((acc: any[], { value, color, category }) => {
+        const index = acc.findIndex((obj: ChartDataProps) => obj.name === category)
         if (index === -1) acc.push({ name: category, type: 'bar', stack: 'bar', barWidth: 13, data: [{ value, itemStyle: { color, borderRadius: 0 } }] })
         else acc[index].data.push({ value, itemStyle: { color, borderRadius: 0 } })
         return acc
@@ -194,7 +188,7 @@ const buildDataSetForScatter = ({ data }: ChartDataProps): EChartsOption['series
     const transformedData = data.map(({ name, value, color }) => ({ name, value: [Math.random(), Math.random(), value], color }))
     return {
         type: 'scatter',
-        data: transformedData.map((item) => ({
+        data: transformedData?.map((item) => ({
             name: item.name,
             value: item.value.slice(0, 2),
             symbolSize: Math.max(5, item.value[2]),
@@ -240,6 +234,11 @@ const buildDataSetForBarGroup = ({ data }: ChartDataProps): EChartsOption['serie
     return Object.keys(barGroup).map((color) => ({ type: 'bar', color }))
 }
 
+const buildDataSetForLine = ({ data }: ChartDataProps): EChartsOption['series'] => {
+    const groupedData = _.groupBy(data, 'category')
+    return Object.entries(groupedData).map(([, value]) => ({ type: 'line', smooth: true, data: value.map((x) => x.value) }))
+}
+
 export const useChartData = (props: ChartDataProps): { dataset: EChartsOption['series'] } => {
     const buildDataSet = (props: ChartDataProps) => {
         switch (props.type) {
@@ -257,6 +256,8 @@ export const useChartData = (props: ChartDataProps): { dataset: EChartsOption['s
                 return buildDataSetForArea(props)
             case 'BAR_GROUP':
                 return buildDataSetForBarGroup(props)
+            case 'LINE':
+                return buildDataSetForLine(props)
             default:
                 return []
         }

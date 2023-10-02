@@ -101,13 +101,13 @@ export const InteractionCenterDashboard: FC<InteractionCenterDashboardProps> = (
                     <Chart type={ChartType.BAR_GROUP} name="CV" dataSet={callVolume} height={450} data={callVolumeDataSet} />
                 </ChartContainer>
                 <ChartContainer title="Peak Hour Traffic" className="col-span-4">
-                    <Chart type={ChartType.LINE} dataSet={peakHourTraficData} name="AHT Trend" height={450} />
+                    <Chart type={ChartType.AREA} dataSet={peakHourTraficData} name="AHT Trend" height={450} />
                 </ChartContainer>
                 <ChartContainer title="Cost Per Call" className="col-span-4">
                     <Chart type={ChartType.PIE} dataSet={pieData} name="Call Cost" height={450} />
                 </ChartContainer>
                 <ChartContainer title="AHT Trend" className="col-span-4">
-                    <Chart type={ChartType.LINE} dataSet={lineChartData} name="AHT Trend" height={450} />
+                    <Chart type={ChartType.AREA} dataSet={lineChartData} name="AHT Trend" height={450} />
                 </ChartContainer>
                 <ChartContainer title="Average Speed of Answer" className="col-span-4">
                     <Chart

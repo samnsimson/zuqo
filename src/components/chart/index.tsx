@@ -11,6 +11,7 @@ export enum ChartType {
     BAR = 'bar',
     STACKED_BAR = 'stackedBar',
     SCATTER = 'scatter',
+    AREA = 'area',
     LINE = 'line',
     BAR_GROUP = 'barGroup',
 }
@@ -39,8 +40,13 @@ interface Scatter {
     type: ChartType.SCATTER
 }
 
+interface Area {
+    type: ChartType.AREA
+}
+
 interface Line {
     type: ChartType.LINE
+    keys: Array<string | number>
 }
 
 interface BarGroupProps {
@@ -63,7 +69,7 @@ interface BaseChartProps extends HTMLAttributes<HTMLDivElement> {
     showCount?: boolean
 }
 
-type ChartProps = BaseChartProps & (BarChartProps | DoughnutChartProps | PieChartProps | StackedChartProps | Scatter | Line | BarGroupProps)
+type ChartProps = BaseChartProps & (Area | BarChartProps | DoughnutChartProps | PieChartProps | StackedChartProps | Scatter | Line | BarGroupProps)
 
 export const Chart: FC<ChartProps> = ({ className, type, dataSet, width, height, ...props }) => {
     const chartContainerRef = useRef(null)
@@ -87,7 +93,7 @@ export const Chart: FC<ChartProps> = ({ className, type, dataSet, width, height,
                     grid: grid(10),
                     xAxis: {
                         type: 'category',
-                        data: (props as any).keys,
+                        data: (props as StackedChartProps).keys,
                         axisLabel: { interval: 0 },
                     },
                     yAxis: {
@@ -99,7 +105,7 @@ export const Chart: FC<ChartProps> = ({ className, type, dataSet, width, height,
                     xAxis: { show: false },
                     yAxis: { show: false },
                 }
-            case ChartType.LINE:
+            case ChartType.AREA:
                 return {
                     grid: grid(10),
                     xAxis: {
@@ -116,10 +122,23 @@ export const Chart: FC<ChartProps> = ({ className, type, dataSet, width, height,
                 const dataGroup = _.groupBy(data, 'name')
                 const dataSetSource = Object.entries(dataGroup).map(([key, value]) => [key, ...value.map((val) => val.value)])
                 return {
+                    grid: grid(10),
                     xAxis: { type: 'category' },
                     yAxis: {},
                     dataset: {
                         source: dataSetSource,
+                    },
+                }
+            case ChartType.LINE:
+                const { keys } = props as Line
+                return {
+                    grid: grid(10),
+                    xAxis: {
+                        type: 'category',
+                        data: keys,
+                    },
+                    yAxis: {
+                        type: 'value',
                     },
                 }
             default:

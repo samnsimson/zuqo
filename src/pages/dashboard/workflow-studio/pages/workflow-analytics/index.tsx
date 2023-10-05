@@ -1,10 +1,13 @@
+import { MoreActionIcon } from '@/assets/svg/icons'
 import { Chart, ChartType } from '@/components/chart'
 import { ChartContainer } from '@/components/chartContainer'
+import { ColumnProps, DataTable } from '@/components/dataTable'
 import { Card, CardContent } from '@/components/ui/card'
 import { useChartData } from '@/hooks/useChartData'
 import { cn } from '@/lib/utils'
 import { SuccessfulInteractionData, errorRateData, interactionMonitoringData, successRateData } from '@/mock-data/chart-data'
-import { FC, HTMLAttributes } from 'react'
+import { FC, HTMLAttributes, ReactNode } from 'react'
+import { v4 as uuid } from 'uuid'
 
 interface WorkflowAnalyticsPageProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any
@@ -114,8 +117,88 @@ export const GeographicalDistribution: FC<GeographicalDistributionProps> = ({ cl
     return <ChartContainer className={cn('', className)} {...props} title="Geographical Distribution"></ChartContainer>
 }
 
+const WorkflowName: FC<{ idx: number }> = ({ idx }) => {
+    return (
+        <div>
+            <div className="font-inter text-sm font-medium text-slate-800">{`Workflow ${idx}`}</div>
+            <div className="font-inter text-sm font-normal tracking-wide text-slate-500">An IVR workflow to lorem...</div>
+        </div>
+    )
+}
+
+const WorkflowType: FC = () => {
+    return (
+        <div className="space-y-[6px]">
+            <div className="inline-flex  items-center justify-center gap-2.5 rounded bg-gray-50 px-2.5 py-[5px]">
+                <div className="font-jakarta text-xs font-bold tracking-wider text-sky-700">IVR</div>
+            </div>
+            <div className="font-inter text-xs font-medium text-slate-500">Deployed on: 14/APR/2020</div>
+        </div>
+    )
+}
+const SuccessRateContent: FC<{ val: string }> = ({ val }) => {
+    return (
+        <div>
+            <div className="font-inter text-sm font-semibold uppercase text-emerald-700">{val}</div>
+            <div className="font-inter text-xs font-normal text-slate-500">Last week 87%</div>
+        </div>
+    )
+}
+
+const ErrorRateContent: FC<{ val: string }> = ({ val }) => {
+    return (
+        <div>
+            <div className="font-inter text-sm font-semibold uppercase text-red-600">{val}</div>
+            <div className="font-inter text-xs font-normal text-slate-500">Last week 03%</div>
+        </div>
+    )
+}
+
+const AvgRespTime: FC<{ val: string }> = ({ val }) => {
+    return (
+        <div>
+            <div className="font-inter text-sm font-semibold uppercase text-gray-600">{val}</div>
+            <div className="font-inter text-xs font-normal text-slate-500">Target: 10 sec</div>
+        </div>
+    )
+}
+
+const Satisfaction: FC<{ val: string }> = ({ val }) => {
+    return (
+        <div>
+            <div className="font-inter text-sm font-semibold uppercase text-green-700">{val}</div>
+            <div className="font-inter text-xs font-normal text-slate-500">Last week 87%</div>
+        </div>
+    )
+}
+
 export const LiveWorkflowSnapshot: FC<LiveWorkflowSnapshotProps> = ({ className, ...props }) => {
-    return <ChartContainer className={cn('', className)} {...props} title="Live Workflows Snapshot"></ChartContainer>
+    const tableColumns: ColumnProps<string, string | ReactNode>[] = [
+        { key: 'workflow_name', value: 'Workflow Name' },
+        { key: 'workflow_type', value: 'Workflow Type' },
+        { key: 'success_rate', value: 'Success Rate' },
+        { key: 'error_rate', value: 'Error Rate' },
+        { key: 'avg_response_time', value: 'Avg Response Time' },
+        { key: 'customer_satisfaction', value: 'Customer Satisfaction' },
+        { key: 'actions', value: null },
+    ]
+
+    const tableData = [...Array(8)].map((_, key) => ({
+        id: uuid(),
+        workflow_name: <WorkflowName idx={key + 1} />,
+        workflow_type: <WorkflowType />,
+        success_rate: <SuccessRateContent val="89%" />,
+        error_rate: <ErrorRateContent val="02%" />,
+        avg_response_time: <AvgRespTime val="8.2" />,
+        customer_satisfaction: <Satisfaction val="Super Happy - 98%" />,
+        actions: <MoreActionIcon />,
+    }))
+
+    return (
+        <ChartContainer className={cn('', className)} {...props} title="Live Workflows Snapshot" bodyClass="px-0">
+            <DataTable columns={tableColumns} data={tableData} darkHeader headerClass="uppercase text-[#6E6893] font-semibold tracking-[0.6px]" />
+        </ChartContainer>
+    )
 }
 
 export const WorkflowAnalyticsPage: FC<WorkflowAnalyticsPageProps> = ({ ...props }) => {

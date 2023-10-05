@@ -5,9 +5,10 @@ import { MenuVertical } from '@/assets/svg/icons'
 
 interface ChartContainerProps extends HTMLAttributes<HTMLDivElement> {
     title?: string
+    bodyClass?: string
 }
 
-export const ChartContainer: FC<ChartContainerProps> = ({ className, title, children, ...props }) => {
+export const ChartContainer: FC<ChartContainerProps> = ({ className, title, children, bodyClass, ...props }) => {
     return (
         <div className={cn('', className)} {...props}>
             <Card className="h-full space-y-3 rounded-lg border-[1px] border-[#C8C8C8] bg-white p-0 py-3 shadow">
@@ -17,7 +18,7 @@ export const ChartContainer: FC<ChartContainerProps> = ({ className, title, chil
                         <MenuVertical className="h-6 w-6 pr-[27px]" />
                     </div>
                 </div>
-                <CardContent className="py-0">{children}</CardContent>
+                <CardContent className={cn('py-0', bodyClass)}>{children}</CardContent>
             </Card>
         </div>
     )

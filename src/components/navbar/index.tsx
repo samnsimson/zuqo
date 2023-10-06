@@ -1,6 +1,7 @@
-import { FC, ReactNode, useEffect, useState } from 'react'
+import { FC, HTMLAttributes, ReactNode, useEffect, useState } from 'react'
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from '@/components/ui/navigation-menu'
 import { Link, useLocation } from 'react-router-dom'
+import { cn } from '@/lib/utils'
 
 export interface NavbarLinkProps {
     label: string
@@ -11,7 +12,7 @@ export interface NavbarLinkProps {
     children?: NavbarLinkProps[]
 }
 
-export interface NavbarProps {
+export interface NavbarProps extends HTMLAttributes<HTMLDivElement> {
     links: NavbarLinkProps[]
 }
 
@@ -19,7 +20,7 @@ interface IconProps {
     strokeColor: string
 }
 
-export const Navbar: FC<NavbarProps> = ({ links }) => {
+export const Navbar: FC<NavbarProps> = ({ links, className }) => {
     const location = useLocation()
     const [activeMenu, setActiveMenu] = useState(() => (links.length ? links[0] : null))
 
@@ -29,7 +30,7 @@ export const Navbar: FC<NavbarProps> = ({ links }) => {
     }, [links, location])
 
     return (
-        <NavigationMenu>
+        <NavigationMenu className={cn('', className)}>
             <NavigationMenuList className="flex gap-12">
                 {links &&
                     links.map((link, key) => (

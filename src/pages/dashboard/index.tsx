@@ -6,6 +6,7 @@ import { FC, useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { ReactComponent as GridViewIcon } from '@/assets/grid-view-icon.svg'
 import { AnalyticsIcon, InboxIcon, InteractionCenterIcon, OverviewIconAlt, PlatformConfigurationIcon, StudioIcon } from '@/assets/svg/icons'
+import { HeaderSearchBox } from '@/components/headerSearchBox'
 
 interface DashboardProps {
     [x: string]: any
@@ -69,6 +70,7 @@ export const Dashboard: FC<DashboardProps> = () => {
     const location = useLocation()
 
     useEffect(() => {
+        console.log(location)
         if (!authenticated) navigate('/login')
     }, [authenticated, navigate, location])
 
@@ -76,7 +78,8 @@ export const Dashboard: FC<DashboardProps> = () => {
         <div className="flex min-h-screen w-full flex-col">
             <Header variant="primary" className="flex gap-[27px]">
                 <img src={assets.logoIcon} alt="logo icon" />
-                <Navbar links={navbarLinks} />
+                <Navbar links={navbarLinks} className="min-w-[180px]" />
+                {location.pathname !== '/' && <HeaderSearchBox width={435} leftIcon={assets.searchboxIcon1} rightIcon={assets.searchboxIcon2} />}
             </Header>
             <Outlet />
         </div>

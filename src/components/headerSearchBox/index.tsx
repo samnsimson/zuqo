@@ -27,10 +27,11 @@ interface HeaderSearchBoxProps extends Omit<HTMLAttributes<HTMLInputElement>, 's
     leftIcon?: string
     rightIcon?: string
     placeholder?: string[]
+    width?: number
 }
 
 export const HeaderSearchBox = forwardRef<HTMLInputElement, HeaderSearchBoxProps>(
-    ({ className, variant, size, leftIcon = null, rightIcon = null, placeholder, ...props }, ref) => {
+    ({ className, variant, size, width, leftIcon = null, rightIcon = null, placeholder, ...props }, ref) => {
         const [searchText, setSearchText] = useState('')
         const [currentIndex, setCurrentIndex] = useState<number>(0)
         const [toggleAnimation, setToggleAnimation] = useState(true)
@@ -45,7 +46,7 @@ export const HeaderSearchBox = forwardRef<HTMLInputElement, HeaderSearchBoxProps
         }, [placeholder, searchText])
 
         return (
-            <div className="flex max-h-16 w-[785px] items-center gap-2 rounded-lg bg-white p-2.5 shadow">
+            <div className={cn('flex max-h-[45px] items-center gap-2 rounded-lg bg-white p-2.5 shadow')} style={{ width: width ? `${width}px` : '785px' }}>
                 {leftIcon && <img src={leftIcon} alt="searchbox icon" />}
                 <Input
                     {...props}

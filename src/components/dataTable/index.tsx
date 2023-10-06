@@ -1,4 +1,4 @@
-import { HTMLAttributes, useEffect, useState } from 'react'
+import { HTMLAttributes, ReactNode, useEffect, useState } from 'react'
 import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
 import { Button } from '../ui/button'
@@ -16,6 +16,7 @@ interface DataTableProps<TData, TColumns extends ColumnProps<any, any>> extends 
     headerClass?: string
     columns: TColumns[]
     data: TData[]
+    emptyDataComponent?: ReactNode
 }
 
 export function DataTable<TData, TColumns extends ColumnProps<any, any>>({
@@ -24,6 +25,7 @@ export function DataTable<TData, TColumns extends ColumnProps<any, any>>({
     className,
     darkHeader,
     headerClass,
+    emptyDataComponent = null,
     ...props
 }: DataTableProps<TData, TColumns>) {
     const [columns, setColumns] = useState<ColumnDef<TData>[]>([])
@@ -78,9 +80,9 @@ export function DataTable<TData, TColumns extends ColumnProps<any, any>>({
                             </TableRow>
                         ))
                     ) : (
-                        <TableRow>
+                        <TableRow className="hover:bg-transparent">
                             <TableCell colSpan={columns.length} className="h-24 text-center">
-                                No results.
+                                {emptyDataComponent || 'No results.'}
                             </TableCell>
                         </TableRow>
                     )}

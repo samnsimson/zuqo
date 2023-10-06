@@ -58,6 +58,11 @@ import rectangleBgTwo from '../assets/rectangle-bg-2.png'
 import attachmentOne from '../assets/attachment-1.png'
 import attachmentTwo from '../assets/attachment-1.png'
 import userProfileIcon from '../assets/user.png'
+import createWorkflowImage from '../assets/Rectangle-408.png'
+import modelImageOne from '../assets/Rectangle-409.png'
+import modelImageTwo from '../assets/Rectangle-410.png'
+import modelImageThree from '../assets/Rectangle-411.png'
+import modelImageFour from '../assets/Rectangle-412.png'
 
 export const assets = {
     sampleAudio,
@@ -120,4 +125,9 @@ export const assets = {
     attachmentOne,
     attachmentTwo,
     userProfileIcon,
+    createWorkflowImage,
+    modelImageOne,
+    modelImageTwo,
+    modelImageThree,
+    modelImageFour,
 }

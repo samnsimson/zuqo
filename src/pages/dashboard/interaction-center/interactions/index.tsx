@@ -8,13 +8,12 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '@/components/ui/navigation-menu'
 import { Avatar, AvatarImage } from '@radix-ui/react-avatar'
 import moment from 'moment'
-import { FC, HTMLAttributes, ReactNode, useEffect, useMemo } from 'react'
+import { FC, HTMLAttributes, ReactNode, useMemo } from 'react'
 import { v4 as UUID } from 'uuid'
 import { ActionButton } from '../../workflow-studio/components/actionButton'
-import { useQuery } from 'react-query'
-import { fetchInteraction } from '@/api/queries'
 import { Skeleton } from '@/components/ui/skeleton'
 import { assets } from '@/config/assets'
+import { useFetchInteraction } from '@/apiFunctions/queries'
 
 interface InteractionsProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any
@@ -99,7 +98,7 @@ const ActionList: FC<{ id: string | number; showLabel: boolean; channel: string 
 const PlaceHolder: FC = () => <Skeleton className="h-12 w-full" />
 
 export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
-    const { data, isLoading } = useQuery('interactions', () => fetchInteraction({ page: 1 }))
+    const { data, isLoading } = useFetchInteraction({ page: 1 })
     const menuItem = [{ name: 'All' }, { name: 'Inbound' }, { name: 'Outbound' }]
     const buttonGroup = [{ name: 'All' }, { name: 'Voice' }, { name: 'Chat' }, { name: 'Email' }]
     const tableColumns: ColumnProps<string, string | ReactNode>[] = [
@@ -132,10 +131,6 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
             actions: isLoading ? <PlaceHolder /> : <ActionList id={UUID()} showLabel={false} channel={data['chatType']} />,
         }))
     }, [data, isLoading])
-
-    useEffect(() => {
-        console.log(data)
-    }, [data])
 
     return (
         <div {...props} className="space-y-[18px] px-[56px] py-[15px]">

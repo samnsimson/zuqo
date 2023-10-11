@@ -13,7 +13,7 @@ import { v4 as UUID } from 'uuid'
 import { ActionButton } from '../../workflow-studio/components/actionButton'
 import { Skeleton } from '@/components/ui/skeleton'
 import { assets } from '@/config/assets'
-import { useFetchInteraction } from '@/apiFunctions/queries'
+import { useFetchInteraction } from '@/api/queries'
 
 interface InteractionsProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any

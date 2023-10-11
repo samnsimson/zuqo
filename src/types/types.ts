@@ -58,3 +58,7 @@ export interface IMessage {
     start: number
     end: number
 }
+
+export interface IFetchInteraction {
+    page: number
+}

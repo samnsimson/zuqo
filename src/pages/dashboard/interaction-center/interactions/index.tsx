@@ -6,13 +6,15 @@ import { Button } from '@/components/ui/button'
 import { ButtonGroup } from '@/components/ui/button-group'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '@/components/ui/navigation-menu'
-import { interactionsData } from '@/mock-data/interactions-data'
 import { Avatar, AvatarImage } from '@radix-ui/react-avatar'
 import moment from 'moment'
-import { FC, HTMLAttributes, ReactNode, useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import { FC, HTMLAttributes, ReactNode, useEffect, useMemo } from 'react'
 import { v4 as UUID } from 'uuid'
 import { ActionButton } from '../../workflow-studio/components/actionButton'
+import { useQuery } from 'react-query'
+import { fetchInteraction } from '@/api/queries'
+import { Skeleton } from '@/components/ui/skeleton'
+import { assets } from '@/config/assets'
 
 interface InteractionsProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any
@@ -47,9 +49,11 @@ const Customer: FC<{ data: { avatar: string; name: string; phone: string } }> = 
 }
 
 const Channel: FC<{ channel: string }> = ({ channel }) => {
-    if (channel === 'phone') return <ChannelPhone />
-    if (channel === 'email') return <ChannelEmail />
-    if (channel === 'chat') return <ChannelChat />
+    channel = channel.toLowerCase()
+    if (['phone', 'messenger', 'whatsapp', 'webchat'].includes(channel)) return <ChannelPhone />
+    if (['email'].includes(channel)) return <ChannelEmail />
+    if (['voicecallchat'].includes(channel)) return <ChannelChat />
+    return <ChannelEmail />
 }
 
 const Type: FC<{ type: string }> = ({ type }) => {
@@ -92,7 +96,10 @@ const ActionList: FC<{ id: string | number; showLabel: boolean; channel: string 
     )
 }
 
+const PlaceHolder: FC = () => <Skeleton className="h-12 w-full" />
+
 export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
+    const { data, isLoading } = useQuery('interactions', () => fetchInteraction({ page: 1 }))
     const menuItem = [{ name: 'All' }, { name: 'Inbound' }, { name: 'Outbound' }]
     const buttonGroup = [{ name: 'All' }, { name: 'Voice' }, { name: 'Chat' }, { name: 'Email' }]
     const tableColumns: ColumnProps<string, string | ReactNode>[] = [
@@ -108,27 +115,27 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
         { key: 'actions', value: null },
     ]
 
-    const tableData = useMemo(
-        () =>
-            interactionsData.map((data) => ({
-                id: UUID(),
-                agent: <Agent data={data.agent} />,
-                customer: <Customer data={data.customer} />,
-                channel: <Channel channel={data.channel} />,
-                type: <Type type={data.type} />,
-                campaign_name: (
-                    <Link to={data.campaign.link} className="text-[#015EB0]">
-                        {data.campaign.name}
-                    </Link>
-                ),
-                overall_sentiment: <Sentiment sentiment={data.overallSentiment} />,
-                overall_call_rating: <span className="font-bold text-[#008344]">{data.overallCallRating}</span>,
-                ai_confidence_score: <span className="font-bold text-[#008344]">{data.aiConfidenceScore}</span>,
-                happened_on: moment(data.timeStamp).format('DD/mm/yyyy hh:mm:ss'),
-                actions: <ActionList id={UUID()} showLabel={false} channel={data.channel} />,
-            })),
-        []
-    )
+    const tableData = useMemo(() => {
+        const mapData = isLoading ? [...Array(5)] : data
+        if (!mapData) return []
+        return mapData.map((data) => ({
+            id: isLoading ? <PlaceHolder /> : data['_id'],
+            agent: isLoading ? <PlaceHolder /> : <Agent data={{ avatar: assets.kiranmaiKulakarni, name: data['agentName'], email: data['email'] }} />,
+            customer: isLoading ? <PlaceHolder /> : <Customer data={{ avatar: assets.preetham, name: data['customerName'], phone: data['phoneNumber'] }} />,
+            channel: isLoading ? <PlaceHolder /> : <Channel channel={data['chatType']} />,
+            type: isLoading ? <PlaceHolder /> : <Type type={data['chatType']} />,
+            campaign_name: isLoading ? <PlaceHolder /> : <div className="text-[#015EB0]">CampaignX</div>,
+            overall_sentiment: isLoading ? <PlaceHolder /> : <Sentiment sentiment="Positive" />,
+            overall_call_rating: isLoading ? <PlaceHolder /> : <span className="font-bold text-[#008344]">4.0/5</span>,
+            ai_confidence_score: isLoading ? <PlaceHolder /> : <span className="font-bold text-[#008344]">89%</span>,
+            happened_on: isLoading ? <PlaceHolder /> : <span>{moment().format('DD/mm/yyyy hh:mm:ss')}</span>,
+            actions: isLoading ? <PlaceHolder /> : <ActionList id={UUID()} showLabel={false} channel={data['chatType']} />,
+        }))
+    }, [data, isLoading])
+
+    useEffect(() => {
+        console.log(data)
+    }, [data])
 
     return (
         <div {...props} className="space-y-[18px] px-[56px] py-[15px]">

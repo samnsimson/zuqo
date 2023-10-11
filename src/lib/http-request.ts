@@ -9,10 +9,29 @@ class HttpRequest {
 
     constructor(protected token: string) {
         this.axios = axios.create({ baseURL: 'https://demo.zuqodemo.world:4343', headers: { Authorization: token } })
+        this.requestInterceptor()
+        this.responseInterceptor()
     }
 
     static init = ({ token }: HttpRequestProps) => {
         return new HttpRequest(token)
+    }
+
+    protected requestInterceptor = () => {
+        this.axios.interceptors.request.use(
+            (config) => {
+                console.log('fetching...')
+                return config
+            },
+            (error) => Promise.reject(error)
+        )
+    }
+
+    protected responseInterceptor = () => {
+        this.axios.interceptors.response.use(
+            (response) => response,
+            (error) => Promise.reject(error)
+        )
     }
 
     public get = async (url: string, headers: AxiosRequestConfig = {}) => {

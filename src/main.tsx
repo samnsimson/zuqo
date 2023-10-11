@@ -6,7 +6,22 @@ import '@/index.css'
 import { AppRotues } from './routes'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            keepPreviousData: true,
+            retry: 1,
+            retryDelay: 3000,
+            staleTime: 1000 * 60, // 1 minute
+            cacheTime: 1000 * 60, // 1 minute
+            refetchOnMount: 'always',
+            refetchOnWindowFocus: true,
+            refetchOnReconnect: 'always',
+            refetchInterval: false,
+            refetchIntervalInBackground: false,
+        },
+    },
+})
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>

@@ -41,7 +41,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ children, menu, ...props }
                                 </Fragment>
                             )}
                             {mg.menu.map((m, key) => (
-                                <Link to={m.link ?? '#'}>
+                                <Link to={m.link ?? '#'} key={key}>
                                     <DropdownMenuItem key={key} className="px-4 py-2.5">
                                         <ul className="flex items-center gap-3">
                                             <li>{m.icon}</li>

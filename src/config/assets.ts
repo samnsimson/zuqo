@@ -63,6 +63,7 @@ import modelImageOne from '../assets/Rectangle-409.png'
 import modelImageTwo from '../assets/Rectangle-410.png'
 import modelImageThree from '../assets/Rectangle-411.png'
 import modelImageFour from '../assets/Rectangle-412.png'
+import largeRectangleBorder from '../assets/large-rectangel-border.png'
 
 export const assets = {
     sampleAudio,
@@ -130,4 +131,5 @@ export const assets = {
     modelImageTwo,
     modelImageThree,
     modelImageFour,
+    largeRectangleBorder,
 }

@@ -13,6 +13,7 @@ import { InteractionCenterHome } from '@/pages/dashboard/interaction-center/home
 import { InteractionCenterDashboard } from '@/pages/dashboard/interaction-center'
 import { CoversationPage } from '@/pages/dashboard/interaction-center/conversations'
 import { WorkflowAnalyticsPage } from '@/pages/dashboard/workflow-studio/pages/workflow-analytics'
+import { WorkflowFilteredList } from '@/pages/dashboard/workflow-studio/pages/workflows-list'
 
 export const AppRotues = () => {
     return (
@@ -25,6 +26,7 @@ export const AppRotues = () => {
                         <Route path="list" element={<WorkflowListPage />} />
                         <Route path="overview" element={<WorkFlowOverviewPage />} />
                         <Route path="analytics" element={<WorkflowAnalyticsPage />} />
+                        <Route path="workflow" element={<WorkflowFilteredList />} />
                     </Route>
                     <Route path="interaction-center" element={<InteractionCenterHome />}>
                         <Route index element={<Interactions />} />

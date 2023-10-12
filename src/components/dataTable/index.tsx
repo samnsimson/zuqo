@@ -109,7 +109,7 @@ export function DataTable<TData, TColumns extends ColumnProps<any, any>>({
                     )}
                 </TableBody>
             </Table>
-            <div className="my-5 flex items-center justify-between py-3">
+            <div className="mt-5 flex items-center justify-between py-3">
                 <Button
                     className="space-x-2 text-sm font-medium leading-tight text-gray-500"
                     variant="link"

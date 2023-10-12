@@ -6,6 +6,7 @@ import { Button } from '../ui/button'
 import { Chart, ChartType, PiechartDataSet } from '../chart'
 import { assets } from '@/config/assets'
 import { useChartData } from '@/hooks/useChartData'
+import { Link } from 'react-router-dom'
 
 interface InsightCardProps extends HTMLAttributes<HTMLDivElement> {
     chartType: 'PIE' | 'BAR' | 'DOUGHNUT'
@@ -15,9 +16,10 @@ interface InsightCardProps extends HTMLAttributes<HTMLDivElement> {
     description: string
     icon: ReactNode
     dataset: PiechartDataSet[]
+    link: string
 }
 
-export const InsightCard: FC<InsightCardProps> = ({ className, chartType, icon, iconBg, primaryColor, title, description, dataset, ...props }) => {
+export const InsightCard: FC<InsightCardProps> = ({ className, chartType, icon, iconBg, primaryColor, title, description, dataset, link, ...props }) => {
     const { dataset: IVRDataset } = useChartData({ type: chartType, name: 'IVR', data: dataset, labelType: 'counter' })
     return (
         <div className="overflow-hidden rounded-lg shadow-xl shadow-gray-200/50">
@@ -54,9 +56,11 @@ export const InsightCard: FC<InsightCardProps> = ({ className, chartType, icon, 
                     </div>
                 </CardContent>
                 <CardFooter className="p-0">
-                    <Button variant="secondary" className="space-x-2.5 bg-[#F3F6FF] px-5 py-2.5 font-inter text-sm font-semibold text-sky-600">
-                        <span>View Details</span> <ArrowRightIcon />
-                    </Button>
+                    <Link to={link}>
+                        <Button variant="secondary" className="space-x-2.5 bg-[#F3F6FF] px-5 py-2.5 font-inter text-sm font-semibold text-sky-600">
+                            <span>View Details</span> <ArrowRightIcon />
+                        </Button>
+                    </Link>
                 </CardFooter>
             </Card>
         </div>

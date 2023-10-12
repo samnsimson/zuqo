@@ -70,7 +70,6 @@ export const Dashboard: FC<DashboardProps> = () => {
     const location = useLocation()
 
     useEffect(() => {
-        console.log(location)
         if (!authenticated) navigate('/login')
     }, [authenticated, navigate, location])
 

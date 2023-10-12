@@ -4,6 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 import { Button } from '../ui/button'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useNavigate } from 'react-router-dom'
 
 export type ColumnProps<T, K> = {
     key: T
@@ -29,19 +30,32 @@ export function DataTable<TData, TColumns extends ColumnProps<any, any>>({
     ...props
 }: DataTableProps<TData, TColumns>) {
     const [columns, setColumns] = useState<ColumnDef<TData>[]>([])
-    const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel(), getPaginationRowModel: getPaginationRowModel() })
+    const table = useReactTable({
+        data,
+        columns,
+        getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
+        state: { columnVisibility: { link: false } },
+    })
     const pageCount = table.getPageCount()
     const headerGroups = table.getHeaderGroups()
     const { pagination } = table.getState()
     const { rows } = table.getRowModel()
+    const navigate = useNavigate()
+
+    const handleNavigation = (path: string) => {
+        if (!path || ['#'].includes(path)) return
+        navigate(path)
+    }
 
     useEffect(() => {
         setColumns(
             cols.map(
-                ({ key, value }): ColumnDef<TData> => ({
+                ({ key, value, sortable = false }): ColumnDef<TData> => ({
                     accessorKey: key,
                     header: value,
-                    cell: (info) => info.getValue(),
+                    cell: ({ row }) => <div>{row.getValue(key)}</div>,
+                    enableSorting: sortable,
                 })
             )
         )
@@ -70,15 +84,22 @@ export function DataTable<TData, TColumns extends ColumnProps<any, any>>({
                 </TableHeader>
                 <TableBody>
                     {rows.length ? (
-                        rows.map((row) => (
-                            <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                                {row.getVisibleCells().map((cell) => (
-                                    <TableCell key={cell.id} className="py-3">
-                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        ))
+                        rows.map((row) => {
+                            return (
+                                <TableRow
+                                    key={row.id}
+                                    data-state={row.getIsSelected() && 'selected'}
+                                    className={cn({ 'cursor-pointer': row.getValue('link') })}
+                                    onClick={() => handleNavigation(row.getValue('link'))}
+                                >
+                                    {row.getVisibleCells().map((cell) => (
+                                        <TableCell key={cell.id} className="p-3">
+                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
+                            )
+                        })
                     ) : (
                         <TableRow className="hover:bg-transparent">
                             <TableCell colSpan={columns.length} className="h-24 text-center">

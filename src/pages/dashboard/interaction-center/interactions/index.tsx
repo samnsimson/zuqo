@@ -1,4 +1,4 @@
-import { ChannelChat, ChannelEmail, ChannelPhone, FaceSadIcon, FaceSmileIcon, MoreActionIcon, MoreFiltersIcon } from '@/assets/svg/icons'
+import { ChannelChat, ChannelEmail, ChannelPhone, FaceSadIcon, FaceSmileIcon, MoreFiltersIcon } from '@/assets/svg/icons'
 import { ColumnProps, DataTable } from '@/components/dataTable'
 import { PageSectionTitle } from '@/components/pageSectionTitle'
 import { Badge } from '@/components/ui/badge'
@@ -9,8 +9,6 @@ import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuL
 import { Avatar, AvatarImage } from '@radix-ui/react-avatar'
 import moment from 'moment'
 import { FC, HTMLAttributes, ReactNode, useMemo } from 'react'
-import { v4 as UUID } from 'uuid'
-import { ActionButton } from '../../workflow-studio/components/actionButton'
 import { Skeleton } from '@/components/ui/skeleton'
 import { assets } from '@/config/assets'
 import { useFetchInteraction } from '@/api/queries'
@@ -87,14 +85,6 @@ const Sentiment: FC<{ sentiment: string }> = ({ sentiment }) => {
         )
 }
 
-const ActionList: FC<{ id: string | number; showLabel: boolean; channel: string }> = ({ showLabel, id, channel }) => {
-    return (
-        <div className="flex space-x-[25px]">
-            <ActionButton type="link" link="#" label={showLabel ? 'More' : null} icon={<MoreActionIcon color="#015EB0" />} actionId={id} channel={channel} />
-        </div>
-    )
-}
-
 const PlaceHolder: FC = () => <Skeleton className="h-12 w-full" />
 
 export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
@@ -102,8 +92,9 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
     const menuItem = [{ name: 'All' }, { name: 'Inbound' }, { name: 'Outbound' }]
     const buttonGroup = [{ name: 'All' }, { name: 'Voice' }, { name: 'Chat' }, { name: 'Email' }]
     const tableColumns: ColumnProps<string, string | ReactNode>[] = [
-        { key: 'agent', value: 'Agent' },
-        { key: 'customer', value: 'Customer' },
+        { key: 'link', value: 'Link' },
+        { key: 'agent', value: 'Agent', sortable: true },
+        { key: 'customer', value: 'Customer', sortable: true },
         { key: 'channel', value: 'Channel' },
         { key: 'type', value: 'Type' },
         { key: 'campaign_name', value: 'Campaign Name' },
@@ -111,7 +102,6 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
         { key: 'overall_call_rating', value: 'Overall Call Rating' },
         { key: 'ai_confidence_score', value: 'AI Confidence Score' },
         { key: 'happened_on', value: 'Happened on' },
-        { key: 'actions', value: null },
     ]
 
     const tableData = useMemo(() => {
@@ -119,6 +109,7 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
         if (!mapData) return []
         return mapData.map((data) => ({
             id: isLoading ? <PlaceHolder /> : data['_id'],
+            link: isLoading ? <PlaceHolder /> : `/interaction-center/conversation?cid=${data['_id']}&channel=${data['chatType']}`,
             agent: isLoading ? <PlaceHolder /> : <Agent data={{ avatar: assets.kiranmaiKulakarni, name: data['agentName'], email: data['email'] }} />,
             customer: isLoading ? <PlaceHolder /> : <Customer data={{ avatar: assets.preetham, name: data['customerName'], phone: data['phoneNumber'] }} />,
             channel: isLoading ? <PlaceHolder /> : <Channel channel={data['chatType']} />,
@@ -128,7 +119,6 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
             overall_call_rating: isLoading ? <PlaceHolder /> : <span className="font-bold text-[#008344]">4.0/5</span>,
             ai_confidence_score: isLoading ? <PlaceHolder /> : <span className="font-bold text-[#008344]">89%</span>,
             happened_on: isLoading ? <PlaceHolder /> : <span>{moment().format('DD/mm/yyyy hh:mm:ss')}</span>,
-            actions: isLoading ? <PlaceHolder /> : <ActionList id={UUID()} showLabel={false} channel={data['chatType']} />,
         }))
     }, [data, isLoading])
 

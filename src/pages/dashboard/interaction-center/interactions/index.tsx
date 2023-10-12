@@ -90,7 +90,7 @@ const Sentiment: FC<{ sentiment: string }> = ({ sentiment }) => {
 const ActionList: FC<{ id: string | number; showLabel: boolean; channel: string }> = ({ showLabel, id, channel }) => {
     return (
         <div className="flex space-x-[25px]">
-            <ActionButton label={showLabel ? 'More' : null} icon={<MoreActionIcon color="#015EB0" />} actionId={id} channel={channel} />
+            <ActionButton type="link" link="#" label={showLabel ? 'More' : null} icon={<MoreActionIcon color="#015EB0" />} actionId={id} channel={channel} />
         </div>
     )
 }

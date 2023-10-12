@@ -9,7 +9,6 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            keepPreviousData: true,
             retry: 1,
             retryDelay: 3000,
             staleTime: 1000 * 60, // 1 minute

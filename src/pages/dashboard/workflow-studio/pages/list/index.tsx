@@ -26,12 +26,12 @@ interface TableData {
     actions: string | ReactNode
 }
 
-const ActionList: FC<{ id: string | number }> = ({ id }) => {
+const ActionList: FC<{ id: string | number }> = () => {
     return (
         <div className="flex space-x-[25px]">
-            <ActionButton label="Edit" icon={<EditActionIcon />} onClick={() => console.log(id)} />
-            <ActionButton label="Test" icon={<TestActionIcon />} onClick={() => console.log(id)} />
-            <ActionButton label="More" icon={<MoreActionIcon />} onClick={() => console.log(id)} />
+            <ActionButton type="link" link="#" label="Edit" icon={<EditActionIcon />} />
+            <ActionButton type="link" link="#" label="Test" icon={<TestActionIcon />} />
+            <ActionButton type="link" link="#" label="More" icon={<MoreActionIcon />} />
         </div>
     )
 }

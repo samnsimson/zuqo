@@ -6,7 +6,7 @@ import { assets } from '@/config/assets'
 import { cn } from '@/lib/utils'
 import { workflowList } from '@/mock-data/workflow-list'
 import _ from 'lodash'
-import { ArrowLeft, PlusIcon } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { FC, HTMLAttributes, ReactNode, useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { NameAndDescription } from '../../components/nameAndDescription'
@@ -14,8 +14,7 @@ import { BadgeCustom } from '@/components/badgeCustom'
 import { AvatarGroup } from '@/components/avatarGroup'
 import { StatusBadge } from '../../components/statusBadge'
 import { ActionButton } from '../../components/actionButton'
-import { Dialog, DialogContent, DialogDescription, DialogTrigger } from '@/components/ui/dialog'
-import { NewWorkflowDialog } from '@/components/newWorkflowDialog'
+import { NewWorkflowButton } from '@/components/newWorkflowButton'
 
 interface WorkflowFilteredListProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any
@@ -130,18 +129,7 @@ export const WorkflowFilteredList: FC<WorkflowFilteredListProps> = ({ className,
                                     {el}
                                 </Button>
                             ))}
-                            <Dialog>
-                                <DialogTrigger>
-                                    <Button variant="primary" className="space-x-2 text-white">
-                                        <PlusIcon className="text-xs" /> <span>New Workflow</span>
-                                    </Button>
-                                </DialogTrigger>
-                                <DialogContent className="max-w-[757px] p-0">
-                                    <DialogDescription>
-                                        <NewWorkflowDialog />
-                                    </DialogDescription>
-                                </DialogContent>
-                            </Dialog>
+                            <NewWorkflowButton />
                         </div>
                     </CardHeader>
                     <CardContent className="p-0">

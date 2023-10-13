@@ -14,42 +14,36 @@ const data = [
         icon: '',
         title: 'IVR',
         description: 'Design interactive voice menus and call routing for your phone system.',
-        link: '',
     },
     {
         id: 2,
         icon: '',
         title: 'Inbound Voice',
         description: 'Create workflows to manage incoming calls and ensure efficient call handling',
-        link: '',
     },
     {
         id: 3,
         icon: '',
         title: 'Messaging Bot',
         description: 'Create workflows to manage incoming calls and ensure efficient call handling',
-        link: '',
     },
     {
         id: 4,
         icon: '',
         title: 'Email',
         description: 'Craft email automation workflows to send personalized emails at scale.',
-        link: '',
     },
     {
         id: 5,
         icon: '',
         title: 'Survey Designer',
         description: 'Craft email automation workflows to send personalized emails at scale.',
-        link: '',
     },
     {
         id: 6,
         icon: '',
         title: 'Campaigns',
         description: 'Build powerful marketing campaigns to reach your audience effectively.',
-        link: '',
     },
 ]
 
@@ -86,7 +80,7 @@ export const NewWorkflowDialog: FC<NewWorkflowDialogProps> = ({ ...props }) => {
                     <div className="text-center font-jakarta text-2xl font-bold leading-snug text-gray-600">How do you want to proceed for your IVR?</div>
                     <div className="grid grid-cols-3 gap-4">
                         <Link
-                            to="#"
+                            to="/workflow-studio/studio?intent=create"
                             className="group col-span-1 flex flex-col items-center space-y-6 rounded-lg border-t-4 border-transparent bg-white px-3 py-6 shadow hover:border-t-pink-700"
                         >
                             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#00539F] group-hover:bg-pink-700">

@@ -1,8 +1,7 @@
 import { RefreshIcon } from '@/assets/svg/icons'
 import { FilterButton } from '@/components/filterButton'
-import { Button } from '@/components/ui/button'
+import { NewWorkflowButton } from '@/components/newWorkflowButton'
 import * as constants from '@/constants/constants'
-import { PlusIcon } from 'lucide-react'
 import { FC, HTMLAttributes } from 'react'
 
 interface WorkflowListHeaderProps extends HTMLAttributes<HTMLDivElement> {
@@ -23,9 +22,7 @@ export const WorkflowListHeader: FC<WorkflowListHeaderProps> = ({ ...props }) =>
                 <FilterButton label="Assignee" multiselect={true} value={constants.ASSIGNEE_FILTER_VALUES} />
                 <FilterButton label="Channel" value={constants.CHANNEL_FILTER_VALUES} />
                 <FilterButton label="More Filters" value={constants.MORE_FILTER_VALUES} />
-                <Button variant="primary" className="space-x-2 rounded-lg px-[14px] text-sm font-medium leading-tight text-white">
-                    <PlusIcon width={20} height={20} /> <span>New Workflow</span>
-                </Button>
+                <NewWorkflowButton />
             </div>
         </div>
     )

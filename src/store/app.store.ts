@@ -6,6 +6,7 @@ interface StateProps {
     credentials: { username: string; password: string }
     sidebarActiveIconIndex: string
     activeModelIndex: number
+    nodeInfo: Array<any>
 }
 
 const defaultCredentials = { username: 'admin', password: 'admin' }
@@ -15,6 +16,7 @@ const initialState: StateProps = {
     credentials: defaultCredentials,
     sidebarActiveIconIndex: '',
     activeModelIndex: 0,
+    nodeInfo: [],
 }
 
 export const useAppStore = create(
@@ -24,6 +26,7 @@ export const useAppStore = create(
                 authenticate: (value: boolean) => set(() => ({ authenticated: value })),
                 setSidebarIndex: (value: string) => set(() => ({ sidebarActiveIconIndex: value })),
                 setActiveModelIndex: (value: number) => set(() => ({ activeModelIndex: value })),
+                setNodeInfo: (value: any) => set(({ nodeInfo }) => ({ nodeInfo: [...nodeInfo, value] })),
             })),
             {
                 name: 'AppStore',

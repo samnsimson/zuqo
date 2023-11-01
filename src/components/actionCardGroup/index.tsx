@@ -4,6 +4,7 @@ import { assets } from '@/config/assets'
 import { Dialog, DialogContent, DialogDescription, DialogTrigger } from '../ui/dialog'
 import { Button } from '../ui/button'
 import { useAppStore } from '@/store'
+import { useNavigate } from 'react-router-dom'
 
 interface ActionCardGroupProps {
     [x: string]: any
@@ -112,6 +113,7 @@ const ModelContentIndexThree: FC = () => {
 
 const ModelContentIndexFour: FC = () => {
     const { activeModelIndex, setActiveModelIndex } = useAppStore((state) => state)
+    const navigate = useNavigate()
     return (
         <div>
             <img src={assets.modelImageFour} alt="model image one" />
@@ -124,7 +126,7 @@ const ModelContentIndexFour: FC = () => {
                     <Button variant="ghost" onClick={() => setActiveModelIndex(activeModelIndex - 1)}>
                         Back
                     </Button>
-                    <Button variant="primary" className="text-white" onClick={() => null}>
+                    <Button variant="primary" className="text-white" onClick={() => navigate('workflow-studio/studio?intent=create')}>
                         Get Started
                     </Button>
                 </div>

@@ -20,7 +20,7 @@ class HttpRequest {
     protected requestInterceptor = () => {
         this.axios.interceptors.request.use(
             (config) => {
-                console.log('fetching...')
+                console.log('fetching...', config)
                 return config
             },
             (error) => Promise.reject(error)

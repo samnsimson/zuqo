@@ -1,10 +1,9 @@
 import { HTMLAttributes, ReactNode, useEffect, useState } from 'react'
-import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
+import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
-import { Button } from '../ui/button'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useNavigate } from 'react-router-dom'
+import { Pagination } from '../pagination'
 
 export type ColumnProps<T, K> = {
     key: T
@@ -18,6 +17,7 @@ interface DataTableProps<TData, TColumns extends ColumnProps<any, any>> extends 
     columns: TColumns[]
     data: TData[]
     emptyDataComponent?: ReactNode
+    pageChange: (page: number) => void
 }
 
 export function DataTable<TData, TColumns extends ColumnProps<any, any>>({
@@ -27,6 +27,7 @@ export function DataTable<TData, TColumns extends ColumnProps<any, any>>({
     darkHeader,
     headerClass,
     emptyDataComponent = null,
+    pageChange,
     ...props
 }: DataTableProps<TData, TColumns>) {
     const [columns, setColumns] = useState<ColumnDef<TData>[]>([])
@@ -34,12 +35,9 @@ export function DataTable<TData, TColumns extends ColumnProps<any, any>>({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
         state: { columnVisibility: { link: false } },
     })
-    const pageCount = table.getPageCount()
     const headerGroups = table.getHeaderGroups()
-    const { pagination } = table.getState()
     const { rows } = table.getRowModel()
     const navigate = useNavigate()
 
@@ -109,39 +107,7 @@ export function DataTable<TData, TColumns extends ColumnProps<any, any>>({
                     )}
                 </TableBody>
             </Table>
-            <div className="mt-5 flex items-center justify-between py-3">
-                <Button
-                    className="space-x-2 text-sm font-medium leading-tight text-gray-500"
-                    variant="link"
-                    onClick={() => table.previousPage()}
-                    disabled={!table.getCanPreviousPage()}
-                >
-                    <ArrowLeft /> <span>Previous</span>
-                </Button>
-                <div>
-                    {[...Array(pageCount).keys()].map((key) => (
-                        <Button
-                            key={key}
-                            variant="ghost"
-                            className={cn(
-                                'h-10 w-10 p-3 text-center text-sm font-medium leading-tight',
-                                pagination.pageIndex === key ? 'text-sky-700' : 'text-gray-500'
-                            )}
-                            onClick={() => table.setPageIndex(key)}
-                        >
-                            {key + 1}
-                        </Button>
-                    ))}
-                </div>
-                <Button
-                    className="space-x-2 text-sm font-medium leading-tight text-gray-500"
-                    variant="link"
-                    onClick={() => table.nextPage()}
-                    disabled={!table.getCanNextPage()}
-                >
-                    <span>Next</span> <ArrowRight />
-                </Button>
-            </div>
+            <Pagination total={100} countPerPage={10} onPageChange={pageChange} />
         </div>
     )
 }

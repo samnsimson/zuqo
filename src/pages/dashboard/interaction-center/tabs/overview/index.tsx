@@ -7,25 +7,40 @@ import { CustomerInsights } from '@/components/customerInsights'
 import { assets } from '@/config/assets'
 import { EmailConversations } from '@/components/emailConversations'
 import { ChatConversations } from '@/components/chatConversations'
+import { useLocation } from 'react-router-dom'
+import { useFetchInteractionData } from '@/api/queries'
+import { Loading } from '@/components/loading'
 interface OverviewTabContentProps {
     [x: string]: any
     channel: string | null
 }
 
-const SwitchChannels: FC<{ channel: string | null }> = ({ channel }) => {
-    switch (channel) {
+type ChannelSwitchProps = {
+    channel: string | null
+    data: any
+}
+
+const SwitchChannels: FC<ChannelSwitchProps> = ({ channel, data }) => {
+    if (!channel) return
+    switch (channel.toLowerCase()) {
         case 'email':
-            return <EmailConversations className="bg-[#FEFFF6]" />
-        case 'phone':
-            return <VoiceConversations className="bg-[#F6FFF9]" />
-        case 'chat':
-            return <ChatConversations className="bg-[#FFFDF6] pb-10" />
-        default:
-            break
+            return <EmailConversations className="bg-[#FEFFF6]" data={data} />
+        case 'voicecallchat':
+            return <VoiceConversations className="bg-[#F6FFF9]" data={data} />
+        case 'whatsapp':
+            return <ChatConversations className="bg-[#FFFDF6] pb-10" data={data} />
     }
 }
 
 export const OverviewTabContent: FC<OverviewTabContentProps> = ({ channel }) => {
+    const location = useLocation()
+    const params = new URLSearchParams(location.search)
+    const id = params.get('ccid') || ''
+    const { data, isLoading, isError } = useFetchInteractionData({ id })
+
+    if (isLoading) return <Loading />
+    if (isError) return <div>Error...</div>
+
     return (
         <div className="grid w-full grid-cols-12 items-center gap-y-[30px]">
             <div className="col-span-9">
@@ -58,7 +73,7 @@ export const OverviewTabContent: FC<OverviewTabContentProps> = ({ channel }) => 
             <div className="col-span-12 h-full">
                 <div className="grid h-full grid-cols-2 gap-x-5">
                     <div className="col-span-1">
-                        <SwitchChannels channel={channel} />
+                        <SwitchChannels channel={channel} data={data} />
                     </div>
                     <div className="grid grid-cols-1 gap-5">
                         <CustomerInsights className="bg-[#EEF2F3]" />

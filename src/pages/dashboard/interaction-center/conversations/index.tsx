@@ -49,6 +49,7 @@ const tabContent = (channel: string | null): ITabContent[] => [
 export const CoversationPage: FC<CoversationPageProps> = ({ ...props }) => {
     const location = useLocation()
     const params = new URLSearchParams(location.search)
+
     return (
         <div {...props}>
             <div className="px-12">

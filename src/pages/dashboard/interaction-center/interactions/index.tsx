@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '@/components/ui/navigation-menu'
 import { Avatar, AvatarImage } from '@radix-ui/react-avatar'
 import moment from 'moment'
-import { FC, HTMLAttributes, ReactNode, useMemo } from 'react'
+import { FC, HTMLAttributes, ReactNode, useMemo, useState } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
 import { assets } from '@/config/assets'
 import { useFetchInteraction } from '@/api/queries'
@@ -88,7 +88,8 @@ const Sentiment: FC<{ sentiment: string }> = ({ sentiment }) => {
 const PlaceHolder: FC = () => <Skeleton className="h-12 w-full" />
 
 export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
-    const { data, isLoading } = useFetchInteraction({ page: 1 })
+    const [currentPage, setCurrentPage] = useState(1)
+    const { data, isLoading } = useFetchInteraction({ page: currentPage })
     const menuItem = [{ name: 'All' }, { name: 'Inbound' }, { name: 'Outbound' }]
     const buttonGroup = [{ name: 'All' }, { name: 'Voice' }, { name: 'Chat' }, { name: 'Email' }]
     const tableColumns: ColumnProps<string, string | ReactNode>[] = [
@@ -109,7 +110,7 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
         if (!mapData) return []
         return mapData.map((data) => ({
             id: isLoading ? <PlaceHolder /> : data['_id'],
-            link: isLoading ? <PlaceHolder /> : `/interaction-center/conversation?cid=${data['_id']}&channel=${data['chatType']}`,
+            link: isLoading ? <PlaceHolder /> : `/interaction-center/conversation?ccid=${data['chatConnectionID']}&channel=${data['chatType']}`,
             agent: isLoading ? <PlaceHolder /> : <Agent data={{ avatar: assets.kiranmaiKulakarni, name: data['agentName'], email: data['email'] }} />,
             customer: isLoading ? <PlaceHolder /> : <Customer data={{ avatar: assets.preetham, name: data['customerName'], phone: data['phoneNumber'] }} />,
             channel: isLoading ? <PlaceHolder /> : <Channel channel={data['chatType']} />,
@@ -153,7 +154,13 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
                     </div>
                 </CardHeader>
                 <CardContent className="px-0">
-                    <DataTable columns={tableColumns} data={tableData} darkHeader headerClass="uppercase text-[#6E6893] font-semibold tracking-[0.6px]" />
+                    <DataTable
+                        columns={tableColumns}
+                        data={tableData}
+                        darkHeader
+                        pageChange={(page) => setCurrentPage(page)}
+                        headerClass="uppercase text-[#6E6893] font-semibold tracking-[0.6px]"
+                    />
                 </CardContent>
             </Card>
         </div>

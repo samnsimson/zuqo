@@ -11,19 +11,8 @@ export default defineConfig({
     plugins: [svgr(), react()],
     root,
     base: '/',
-    server: {
-        port: 3000,
-        open: true,
-        host: true,
-    },
-    build: {
-        outDir,
-        emptyOutDir: true,
-        sourcemap: true,
-    },
-    resolve: {
-        alias: {
-            '@': path.resolve(__dirname, './src'),
-        },
-    },
+    envDir: path.resolve(__dirname, 'environments'),
+    server: { port: 3000, open: true, host: true },
+    build: { outDir, emptyOutDir: true, sourcemap: true },
+    resolve: { alias: { '@': path.resolve(__dirname, './src') } },
 })

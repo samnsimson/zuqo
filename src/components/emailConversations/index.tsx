@@ -8,7 +8,7 @@ interface EmailConversationsProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any
 }
 
-export const EmailConversations: FC<EmailConversationsProps> = ({ className, ...props }) => {
+export const EmailConversations: FC<EmailConversationsProps> = ({ className, data, ...props }) => {
     const message = `<p>Dear Customer Support Team,</p>
     <p>I am writing to express my deep dissatisfaction and frustration regarding the recent delivery of the product I purchased from your company. I placed the order three weeks ago, and despite the promised delivery time of 5-7 business days, I have yet to receive the package.</p>
     <p>I have made multiple attempts to reach out to your customer service helpline, but each time I have been met with long wait times and unhelpful responses. This level of service is completely unacceptable and has only exacerbated my <span style="color:#C61764">disappointment.</span></p>
@@ -18,7 +18,7 @@ export const EmailConversations: FC<EmailConversationsProps> = ({ className, ...
     return (
         <div className={cn('relative', className)} {...props}>
             <img src={assets.rectangleBorder1} alt="border" className="w-full" />
-            <ConversationSectionHeader label="Email Conversation" />
+            <ConversationSectionHeader label="Email Conversation" language={data.language || null} />
             <EmailContainer>
                 <EmailSubject subject="Urgent: Unresolved Issue with Product Delivery" />
                 <EmailBody message={message} />

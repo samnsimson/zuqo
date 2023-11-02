@@ -1,8 +1,11 @@
+import { CustomSocket } from '@/components/ui/editor/socket'
+import { CustomNode } from '@/components/ui/editor/node'
 import { createRoot } from 'react-dom/client'
 import { NodeEditor, GetSchemes, ClassicPreset } from 'rete'
 import { AreaPlugin, AreaExtensions } from 'rete-area-plugin'
 import { ConnectionPlugin, Presets as ConnectionPresets } from 'rete-connection-plugin'
 import { ReactPlugin, Presets, ReactArea2D } from 'rete-react-plugin'
+import { CustomConnection } from '@/components/ui/editor/connection'
 
 type Schemes = GetSchemes<ClassicPreset.Node, ClassicPreset.Connection<ClassicPreset.Node, ClassicPreset.Node>>
 type AreaExtra = ReactArea2D<Schemes>
@@ -34,7 +37,26 @@ export class Editor {
             accumulating: AreaExtensions.accumulateOnCtrl(),
         })
 
-        render.addPreset(Presets.classic.setup())
+        render.addPreset(
+            Presets.classic.setup({
+                customize: {
+                    node(context) {
+                        switch (context.payload.label) {
+                            case 'custom node':
+                                return CustomNode
+                            default:
+                                return CustomNode
+                        }
+                    },
+                    socket() {
+                        return CustomSocket
+                    },
+                    connection() {
+                        return CustomConnection
+                    },
+                },
+            })
+        )
         connection.addPreset(ConnectionPresets.classic.setup())
 
         editor.use(area)

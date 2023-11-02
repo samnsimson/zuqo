@@ -15,7 +15,7 @@ export const useEditor = (): EditorReturnType => {
         const node = await editor.addNode(label)
         if (options['input']) editor.addNodeInput('input', node)
         if (options['output']) editor.addNodeOutput('output', node)
-        await editor.setNodePosition(node, 0, 0)
+        await editor.setNodePosition(node, Math.floor(Math.random() * 100) + 1, Math.floor(Math.random() * 100) + 1)
         editor.display()
         setNodeInfo(node)
         return node

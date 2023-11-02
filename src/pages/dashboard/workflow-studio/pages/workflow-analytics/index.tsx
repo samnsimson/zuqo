@@ -196,7 +196,13 @@ export const LiveWorkflowSnapshot: FC<LiveWorkflowSnapshotProps> = ({ className,
 
     return (
         <ChartContainer className={cn('', className)} {...props} title="Live Workflows Snapshot" bodyClass="px-0">
-            <DataTable columns={tableColumns} data={tableData} darkHeader headerClass="uppercase text-[#6E6893] font-semibold tracking-[0.6px]" />
+            <DataTable
+                columns={tableColumns}
+                data={tableData}
+                darkHeader
+                headerClass="uppercase text-[#6E6893] font-semibold tracking-[0.6px]"
+                pageChange={() => null}
+            />
         </ChartContainer>
     )
 }

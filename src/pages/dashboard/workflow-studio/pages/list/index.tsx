@@ -93,7 +93,7 @@ export const WorkflowListPage: FC<WorkflowListPageProps> = ({ ...props }) => {
                     </ul>
                 </div>
                 <div className="col-span-10">
-                    <DataTable columns={tableColumns} data={tableData} className="bg-white shadow" />
+                    <DataTable columns={tableColumns} data={tableData} className="bg-white shadow" pageChange={() => null} />
                 </div>
             </div>
         </div>

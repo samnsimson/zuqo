@@ -133,7 +133,7 @@ export const WorkflowFilteredList: FC<WorkflowFilteredListProps> = ({ className,
                         </div>
                     </CardHeader>
                     <CardContent className="p-0">
-                        <DataTable columns={tableColumns} data={tableData} className="my-0 bg-white shadow" />
+                        <DataTable columns={tableColumns} data={tableData} className="my-0 bg-white shadow" pageChange={() => null} />
                     </CardContent>
                 </Card>
             </div>

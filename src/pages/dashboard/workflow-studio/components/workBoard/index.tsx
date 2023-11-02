@@ -11,7 +11,7 @@ export const WorkBoard: FC<WorkBoardProps> = ({ ...props }) => {
     const { ref, isEditorReady, editor } = useEditor()
 
     useEffect(() => {
-        editor.addNode('Start', { output: true }).then((node) => console.log(node))
+        editor.addNode('start', { output: true }).then((node) => console.log(node))
     }, [isEditorReady])
 
     return (

@@ -42,7 +42,9 @@ export class Editor {
                 customize: {
                     node(context) {
                         switch (context.payload.label) {
-                            case 'custom node':
+                            case 'start':
+                                return CustomNode
+                            case 'custom':
                                 return CustomNode
                             default:
                                 return CustomNode

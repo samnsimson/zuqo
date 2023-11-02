@@ -71,12 +71,14 @@ export type NodeOptions = {
     output: boolean
 }
 
+export type NodeTypes = 'start' | 'menu' | 'exit' | 'custom'
+
 export type EditorReturnType = {
     ref: MutableRefObject<null>
     isEditorReady: boolean
     editor: {
         addNode: (
-            label: string,
+            label: NodeTypes,
             options?: Partial<NodeOptions>
         ) => Promise<
             | ClassicPreset.Node<

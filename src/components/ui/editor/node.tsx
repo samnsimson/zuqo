@@ -1,9 +1,14 @@
 import { cn, sortByIndex } from '@/lib/utils'
+// import { NodeTypes } from '@/types/types'
 import { FC, HTMLAttributes } from 'react'
 import { ClassicPreset } from 'rete'
 import { ClassicScheme, RenderEmit, Presets } from 'rete-react-plugin'
 
-type NodeExtraData = { width?: number; height?: number }
+type NodeExtraData = {
+    width?: number
+    height?: number
+    // type: NodeTypes
+}
 
 type Props<S extends ClassicScheme> = {
     data: S['Node'] & NodeExtraData

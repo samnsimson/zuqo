@@ -13,7 +13,6 @@ interface VoiceConversationsProps extends HTMLAttributes<HTMLDivElement> {
 
 export const VoiceConversations: FC<VoiceConversationsProps> = ({ className, data, ...props }) => {
     const { audioSource, conversations } = useAudioTranscript(data)
-    console.log('🚀 ~ file: index.tsx:16 ~ conversations:', conversations)
     const [seekTo, setSeekTo] = useState(0)
     const [activeConveration, setActiveConveration] = useState<string | null>(null)
 

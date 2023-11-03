@@ -54,6 +54,9 @@ const Channel: FC<{ channel: string }> = ({ channel }) => {
 }
 
 const Type: FC<{ type: string }> = ({ type }) => {
+    if (type === 'VoiceCallChat') type = 'INBOUND'
+    if (type === 'VoiceCallChatOutbound') type = 'OUTBOUND'
+    if (type === 'whatsapp') type = 'WEB CHAT'
     return (
         <div className="inline-flex items-center justify-center gap-2.5 rounded-sm bg-gray-100 px-2.5 py-1">
             <div className="text-sm font-medium text-slate-800">{type}</div>
@@ -89,6 +92,7 @@ const PlaceHolder: FC = () => <Skeleton className="h-12 w-full" />
 
 export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
     const [currentPage, setCurrentPage] = useState(1)
+    const [totalPagecount, setTotalPagecount] = useState(0)
     const { data, isLoading } = useFetchInteraction({ page: currentPage })
     const menuItem = [{ name: 'All' }, { name: 'Inbound' }, { name: 'Outbound' }]
     const buttonGroup = [{ name: 'All' }, { name: 'Voice' }, { name: 'Chat' }, { name: 'Email' }]
@@ -106,9 +110,9 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
     ]
 
     const tableData = useMemo(() => {
-        const mapData = isLoading ? [...Array(5)] : data
-        if (!mapData) return []
-        return mapData.map((data) => ({
+        setTotalPagecount((state) => data?.total ?? state)
+        const iterator = isLoading ? [...Array(10)] : data?.data
+        return iterator.map((data: any) => ({
             id: isLoading ? <PlaceHolder /> : data['_id'],
             link: isLoading ? <PlaceHolder /> : `/interaction-center/conversation?ccid=${data['chatConnectionID']}&channel=${data['chatType']}`,
             agent: isLoading ? <PlaceHolder /> : <Agent data={{ avatar: assets.kiranmaiKulakarni, name: data['agentName'], email: data['email'] }} />,
@@ -157,9 +161,10 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
                     <DataTable
                         columns={tableColumns}
                         data={tableData}
-                        darkHeader
+                        totalPage={totalPagecount}
                         pageChange={(page) => setCurrentPage(page)}
                         headerClass="uppercase text-[#6E6893] font-semibold tracking-[0.6px]"
+                        darkHeader
                     />
                 </CardContent>
             </Card>

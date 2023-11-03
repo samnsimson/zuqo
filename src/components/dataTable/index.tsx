@@ -16,6 +16,7 @@ interface DataTableProps<TData, TColumns extends ColumnProps<any, any>> extends 
     headerClass?: string
     columns: TColumns[]
     data: TData[]
+    totalPage?: number
     emptyDataComponent?: ReactNode
     pageChange: (page: number) => void
 }
@@ -27,6 +28,7 @@ export function DataTable<TData, TColumns extends ColumnProps<any, any>>({
     darkHeader,
     headerClass,
     emptyDataComponent = null,
+    totalPage,
     pageChange,
     ...props
 }: DataTableProps<TData, TColumns>) {
@@ -107,7 +109,7 @@ export function DataTable<TData, TColumns extends ColumnProps<any, any>>({
                     )}
                 </TableBody>
             </Table>
-            <Pagination total={100} countPerPage={10} onPageChange={pageChange} />
+            <Pagination totalCount={totalPage ?? 0} countPerPage={10} onPageChange={pageChange} />
         </div>
     )
 }

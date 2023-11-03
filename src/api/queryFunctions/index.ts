@@ -3,10 +3,10 @@ import { IFetchInteraction } from '@/types/types'
 import { stringify } from 'qs'
 
 export class QueryFunction {
-    public fetchInteraction = async (props: Partial<IFetchInteraction>): Promise<any[]> => {
+    public fetchInteraction = async (props: Partial<IFetchInteraction>): Promise<{ data: any; total: number }> => {
         const params = stringify(props, { skipNulls: true })
-        const { data } = await httpRequest.get(`admin/report/chatReport2?${params}`)
-        return data
+        const { data, total } = await httpRequest.get(`admin/report/chatReport2?${params}`)
+        return { data, total: total[0].count }
     }
 
     public fetchInteractionData = async (props: { [x: string]: any }): Promise<any> => {

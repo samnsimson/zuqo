@@ -72,30 +72,25 @@ export type NodeOptions = {
     output: boolean
 }
 
-export type NodeTypes = 'start' | 'menu' | 'exit' | 'custom'
+export type NodeTypes = 'start' | 'menu' | 'exit' | 'custom' | 'notes'
+
+type NodeCLassicPreset = {
+    [x: string]: ClassicPreset.Socket | undefined
+}
+
+type NodeCLassicControl = {
+    [x: string]: ClassicPreset.Control | undefined
+}
+
+type NodeReturnType = Promise<ClassicPreset.Node<NodeCLassicPreset, NodeCLassicPreset, NodeCLassicControl> | undefined>
 
 export type EditorReturnType = {
     ref: MutableRefObject<null>
     isEditorReady: boolean
     editor: {
-        addNode: (
-            label: NodeTypes,
-            options?: Partial<NodeOptions>
-        ) => Promise<
-            | ClassicPreset.Node<
-                  {
-                      [x: string]: ClassicPreset.Socket | undefined
-                  },
-                  {
-                      [x: string]: ClassicPreset.Socket | undefined
-                  },
-                  {
-                      [x: string]: ClassicPreset.Control | undefined
-                  }
-              >
-            | undefined
-        >
+        addNode: (label: NodeTypes, options?: Partial<NodeOptions>) => NodeReturnType
         addConnection: (sourceNode: ClassicPreset.Node, targetNode: ClassicPreset.Node) => Promise<void>
+        addNotes: (label: NodeTypes) => NodeReturnType
     }
 }
 

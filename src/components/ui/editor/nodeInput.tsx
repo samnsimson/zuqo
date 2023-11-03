@@ -12,7 +12,7 @@ interface InputProps extends HTMLAttributes<HTMLDivElement> {
 export const Inputs: FC<InputProps> = ({ key, input, nodeId, props }) => {
     const { RefControl, RefSocket } = Presets.classic
     return (
-        <div className="absolute -left-[5px] z-10" data-id={`input-${key}`}>
+        <div className="absolute -left-[10px] z-10" data-id={`input-${key}`}>
             <RefSocket name="input-socket" side="input" emit={props.emit} socketKey={key} nodeId={nodeId} payload={input.socket} />
             {input && (!input.control || !input.showControl) && <div>{input.label}</div>}
             {input.control && input.showControl && <RefControl key={key} name="input-control" emit={props.emit} payload={input.control} />}

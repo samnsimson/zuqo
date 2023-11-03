@@ -12,6 +12,7 @@ import { FC, HTMLAttributes, ReactNode, useMemo, useState } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
 import { assets } from '@/config/assets'
 import { useFetchInteraction } from '@/api/queries'
+import { cn } from '@/lib/utils'
 
 interface InteractionsProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any
@@ -86,6 +87,8 @@ const Sentiment: FC<{ sentiment: string }> = ({ sentiment }) => {
                 </Badge>
             </div>
         )
+
+    return <p className="text-center">-</p>
 }
 
 const PlaceHolder: FC = () => <Skeleton className="h-12 w-full" />
@@ -112,19 +115,33 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
     const tableData = useMemo(() => {
         setTotalPagecount((state) => data?.total ?? state)
         const iterator = isLoading ? [...Array(10)] : data?.data
-        return iterator.map((data: any) => ({
-            id: isLoading ? <PlaceHolder /> : data['_id'],
-            link: isLoading ? <PlaceHolder /> : `/interaction-center/conversation?ccid=${data['chatConnectionID']}&channel=${data['chatType']}`,
-            agent: isLoading ? <PlaceHolder /> : <Agent data={{ avatar: assets.kiranmaiKulakarni, name: data['agentName'], email: data['email'] }} />,
-            customer: isLoading ? <PlaceHolder /> : <Customer data={{ avatar: assets.preetham, name: data['customerName'], phone: data['phoneNumber'] }} />,
-            channel: isLoading ? <PlaceHolder /> : <Channel channel={data['chatType']} />,
-            type: isLoading ? <PlaceHolder /> : <Type type={data['chatType']} />,
-            campaign_name: isLoading ? <PlaceHolder /> : <div className="text-[#015EB0]">CampaignX</div>,
-            overall_sentiment: isLoading ? <PlaceHolder /> : <Sentiment sentiment="Positive" />,
-            overall_call_rating: isLoading ? <PlaceHolder /> : <span className="font-bold text-[#008344]">4.0/5</span>,
-            ai_confidence_score: isLoading ? <PlaceHolder /> : <span className="font-bold text-[#008344]">89%</span>,
-            happened_on: isLoading ? <PlaceHolder /> : <span>{moment().format('DD/mm/yyyy hh:mm:ss')}</span>,
-        }))
+        return iterator.map((data: any) => {
+            const sentimentLabel = data?.result?.overall_sentiment?.label ?? '-'
+            const confidenceScore = Math.ceil(data?.result?.overall_sentiment?.score ?? 0)
+            const labelColorScheme = (label: string) => {
+                if (label === 'positive') return 'text-[#008344]'
+                if (label === 'negative') return 'text-red-500'
+                if (label === 'neutral') return 'text-gray-600'
+                return 'text-gray-600'
+            }
+            return {
+                id: isLoading ? <PlaceHolder /> : data['_id'],
+                link: isLoading ? <PlaceHolder /> : `/interaction-center/conversation?ccid=${data['chatConnectionID']}&channel=${data['chatType']}`,
+                agent: isLoading ? <PlaceHolder /> : <Agent data={{ avatar: assets.kiranmaiKulakarni, name: data['agentName'], email: data['email'] }} />,
+                customer: isLoading ? <PlaceHolder /> : <Customer data={{ avatar: assets.preetham, name: data['customerName'], phone: data['phoneNumber'] }} />,
+                channel: isLoading ? <PlaceHolder /> : <Channel channel={data['chatType']} />,
+                type: isLoading ? <PlaceHolder /> : <Type type={data['chatType']} />,
+                campaign_name: isLoading ? <PlaceHolder /> : <div className="text-[#015EB0]">CampaignX</div>,
+                overall_sentiment: isLoading ? <PlaceHolder /> : <Sentiment sentiment={sentimentLabel} />,
+                overall_call_rating: isLoading ? <PlaceHolder /> : <span className={cn('font-bold', labelColorScheme(sentimentLabel))}>4.0/5</span>,
+                ai_confidence_score: isLoading ? (
+                    <PlaceHolder />
+                ) : (
+                    <span className={cn('font-bold', labelColorScheme(sentimentLabel))}>{confidenceScore}%</span>
+                ),
+                happened_on: isLoading ? <PlaceHolder /> : <span>{moment().format('DD/mm/yyyy hh:mm:ss')}</span>,
+            }
+        })
     }, [data, isLoading])
 
     return (

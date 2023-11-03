@@ -10,6 +10,14 @@ export const useEditor = (): EditorReturnType => {
     const [ref, editor] = useRete(Editor.init)
     const { setNodeInfo } = useAppStore((state) => state)
 
+    const addNotes = async (label: string) => {
+        if (!editor) return
+        const node = await editor.addNode(label)
+        await editor.setNodePosition(node, Math.floor(Math.random() * 100) + 1, Math.floor(Math.random() * 100) + 1)
+        editor.display()
+        return node
+    }
+
     const addNode = async (label: string, options: Partial<NodeOptions> = {}) => {
         if (!editor) return
         const node = await editor.addNode(label)
@@ -30,5 +38,5 @@ export const useEditor = (): EditorReturnType => {
         setIsEditorReady(editor !== null)
     }, [editor])
 
-    return { ref, isEditorReady, editor: { addNode, addConnection } }
+    return { ref, isEditorReady, editor: { addNode, addConnection, addNotes } }
 }

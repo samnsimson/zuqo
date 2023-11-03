@@ -7,6 +7,7 @@ import { ConnectionPlugin, Presets as ConnectionPresets } from 'rete-connection-
 import { ReactPlugin, Presets, ReactArea2D } from 'rete-react-plugin'
 import { CustomConnection } from '@/components/ui/editor/connection'
 import { StartNode } from '@/components/ui/editor/startNode'
+import { NotesNode } from '@/components/ui/editor/notes'
 
 type Schemes = GetSchemes<ClassicPreset.Node, ClassicPreset.Connection<ClassicPreset.Node, ClassicPreset.Node>>
 type AreaExtra = ReactArea2D<Schemes>
@@ -44,6 +45,7 @@ export class Editor {
                     node({ payload: { label } }) {
                         if (label === 'start') return StartNode
                         if (label === 'custom') return CustomNode
+                        if (label === 'notes') return NotesNode
                         return CustomNode
                     },
                     socket() {

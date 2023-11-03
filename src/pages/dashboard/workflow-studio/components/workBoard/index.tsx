@@ -12,6 +12,7 @@ export const WorkBoard: FC<WorkBoardProps> = ({ ...props }) => {
 
     useEffect(() => {
         editor.addNode('start', { output: true }).then((node) => console.log(node))
+        editor.addNode('notes').then((node) => console.log(node))
     }, [isEditorReady])
 
     return (

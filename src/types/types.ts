@@ -2,6 +2,7 @@
 
 import { MutableRefObject } from 'react'
 import { ClassicPreset } from 'rete'
+import { ClassicScheme, RenderEmit } from 'rete-react-plugin'
 
 export interface ConversationData {
     _id: string
@@ -96,4 +97,12 @@ export type EditorReturnType = {
         >
         addConnection: (sourceNode: ClassicPreset.Node, targetNode: ClassicPreset.Node) => Promise<void>
     }
+}
+
+export type NodeExtraData = { [x: string]: any }
+
+export type CustomNodeProps<S extends ClassicScheme> = {
+    data: S['Node'] & NodeExtraData
+    styles?: () => any
+    emit: RenderEmit<S>
 }

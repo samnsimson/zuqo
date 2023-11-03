@@ -32,6 +32,29 @@ const SwitchChannels: FC<ChannelSwitchProps> = ({ channel, data }) => {
     }
 }
 
+const SentimentScore = (data: any) => {
+    if (!data['result'] || !data.result['overall_sentiment']) return null
+
+    const getSentimentScore = (score: number) => {
+        if (!score) return 0
+        Math.ceil(score * 100)
+    }
+    return (
+        <div className="grid gap-y-1">
+            <div className="flex space-x-3">
+                <img src={assets.faceSmileRegular} alt="emoji" />
+                <p className="text-[#008344]">
+                    <span className="text-2xl font-bold">{getSentimentScore(data?.result?.overall_sentiment?.score)}</span> <br />{' '}
+                    <span className="font-semibold">{data?.result?.overall_sentiment?.label?.toUpperCase()}</span>
+                </p>
+            </div>
+            <div>
+                <p className="text-sm font-semibold uppercase text-[#6E6893]">Overall Sentiment</p>
+            </div>
+        </div>
+    )
+}
+
 export const OverviewTabContent: FC<OverviewTabContentProps> = ({ channel }) => {
     const location = useLocation()
     const params = new URLSearchParams(location.search)
@@ -56,17 +79,7 @@ export const OverviewTabContent: FC<OverviewTabContentProps> = ({ channel }) => 
             </div>
             <div className="col-span-3">
                 <div className="grid grid-cols-2">
-                    <div className="grid gap-y-1">
-                        <div className="flex space-x-3">
-                            <img src={assets.faceSmileRegular} alt="emoji" />
-                            <p className="text-[#008344]">
-                                <span className="text-2xl font-bold">98.6</span> <br /> <span className="font-semibold">Positive</span>
-                            </p>
-                        </div>
-                        <div>
-                            <p className="text-sm font-semibold uppercase text-[#6E6893]">Overall Sentiment</p>
-                        </div>
-                    </div>
+                    <SentimentScore data={data} />
                     <StartRattings rating={3.5} label="Overall call rating" />
                 </div>
             </div>

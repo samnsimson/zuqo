@@ -10,6 +10,7 @@ import { ChatConversations } from '@/components/chatConversations'
 import { useLocation } from 'react-router-dom'
 import { useFetchInteractionData } from '@/api/queries'
 import { Loading } from '@/components/loading'
+import { cn } from '@/lib/utils'
 interface OverviewTabContentProps {
     [x: string]: any
     channel: string | null
@@ -34,18 +35,32 @@ const SwitchChannels: FC<ChannelSwitchProps> = ({ channel, data }) => {
 
 const SentimentScore = (data: any) => {
     if (!data['result'] || !data.result['overall_sentiment']) return null
+    const { score, label } = data.result.overall_sentiment
 
     const getSentimentScore = (score: number) => {
         if (!score) return 0
         Math.ceil(score * 100)
     }
+
+    const getColorScheme = (sentiment: string) => {
+        switch (sentiment) {
+            case 'positive':
+                return 'text-[#008344]'
+            case 'negative':
+                return 'text-red-500'
+            case 'neutral':
+                return 'text-amber-500'
+            default:
+                return 'text-grey-600'
+        }
+    }
+
     return (
         <div className="grid gap-y-1">
             <div className="flex space-x-3">
                 <img src={assets.faceSmileRegular} alt="emoji" />
-                <p className="text-[#008344]">
-                    <span className="text-2xl font-bold">{getSentimentScore(data?.result?.overall_sentiment?.score)}</span> <br />{' '}
-                    <span className="font-semibold">{data?.result?.overall_sentiment?.label?.toUpperCase()}</span>
+                <p className={cn(getColorScheme(label))}>
+                    <span className="text-2xl font-bold">{getSentimentScore(score)}</span> <br /> <span className="font-semibold">{label.toUpperCase()}</span>
                 </p>
             </div>
             <div>

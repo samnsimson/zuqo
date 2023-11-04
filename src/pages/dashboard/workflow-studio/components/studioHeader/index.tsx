@@ -1,14 +1,15 @@
 import { AnnotationIcon, CloudErrorIcon, CompareIcon, ExchangeIcon, ExpandIcon, HexagonSettingIcon, PlaySquareIcon, SaveFileIcon } from '@/assets/svg/icons'
 import { Button } from '@/components/ui/button'
 import { assets } from '@/config/assets'
+import { EditorReturnType } from '@/types/types'
 import { BellIcon, MoreVertical } from 'lucide-react'
 import { FC, HTMLAttributes } from 'react'
 
 interface StudioHeaderProps extends HTMLAttributes<HTMLDivElement> {
-    [x: string]: any
+    editor: EditorReturnType['editor']
 }
 
-export const StudioHeader: FC<StudioHeaderProps> = ({ ...props }) => {
+export const StudioHeader: FC<StudioHeaderProps> = ({ editor, ...props }) => {
     return (
         <div {...props} className="flex items-center justify-between border-b border-b-gray-200 bg-white p-4 shadow">
             <div className="flex items-center space-x-6">
@@ -53,7 +54,7 @@ export const StudioHeader: FC<StudioHeaderProps> = ({ ...props }) => {
                     <li className="cursor-pointer">
                         <ExpandIcon />
                     </li>
-                    <li className="cursor-pointer">
+                    <li className="cursor-pointer" onClick={() => console.log(editor.flowInfo())}>
                         <SaveFileIcon />
                     </li>
                     <li className="cursor-pointer">

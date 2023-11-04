@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client'
 import { NodeEditor, GetSchemes, ClassicPreset } from 'rete'
 import { AreaPlugin, AreaExtensions } from 'rete-area-plugin'
 import { ConnectionPlugin, Presets as ConnectionPresets } from 'rete-connection-plugin'
+import { HistoryExtensions, HistoryPlugin, Presets as HistoryPresets } from 'rete-history-plugin'
 import { ReactPlugin, Presets, ReactArea2D } from 'rete-react-plugin'
 import { CustomConnection } from '@/components/ui/editor/connection'
 import { StartNode } from '@/components/ui/editor/startNode'
@@ -24,7 +25,8 @@ export class Editor {
         protected editor: NodeEditor<Schemes>,
         protected area: AreaPlugin<Schemes, AreaExtra>,
         protected connection: ConnectionPlugin<Schemes, AreaExtra>,
-        protected render: ReactPlugin<Schemes, AreaExtra>
+        protected render: ReactPlugin<Schemes, AreaExtra>,
+        protected history: HistoryPlugin<Schemes>
     ) {
         this.flowObject = {
             nodes: [],
@@ -38,6 +40,7 @@ export class Editor {
         const area = new AreaPlugin<Schemes, AreaExtra>(container)
         const connection = new ConnectionPlugin<Schemes, AreaExtra>()
         const render = new ReactPlugin<Schemes, AreaExtra>({ createRoot })
+        const history = new HistoryPlugin<Schemes>()
 
         const renderPresetNode = (label: string) => {
             if (label === 'start') return StartNode
@@ -51,8 +54,6 @@ export class Editor {
         const renderPresetSocket = () => CustomSocket
         const renderPresetConnection = () => CustomConnection
 
-        AreaExtensions.selectableNodes(area, AreaExtensions.selector(), { accumulating: AreaExtensions.accumulateOnCtrl() })
-
         render.addPreset(
             Presets.classic.setup({
                 customize: {
@@ -63,14 +64,18 @@ export class Editor {
             })
         )
         connection.addPreset(ConnectionPresets.classic.setup())
+        history.addPreset(HistoryPresets.classic.setup())
 
         editor.use(area)
         area.use(connection)
         area.use(render)
+        area.use(history)
 
+        HistoryExtensions.keyboard(history)
+        AreaExtensions.selectableNodes(area, AreaExtensions.selector(), { accumulating: AreaExtensions.accumulateOnCtrl() })
         AreaExtensions.simpleNodesOrder(area)
 
-        return new Editor(container, socket, editor, area, connection, render)
+        return new Editor(container, socket, editor, area, connection, render, history)
     }
 
     public destroy = () => this.area.destroy()
@@ -94,5 +99,5 @@ export class Editor {
 
     public display = () => AreaExtensions.zoomAt(this.area, this.editor.getNodes())
 
-    public flowInfo = () => this.flowObject
+    public flowInfo = () => ({ nodes: this.editor.getNodes(), connections: this.editor.getConnections() })
 }

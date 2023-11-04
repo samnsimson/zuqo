@@ -1,10 +1,12 @@
-import { FC, HTMLAttributes } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { FC, HTMLAttributes, useEffect } from 'react'
 import { StudioHeader } from '../../components/studioHeader'
-import { WorkBoard } from '../../components/workBoard'
+import { EditorToolBox } from '@/components/editorToolBox'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Plus } from 'lucide-react'
+import { useEditor } from '@/hooks/useEditor'
 
 interface StudioProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any
@@ -15,6 +17,12 @@ export const Studio: FC<StudioProps> = ({ ...props }) => {
     const navigate = useNavigate()
     const params = new URLSearchParams(search)
     const intent = params.get('intent')
+    const { ref, isEditorReady, editor } = useEditor()
+
+    useEffect(() => {
+        editor.addNode('start', { output: true }).then((node) => console.log(node))
+        editor.addNode('notes').then((node) => console.log(node))
+    }, [isEditorReady])
 
     if (!intent || !['create', 'edit', 'view'].includes(intent)) {
         return (
@@ -33,9 +41,10 @@ export const Studio: FC<StudioProps> = ({ ...props }) => {
 
     return (
         <div {...props} className="flex flex-grow flex-col">
-            <StudioHeader />
+            <StudioHeader editor={editor} />
             <div className="relative h-full">
-                <WorkBoard />
+                <div {...props} className="relative h-full w-full bg-slate-100" ref={ref} />
+                <EditorToolBox editor={editor} />
             </div>
         </div>
     )

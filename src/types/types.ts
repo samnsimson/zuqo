@@ -91,6 +91,7 @@ export type EditorReturnType = {
         addNode: (label: NodeTypes, options?: Partial<NodeOptions>) => NodeReturnType
         addConnection: (sourceNode: ClassicPreset.Node, targetNode: ClassicPreset.Node) => Promise<void>
         addNotes: (label: NodeTypes) => NodeReturnType
+        flowInfo: () => any
     }
 }
 

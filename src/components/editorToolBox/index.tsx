@@ -67,7 +67,7 @@ const Tools: FC<ToolsProps> = ({ className, editor, ...props }) => {
                     id: uuid(),
                     name: 'Stickers',
                     type: 'action',
-                    action: () => null,
+                    action: () => console.log(editor.flowInfo()),
                     icon: <StarIcon color="#00539F" className="rounded bg-[#F8F8FA] p-2" size={32} />,
                 },
                 {

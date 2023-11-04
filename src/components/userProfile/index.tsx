@@ -28,18 +28,21 @@ const menu: MenuGroup[] = [
             {
                 id: uuid(),
                 name: 'View profile',
+                type: 'link',
                 link: '',
                 icon: <ViewProfileIcon />,
             },
             {
                 id: uuid(),
                 name: 'Settings',
+                type: 'link',
                 link: '',
                 icon: <CogWheelIcon />,
             },
             {
                 id: uuid(),
                 name: 'Keyboard shortcuts',
+                type: 'link',
                 link: '',
                 icon: <ThunderBoltIcon />,
             },
@@ -51,18 +54,21 @@ const menu: MenuGroup[] = [
             {
                 id: uuid(),
                 name: 'Zuqo Profile',
+                type: 'link',
                 link: '',
                 icon: <HomeIcon />,
             },
             {
                 id: uuid(),
                 name: 'Team',
+                type: 'link',
                 link: '',
                 icon: <UserGroupIcon />,
             },
             {
                 id: uuid(),
                 name: 'Invite Colleagues',
+                type: 'link',
                 link: '',
                 icon: <InviteIcon />,
             },
@@ -74,18 +80,21 @@ const menu: MenuGroup[] = [
             {
                 id: uuid(),
                 name: 'Changelog',
+                type: 'link',
                 link: '',
                 icon: <ChangelogIcon />,
             },
             {
                 id: uuid(),
                 name: 'Support',
+                type: 'link',
                 link: '',
                 icon: <SupportIcon />,
             },
             {
                 id: uuid(),
                 name: 'API',
+                type: 'link',
                 link: '',
                 icon: <ApiIcon />,
             },
@@ -97,6 +106,7 @@ const menu: MenuGroup[] = [
             {
                 id: uuid(),
                 name: 'Log out',
+                type: 'link',
                 link: '',
                 icon: <LogoutIcon />,
             },

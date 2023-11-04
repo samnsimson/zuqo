@@ -25,8 +25,8 @@ export const VoiceConversations: FC<VoiceConversationsProps> = ({ className, dat
         <div className={cn('relative', className)} {...props}>
             <img src={assets.rectangleBorder1} alt="border" className="w-full" />
             <ConversationSectionHeader label="Voice Conversation" language={data['language'] || null} />
-            {conversations.length !== 0 ? (
-                <Fragment>
+            <Fragment>
+                {conversations.length !== 0 ? (
                     <ConversationSection>
                         {conversations.map((chat) => (
                             <ConversationContainer key={chat.id} avatar={chat.avatar}>
@@ -45,17 +45,17 @@ export const VoiceConversations: FC<VoiceConversationsProps> = ({ className, dat
                             </ConversationContainer>
                         ))}
                     </ConversationSection>
-                    <AudioPlayer
-                        url={audioSource}
-                        seekTo={seekTo}
-                        onTimeStampChange={(time) => handleTimeChange(time)}
-                        onComplete={() => setActiveConveration(null)}
-                        className="sticky bottom-0"
-                    />
-                </Fragment>
-            ) : (
-                <NoData translation={data?.result?.translation} />
-            )}
+                ) : (
+                    <NoData translation={data?.result?.translation} />
+                )}
+                <AudioPlayer
+                    url={audioSource}
+                    seekTo={seekTo}
+                    onTimeStampChange={(time) => handleTimeChange(time)}
+                    onComplete={() => setActiveConveration(null)}
+                    className="sticky bottom-0"
+                />
+            </Fragment>
         </div>
     )
 }

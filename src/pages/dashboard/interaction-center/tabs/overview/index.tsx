@@ -27,6 +27,7 @@ const SwitchChannels: FC<ChannelSwitchProps> = ({ channel, data }) => {
         case 'email':
             return <EmailConversations className="bg-[#FEFFF6]" data={data} />
         case 'voicecallchat':
+        case 'voicecallchatoutbound':
             return <VoiceConversations className="bg-[#F6FFF9]" data={data} />
         case 'whatsapp':
             return <ChatConversations className="bg-[#FFFDF6] pb-10" data={data} />

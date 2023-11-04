@@ -16,7 +16,8 @@ export const WorkBoard: FC<WorkBoardProps> = ({ ...props }) => {
     }, [isEditorReady])
 
     return (
-        <div {...props} className="relative h-full w-full bg-slate-100" ref={ref}>
+        <div className="h-full">
+            <div {...props} className="relative h-full w-full bg-slate-100" ref={ref} />
             <EditorToolBox editor={editor} />
         </div>
     )

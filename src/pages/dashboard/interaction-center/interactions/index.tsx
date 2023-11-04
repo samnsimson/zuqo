@@ -47,11 +47,11 @@ const Customer: FC<{ data: { avatar: string; name: string; phone: string } }> = 
 }
 
 const Channel: FC<{ channel: string }> = ({ channel }) => {
-    channel = channel.toLowerCase()
+    channel = channel?.toLowerCase()
     if (['phone', 'messenger', 'whatsapp', 'webchat'].includes(channel)) return <ChannelPhone />
     if (['email'].includes(channel)) return <ChannelEmail />
     if (['voicecallchat'].includes(channel)) return <ChannelChat />
-    return <ChannelEmail />
+    return null
 }
 
 const Type: FC<{ type: string }> = ({ type }) => {
@@ -139,7 +139,7 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
                 ) : (
                     <span className={cn('font-bold', labelColorScheme(sentimentLabel))}>{confidenceScore}%</span>
                 ),
-                happened_on: isLoading ? <PlaceHolder /> : <span>{moment().format('DD/mm/yyyy hh:mm:ss')}</span>,
+                happened_on: isLoading ? <PlaceHolder /> : <span>{moment(data['updated_at']).format('DD/mm/yyyy hh:mm:ss')}</span>,
             }
         })
     }, [data, isLoading])

@@ -2,26 +2,26 @@ import { CustomNodeProps } from '@/types/types'
 import { ClassicScheme, Presets } from 'rete-react-plugin'
 import { Inputs } from './nodeInput'
 import { Outputs } from './nodeOutput'
-import { Node } from './node'
-import { StartFlag } from '@/assets/svg/icons'
+import { Node, NodeContainer } from './node'
 import { useNodeTemplate } from '@/hooks/useNodeTemplate'
+import { HexagonIcon, MoreVerticalIcon } from 'lucide-react'
 
-export const StartNode = <Scheme extends ClassicScheme>(props: CustomNodeProps<Scheme>) => {
+export const MenuNode = <Scheme extends ClassicScheme>(props: CustomNodeProps<Scheme>) => {
     const { inputs, outputs, controls, selected } = useNodeTemplate(props)
     const { id, label } = props.data
     const { RefControl } = Presets.classic
 
     return (
-        <div className="flex flex-row items-center space-x-4">
-            <div className="">
-                <StartFlag />
-            </div>
+        <NodeContainer className="relative flex flex-row items-center">
             {inputs.map(([key, input]) => input && <Inputs key={key} input={input} nodeId={id} props={props} />)}
             <Node label={label} id={id} selected={selected} {...props}>
-                <p className="font-jakarta text-xs text-[#4E545F]">Where your bot begins</p>
+                <div className="flex items-center justify-end space-x-3">
+                    <HexagonIcon size={18} className="cursor-pointer opacity-60" color="#4E545F" />
+                    <MoreVerticalIcon size={18} className="cursor-pointer opacity-60" color="#4E545F" />
+                </div>
             </Node>
             {outputs.map(([key, output]) => output && <Outputs key={key} output={output} nodeId={id} props={props} />)}
             {controls.map(([key, control]) => (control ? <RefControl key={key} name="control" emit={props.emit} payload={control} /> : null))}
-        </div>
+        </NodeContainer>
     )
 }

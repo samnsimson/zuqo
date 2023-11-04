@@ -60,7 +60,7 @@ const Tools: FC<ToolsProps> = ({ className, editor, ...props }) => {
                     id: uuid(),
                     name: 'End Node',
                     type: 'action',
-                    action: () => null,
+                    action: () => editor.addNode('exit', { input: true }),
                     icon: <LogInIcon color="#00539F" className="rounded bg-[#F8F8FA] p-2" size={32} />,
                 },
                 {
@@ -100,7 +100,7 @@ const Tools: FC<ToolsProps> = ({ className, editor, ...props }) => {
                     id: uuid(),
                     name: 'Menu',
                     type: 'action',
-                    action: () => null,
+                    action: () => editor.addNode('menu', { input: true, output: true }),
                     icon: <StarIcon color="#00539F" className="rounded bg-[#F8F8FA] p-2" size={32} />,
                 },
                 {

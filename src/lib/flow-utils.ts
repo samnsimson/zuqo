@@ -8,11 +8,12 @@ import { ReactPlugin, Presets, ReactArea2D } from 'rete-react-plugin'
 import { CustomConnection } from '@/components/ui/editor/connection'
 import { StartNode } from '@/components/ui/editor/startNode'
 import { NotesNode } from '@/components/ui/editor/notes'
-// import { AutoArrangePlugin, Presets as ArrangePresets, ArrangeAppliers } from 'rete-auto-arrange-plugin'
+import { ExitNode } from '@/components/ui/editor/exitNode'
+import { MenuNode } from '@/components/ui/editor/menuNode'
 
-interface Node extends ClassicPreset.Node {}
-interface Connection<N extends Node> extends ClassicPreset.Connection<N, N> {}
-type Schemes = GetSchemes<Node, Connection<Node>>
+class Connection<N extends ClassicPreset.Node> extends ClassicPreset.Connection<N, N> {}
+
+type Schemes = GetSchemes<ClassicPreset.Node, Connection<ClassicPreset.Node>>
 type AreaExtra = ReactArea2D<Schemes>
 
 export class Editor {
@@ -24,8 +25,7 @@ export class Editor {
         protected area: AreaPlugin<Schemes, AreaExtra>,
         protected connection: ConnectionPlugin<Schemes, AreaExtra>,
         protected render: ReactPlugin<Schemes, AreaExtra>
-    ) // protected arrange: AutoArrangePlugin<Schemes>
-    {
+    ) {
         this.flowObject = {
             nodes: [],
             connection: [],
@@ -38,27 +38,27 @@ export class Editor {
         const area = new AreaPlugin<Schemes, AreaExtra>(container)
         const connection = new ConnectionPlugin<Schemes, AreaExtra>()
         const render = new ReactPlugin<Schemes, AreaExtra>({ createRoot })
-        // const arrange = new AutoArrangePlugin<Schemes>()
 
-        AreaExtensions.selectableNodes(area, AreaExtensions.selector(), {
-            accumulating: AreaExtensions.accumulateOnCtrl(),
-        })
+        const renderPresetNode = (label: string) => {
+            if (label === 'start') return StartNode
+            if (label === 'custom') return CustomNode
+            if (label === 'notes') return NotesNode
+            if (label === 'exit') return ExitNode
+            if (label === 'menu') return MenuNode
+            return Presets.classic.Node
+        }
+
+        const renderPresetSocket = () => CustomSocket
+        const renderPresetConnection = () => CustomConnection
+
+        AreaExtensions.selectableNodes(area, AreaExtensions.selector(), { accumulating: AreaExtensions.accumulateOnCtrl() })
 
         render.addPreset(
             Presets.classic.setup({
                 customize: {
-                    node({ payload: { label } }) {
-                        if (label === 'start') return StartNode
-                        if (label === 'custom') return CustomNode
-                        if (label === 'notes') return NotesNode
-                        return CustomNode
-                    },
-                    socket() {
-                        return CustomSocket
-                    },
-                    connection() {
-                        return CustomConnection
-                    },
+                    node: ({ payload: { label } }) => renderPresetNode(label),
+                    socket: () => renderPresetSocket(),
+                    connection: () => renderPresetConnection(),
                 },
             })
         )
@@ -95,6 +95,4 @@ export class Editor {
     public display = () => AreaExtensions.zoomAt(this.area, this.editor.getNodes())
 
     public flowInfo = () => this.flowObject
-
-    // public format = () => this.arrange.layout()
 }

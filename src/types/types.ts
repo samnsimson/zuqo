@@ -94,7 +94,7 @@ export type EditorReturnType = {
     }
 }
 
-export type NodeExtraData = { [x: string]: any }
+export type NodeExtraData = { width?: number; height?: number }
 
 export type CustomNodeProps<S extends ClassicScheme> = {
     data: S['Node'] & NodeExtraData

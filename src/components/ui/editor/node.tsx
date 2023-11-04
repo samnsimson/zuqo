@@ -7,6 +7,12 @@ interface NodeProps extends HTMLAttributes<HTMLDivElement> {
     label: string
 }
 
+interface NodeContainerProps extends HTMLAttributes<HTMLDivElement> {}
+
+export const NodeContainer: FC<NodeContainerProps> = ({ children }) => {
+    return <div className="relative flex flex-row items-center">{children}</div>
+}
+
 export const Node: FC<NodeProps> = ({ id, selected, label, className, children, ...props }) => {
     return (
         <div
@@ -20,7 +26,15 @@ export const Node: FC<NodeProps> = ({ id, selected, label, className, children, 
             data-node-id={id}
             {...props}
         >
-            <p className="rounded-lg bg-gradient-to-b from-[#00539F] to-[#BB1865] p-4 text-xs font-semibold uppercase text-white">{label}</p>
+            <p
+                className={cn('rounded-lg bg-gradient-to-b p-4 text-xs font-semibold uppercase text-white', {
+                    'from-[#929292] to-[#595959]': label === 'exit',
+                    'from-[#C6F444] to-[#82A61C]': label === 'menu',
+                    'from-[#00539F] to-[#BB1865]': label === 'start',
+                })}
+            >
+                {label}
+            </p>
             {children}
         </div>
     )

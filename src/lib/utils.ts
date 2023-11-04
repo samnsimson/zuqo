@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
@@ -32,4 +32,11 @@ export const sortByIndex = <T extends [string, undefined | { index?: number }][]
 export const range = (start: number, end: number) => {
     const length = end - start + 1
     return Array.from({ length }, (_, idx) => idx + start)
+}
+
+export const dateTime = (dateTime: Date | string, timeZone: 'UTC' | 'IST' = 'UTC', displayTime: boolean = true) => {
+    const date = moment(dateTime)
+    const format = `DD/MM/YYYY ${displayTime && 'hh:mm:ss'}`
+    const tz = timeZone === 'UTC' ? 'Europe/London' : timeZone === 'IST' ? 'Asia/Kolkata' : 'Europe/London'
+    return date.tz(tz).format(format)
 }

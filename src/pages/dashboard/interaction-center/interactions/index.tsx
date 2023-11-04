@@ -7,12 +7,11 @@ import { ButtonGroup } from '@/components/ui/button-group'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '@/components/ui/navigation-menu'
 import { Avatar, AvatarImage } from '@radix-ui/react-avatar'
-import moment from 'moment'
 import { FC, HTMLAttributes, ReactNode, useMemo, useState } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
 import { assets } from '@/config/assets'
 import { useFetchInteraction } from '@/api/queries'
-import { cn } from '@/lib/utils'
+import { cn, dateTime } from '@/lib/utils'
 
 interface InteractionsProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any
@@ -139,7 +138,7 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
                 ) : (
                     <span className={cn('font-bold', labelColorScheme(sentimentLabel))}>{confidenceScore}%</span>
                 ),
-                happened_on: isLoading ? <PlaceHolder /> : <span>{moment(data['updated_at']).format('DD/MM/YYYY hh:mm:ss')}</span>,
+                happened_on: isLoading ? <PlaceHolder /> : <span>{dateTime(data['updated_at'])}</span>,
             }
         })
     }, [data, isLoading])

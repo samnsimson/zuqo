@@ -7,7 +7,7 @@ interface NoDataProps extends HTMLAttributes<HTMLDivElement> {
 
 export const NoData: FC<NoDataProps> = ({ translation = null }) => {
     return (
-        <div className="flex h-[300px] w-full flex-1 flex-col items-center justify-center space-y-4 px-5">
+        <div className="flex min-h-[300px] w-full flex-1 flex-col items-center justify-center space-y-4 px-5">
             <div>
                 <FileWarning size={48} color="red" />
             </div>

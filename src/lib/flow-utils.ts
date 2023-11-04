@@ -8,8 +8,11 @@ import { ReactPlugin, Presets, ReactArea2D } from 'rete-react-plugin'
 import { CustomConnection } from '@/components/ui/editor/connection'
 import { StartNode } from '@/components/ui/editor/startNode'
 import { NotesNode } from '@/components/ui/editor/notes'
+// import { AutoArrangePlugin, Presets as ArrangePresets, ArrangeAppliers } from 'rete-auto-arrange-plugin'
 
-type Schemes = GetSchemes<ClassicPreset.Node, ClassicPreset.Connection<ClassicPreset.Node, ClassicPreset.Node>>
+interface Node extends ClassicPreset.Node {}
+interface Connection<N extends Node> extends ClassicPreset.Connection<N, N> {}
+type Schemes = GetSchemes<Node, Connection<Node>>
 type AreaExtra = ReactArea2D<Schemes>
 
 export class Editor {
@@ -21,7 +24,8 @@ export class Editor {
         protected area: AreaPlugin<Schemes, AreaExtra>,
         protected connection: ConnectionPlugin<Schemes, AreaExtra>,
         protected render: ReactPlugin<Schemes, AreaExtra>
-    ) {
+    ) // protected arrange: AutoArrangePlugin<Schemes>
+    {
         this.flowObject = {
             nodes: [],
             connection: [],
@@ -34,6 +38,7 @@ export class Editor {
         const area = new AreaPlugin<Schemes, AreaExtra>(container)
         const connection = new ConnectionPlugin<Schemes, AreaExtra>()
         const render = new ReactPlugin<Schemes, AreaExtra>({ createRoot })
+        // const arrange = new AutoArrangePlugin<Schemes>()
 
         AreaExtensions.selectableNodes(area, AreaExtensions.selector(), {
             accumulating: AreaExtensions.accumulateOnCtrl(),
@@ -90,4 +95,6 @@ export class Editor {
     public display = () => AreaExtensions.zoomAt(this.area, this.editor.getNodes())
 
     public flowInfo = () => this.flowObject
+
+    // public format = () => this.arrange.layout()
 }

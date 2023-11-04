@@ -104,9 +104,11 @@ export const OverviewTabContent: FC<OverviewTabContentProps> = ({ channel }) => 
                     <div className="col-span-1">
                         <SwitchChannels channel={channel} data={data} />
                     </div>
-                    <div className="grid grid-cols-1 gap-5">
-                        <CustomerInsights className="bg-[#EEF2F3]" />
-                        <AgentInsights className="bg-gradient-to-b from-[#F3EEF2] to-[#f7f9fbab]" />
+                    <div className="col-span-1 grid grid-cols-1">
+                        <div className="flex flex-col space-y-5">
+                            <CustomerInsights className="bg-[#EEF2F3]" />
+                            <AgentInsights className="bg-gradient-to-b from-[#F3EEF2] to-[#f7f9fbab]" />
+                        </div>
                     </div>
                 </div>
             </div>

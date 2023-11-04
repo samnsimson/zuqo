@@ -139,7 +139,7 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
                 ) : (
                     <span className={cn('font-bold', labelColorScheme(sentimentLabel))}>{confidenceScore}%</span>
                 ),
-                happened_on: isLoading ? <PlaceHolder /> : <span>{moment(data['updated_at']).format('DD/mm/yyyy hh:mm:ss')}</span>,
+                happened_on: isLoading ? <PlaceHolder /> : <span>{moment(data['updated_at']).format('DD/MM/YYYY hh:mm:ss')}</span>,
             }
         })
     }, [data, isLoading])

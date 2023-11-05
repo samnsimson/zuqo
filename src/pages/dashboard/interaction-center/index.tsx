@@ -1,6 +1,6 @@
 import { PageSectionTitle } from '@/components/pageSectionTitle'
 import { FC, HTMLAttributes } from 'react'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent } from '@/ui/card'
 import { ArrowUp } from 'lucide-react'
 import { ChartContainer } from '@/components/chartContainer'
 import { useChartData } from '@/hooks/useChartData'

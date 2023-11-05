@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Button } from '../ui/button'
+import { Button } from '../../ui/button'
 import { assets } from '@/config/assets'
 
 interface HomeBannerProps {

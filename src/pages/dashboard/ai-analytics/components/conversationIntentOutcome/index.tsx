@@ -1,5 +1,5 @@
-import { Progress } from '@/components/ui/progress'
-import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table'
+import { Progress } from '@/ui/progress'
+import { Table, TableBody, TableCell, TableRow } from '@/ui/table'
 import { conversationIntentOutcomeData } from '@/mock-data/chart-data'
 import { FC, HTMLAttributes } from 'react'
 

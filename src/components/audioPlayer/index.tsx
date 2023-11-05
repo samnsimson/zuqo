@@ -1,8 +1,8 @@
 import { useWaveForm } from '@/hooks/useWaveForm'
 import { cn, secondsToHms } from '@/lib/utils'
 import { FC, HTMLAttributes, useEffect, useRef, useState } from 'react'
-import { Progress } from '../ui/progress'
-import { Slider } from '../ui/slider'
+import { Progress } from '../../ui/progress'
+import { Slider } from '../../ui/slider'
 import { assets } from '@/config/assets'
 import { PauseIcon, PlayIcon } from 'lucide-react'
 

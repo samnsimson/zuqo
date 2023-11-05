@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 import { FC, HTMLAttributes, useEffect, useState } from 'react'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
-import { Button } from '../ui/button'
+import { Button } from '../../ui/button'
 import { usePagination } from '@/hooks/usePagination'
 
 interface PaginationProps extends HTMLAttributes<HTMLDivElement> {

@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { cn } from '@/lib/utils'
 import { FC, HTMLAttributes } from 'react'
-import { Avatar, AvatarFallback } from '../ui/avatar'
+import { Avatar, AvatarFallback } from '../../ui/avatar'
 import { AvatarImage } from '@radix-ui/react-avatar'
 
 export enum SatisfactionLevel {

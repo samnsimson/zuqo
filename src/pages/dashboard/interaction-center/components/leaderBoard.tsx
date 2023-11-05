@@ -1,5 +1,5 @@
 import { ArrowGreen } from '@/assets/svg/icons'
-import { Avatar } from '@/components/ui/avatar'
+import { Avatar } from '@/ui/avatar'
 import { splitLeaderboard } from '@/lib/utils'
 import { leaderBoardData } from '@/mock-data/leaderboard-data'
 import { AvatarImage } from '@radix-ui/react-avatar'

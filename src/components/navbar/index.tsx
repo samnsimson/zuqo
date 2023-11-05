@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes, ReactNode, useEffect, useState } from 'react'
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from '@/components/ui/navigation-menu'
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from '@/ui/navigation-menu'
 import { Link, useLocation } from 'react-router-dom'
 import { cn } from '@/lib/utils'
 

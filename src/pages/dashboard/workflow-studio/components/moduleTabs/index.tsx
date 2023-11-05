@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes } from 'react'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/ui/tabs'
 
 interface ModuleTabsProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any

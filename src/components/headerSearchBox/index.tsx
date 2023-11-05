@@ -1,8 +1,8 @@
 import { HTMLAttributes, forwardRef, useEffect, useState } from 'react'
-import { Input } from '../ui/input'
+import { Input } from '../../ui/input'
 import { cn } from '@/lib/utils'
 import { VariantProps, cva } from 'class-variance-authority'
-import { Button } from '../ui/button'
+import { Button } from '../../ui/button'
 
 const headerSearchBoxVariants = cva(
     'border-none bg-transparent focus:border-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 transition-opacity overflow-hidden',

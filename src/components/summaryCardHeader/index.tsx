@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes } from 'react'
-import { CardHeader, CardTitle } from '../ui/card'
+import { CardHeader, CardTitle } from '../../ui/card'
 import { cn } from '@/lib/utils'
 import { Hint } from '../hint'
 import { assets } from '@/config/assets'

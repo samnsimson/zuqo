@@ -1,4 +1,4 @@
-import { useToast } from '@/components/ui/use-toast'
+import { useToast } from '@/ui/use-toast'
 import { ERROR_TOAST_TITLE, STUDIO_NOT_READY } from '@/constants/constants'
 import { Editor } from '@/lib/flow-utils'
 import { EditorReturnType, NodeOptions } from '@/types/types'

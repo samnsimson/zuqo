@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
 import { FC, HTMLAttributes, ReactNode } from 'react'
 import { Link } from 'react-router-dom'

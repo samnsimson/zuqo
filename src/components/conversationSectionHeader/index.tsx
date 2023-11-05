@@ -1,7 +1,7 @@
 import { assets } from '@/config/assets'
 import { TabContentSectionHeader } from '../tabContentSectionHeader'
-import { Switch } from '../ui/switch'
-import { Label } from '../ui/label'
+import { Switch } from '../../ui/switch'
+import { Label } from '../../ui/label'
 import { FC } from 'react'
 import { LanguagesIcon } from 'lucide-react'
 

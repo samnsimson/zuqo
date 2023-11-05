@@ -1,4 +1,4 @@
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent } from '@/ui/card'
 import { FC, HTMLAttributes } from 'react'
 import { InteractionsHandled } from './interactionsHandled'
 import { Chart, ChartType } from '@/components/chart'

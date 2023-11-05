@@ -1,5 +1,5 @@
 import { FaceSmileIcon } from '@/assets/svg/icons'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent } from '@/ui/card'
 import { ArrowUp } from 'lucide-react'
 import { FC, HTMLAttributes } from 'react'
 

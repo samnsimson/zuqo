@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes, useState } from 'react'
-import { Card, CardContent } from '../ui/card'
-import { Button } from '../ui/button'
+import { Card, CardContent } from '../../ui/card'
+import { Button } from '../../ui/button'
 import { AddCard } from '@/assets/svg/icons'
 import { Link } from 'react-router-dom'
 

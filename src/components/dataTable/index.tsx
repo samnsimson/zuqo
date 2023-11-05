@@ -1,6 +1,6 @@
 import { HTMLAttributes, ReactNode, useEffect, useState } from 'react'
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../ui/table'
 import { cn } from '@/lib/utils'
 import { useNavigate } from 'react-router-dom'
 import { Pagination } from '../pagination'

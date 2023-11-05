@@ -1,8 +1,8 @@
 import { cn } from '@/lib/utils'
 import { FC, HTMLAttributes, useEffect, useState } from 'react'
-import { Card } from '../ui/card'
+import { Card } from '../../ui/card'
 import { SummaryCardHeader } from '../summaryCardHeader'
-import { Skeleton } from '../ui/skeleton'
+import { Skeleton } from '../../ui/skeleton'
 
 interface RecentActivitySummaryProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any

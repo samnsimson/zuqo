@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes } from 'react'
-import { Dialog, DialogContent, DialogDescription, DialogTrigger } from '@/components/ui/dialog'
-import { Button } from '../ui/button'
+import { Dialog, DialogContent, DialogDescription, DialogTrigger } from '@/ui/dialog'
+import { Button } from '../../ui/button'
 import { PlusIcon } from 'lucide-react'
 import { NewWorkflowDialog } from '../newWorkflowDialog'
 

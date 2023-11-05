@@ -1,8 +1,8 @@
 import { FC } from 'react'
-import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardDescription, CardHeader, CardTitle } from '@/ui/card'
 import { assets } from '@/config/assets'
-import { Dialog, DialogContent, DialogDescription, DialogTrigger } from '../ui/dialog'
-import { Button } from '../ui/button'
+import { Dialog, DialogContent, DialogDescription, DialogTrigger } from '../../ui/dialog'
+import { Button } from '../../ui/button'
 import { useAppStore } from '@/store'
 import { useNavigate } from 'react-router-dom'
 

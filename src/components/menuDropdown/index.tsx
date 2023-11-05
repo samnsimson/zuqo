@@ -1,12 +1,5 @@
 import { FC, Fragment, ReactNode } from 'react'
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/ui/dropdown-menu'
 import { DropdownMenuProps } from '@radix-ui/react-dropdown-menu'
 import { Link } from 'react-router-dom'
 import { DragAndDrop } from '../dragAndDrop'

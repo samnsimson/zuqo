@@ -1,8 +1,8 @@
 import { FC, HTMLAttributes, useEffect, useState } from 'react'
-import { Button } from '../ui/button'
+import { Button } from '../../ui/button'
 import { cn, uniqueBy } from '@/lib/utils'
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '../ui/command'
+import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '../../ui/command'
 import { Check } from 'lucide-react'
 import { FilterIcon } from '@/assets/svg/icons'
 

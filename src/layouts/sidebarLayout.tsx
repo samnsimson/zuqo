@@ -1,6 +1,6 @@
 import { DashboardFooter } from '@/components/dashboardFooter'
 import { SidebarSmall } from '@/components/sidebarSmall'
-import { Toaster } from '@/components/ui/toaster'
+import { Toaster } from '@/ui/toaster'
 import { cn } from '@/lib/utils'
 import { FC, HTMLAttributes } from 'react'
 

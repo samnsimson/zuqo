@@ -9,7 +9,7 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-} from '@/components/ui/alert-dialog'
+} from '@/ui/alert-dialog'
 import { AlertDialogProps } from '@radix-ui/react-alert-dialog'
 import { VariantProps, cva } from 'class-variance-authority'
 import { cn } from '@/lib/utils'

@@ -1,7 +1,7 @@
 import { assets } from '@/config/assets'
 import { cn } from '@/lib/utils'
 import { FC, HTMLAttributes } from 'react'
-import { Button } from '../ui/button'
+import { Button } from '../../ui/button'
 import { PlusIcon } from 'lucide-react'
 
 interface EmptyWorkflowSkeletonProps extends HTMLAttributes<HTMLDivElement> {

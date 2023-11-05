@@ -1,4 +1,4 @@
-import { Progress } from '@/components/ui/progress'
+import { Progress } from '@/ui/progress'
 import { FC, HTMLAttributes, ReactNode } from 'react'
 
 interface InteractionInfoProps extends HTMLAttributes<HTMLDivElement> {

@@ -1,5 +1,5 @@
 import { AnnotationIcon, CloudErrorIcon, CompareIcon, ExchangeIcon, ExpandIcon, HexagonSettingIcon, PlaySquareIcon, SaveFileIcon } from '@/assets/svg/icons'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/ui/button'
 import { assets } from '@/config/assets'
 import { EditorReturnType } from '@/types/types'
 import { BellIcon, MoreVertical } from 'lucide-react'

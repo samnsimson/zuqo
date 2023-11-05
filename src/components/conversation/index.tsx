@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
 import { FC, HTMLAttributes } from 'react'
-import { Avatar, AvatarImage } from '../ui/avatar'
+import { Avatar, AvatarImage } from '../../ui/avatar'
 import { assets } from '@/config/assets'
 
 interface ConversationSectionProps extends HTMLAttributes<HTMLUListElement> {}

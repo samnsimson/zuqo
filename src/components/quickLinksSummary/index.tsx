@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
 import { FC, HTMLAttributes, ReactNode, useEffect, useState } from 'react'
-import { Card } from '../ui/card'
+import { Card } from '../../ui/card'
 import { SummaryCardHeader } from '../summaryCardHeader'
 import { Link } from 'react-router-dom'
 import { assets } from '@/config/assets'

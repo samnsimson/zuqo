@@ -65,24 +65,24 @@ const Type: FC<{ type: string }> = ({ type }) => {
 }
 
 const Sentiment: FC<{ sentiment: string }> = ({ sentiment }) => {
-    if (sentiment === 'Positive')
+    if (sentiment.toLowerCase() === 'positive')
         return (
             <div className="flex items-center gap-[5px]">
                 <FaceSmileIcon />
                 <Badge className="space-x-[5px] bg-[#F0FFF3] text-[#008344] hover:bg-[#F0FFF3]">
                     <span className="h-[6px] w-[6px] rounded-full bg-[#008344]" />
-                    <span>{sentiment}</span>
+                    <span className="uppercase tracking-wide">{sentiment}</span>
                 </Badge>
             </div>
         )
 
-    if (sentiment === 'Negative')
+    if (sentiment.toLowerCase() === 'negative')
         return (
             <div className="flex items-center gap-[5px]">
                 <FaceSadIcon />
                 <Badge className="space-x-[5px] bg-[#FFE1E1] text-[#E50B0B] hover:bg-[FFE1E1]">
                     <span className="h-[6px] w-[6px] rounded-full bg-[#E50B0B]" />
-                    <span>{sentiment}</span>
+                    <span className="uppercase tracking-wide">{sentiment}</span>
                 </Badge>
             </div>
         )
@@ -116,7 +116,7 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
         const iterator = isLoading ? [...Array(10)] : data?.data
         return iterator.map((data: any) => {
             const sentimentLabel = data?.result?.overall_sentiment?.label ?? '-'
-            const confidenceScore = Math.ceil(data?.result?.overall_sentiment?.score ?? 0)
+            const confidenceScore = Math.ceil(data?.result?.overall_sentiment?.score * 100 ?? 0)
             const labelColorScheme = (label: string) => {
                 if (label === 'positive') return 'text-[#008344]'
                 if (label === 'negative') return 'text-red-500'

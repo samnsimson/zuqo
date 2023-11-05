@@ -34,13 +34,13 @@ const SwitchChannels: FC<ChannelSwitchProps> = ({ channel, data }) => {
     }
 }
 
-const SentimentScore = (data: any) => {
+const SentimentScore = ({ data }: any) => {
     if (!data['result'] || !data.result['overall_sentiment']) return null
     const { score, label } = data.result.overall_sentiment
 
     const getSentimentScore = (score: number) => {
         if (!score) return 0
-        Math.ceil(score * 100)
+        return `${Math.ceil(score * 100)}%`
     }
 
     const getColorScheme = (sentiment: string) => {

@@ -5,6 +5,7 @@ import { Outputs } from './nodeOutput'
 import { Node } from './node'
 import { StartFlag } from '@/assets/svg/icons'
 import { useNodeTemplate } from '@/hooks/useNodeTemplate'
+import { LogInIcon } from 'lucide-react'
 
 export const StartNode = <Scheme extends ClassicScheme>(props: CustomNodeProps<Scheme>) => {
     const { inputs, outputs, controls, selected } = useNodeTemplate(props)
@@ -17,7 +18,7 @@ export const StartNode = <Scheme extends ClassicScheme>(props: CustomNodeProps<S
                 <StartFlag />
             </div>
             {inputs.map(([key, input]) => input && <Inputs key={key} input={input} nodeId={id} props={props} />)}
-            <Node label={label} id={id} selected={selected} {...props}>
+            <Node label={label} id={id} selected={selected} icon={<LogInIcon size={16} />} {...props}>
                 <p className="font-jakarta text-xs text-[#4E545F]">Where your bot begins</p>
             </Node>
             {outputs.map(([key, output]) => output && <Outputs key={key} output={output} nodeId={id} props={props} />)}

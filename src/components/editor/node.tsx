@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { FC, HTMLAttributes, PointerEvent, useState } from 'react'
+import { FC, HTMLAttributes, PointerEvent, ReactNode, useState } from 'react'
 import { HexagonIcon, MoreVerticalIcon, TrashIcon } from 'lucide-react'
 import { useAppStore } from '@/store'
 import { ConfirmationPropUpComponent } from '../confirmationPopUp'
@@ -8,11 +8,13 @@ interface NodeProps extends HTMLAttributes<HTMLDivElement> {
     selected: boolean
     id: string
     label: string
+    icon?: ReactNode
 }
 
 interface NodeContainerProps extends HTMLAttributes<HTMLDivElement> {}
 interface NodeTitleProps extends HTMLAttributes<HTMLParagraphElement> {
     label: string
+    icon?: ReactNode
 }
 
 export const NodeContainer: FC<NodeContainerProps> = ({ children, ...props }) => {
@@ -23,22 +25,22 @@ export const NodeContainer: FC<NodeContainerProps> = ({ children, ...props }) =>
     )
 }
 
-const NodeTitle: FC<NodeTitleProps> = ({ label, ...props }) => {
+const NodeTitle: FC<NodeTitleProps> = ({ icon, label, ...props }) => {
     return (
         <p
             {...props}
-            className={cn('rounded-lg bg-gradient-to-b p-4 text-xs font-semibold uppercase text-white', {
+            className={cn('rounded-lg bg-gradient-to-b px-2.5 py-3 text-xs font-semibold uppercase text-white', 'flex items-center justify-start space-x-2', {
                 'from-[#929292] to-[#595959]': label === 'exit',
                 'from-[#C6F444] to-[#82A61C]': label === 'menu',
                 'from-[#00539F] to-[#BB1865]': label === 'start',
             })}
         >
-            {label}
+            {icon && <span>{icon}</span>} <span>{label}</span>
         </p>
     )
 }
 
-export const Node: FC<NodeProps> = ({ id, selected, label, className, children, ...props }) => {
+export const Node: FC<NodeProps> = ({ id, selected, label, className, children, icon, ...props }) => {
     const { editor } = useAppStore((state) => state)
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
     const excludeNodeActionFor = ['start']
@@ -60,7 +62,7 @@ export const Node: FC<NodeProps> = ({ id, selected, label, className, children, 
             data-node-id={id}
             {...props}
         >
-            <NodeTitle label={label} onClick={() => console.log('clicked')} />
+            <NodeTitle label={label} onClick={() => console.log('clicked')} icon={icon} />
             {children}
             {!excludeNodeActionFor.includes(label) && (
                 <div className="flex items-center justify-end space-x-3">

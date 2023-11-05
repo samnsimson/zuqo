@@ -36,7 +36,7 @@ const SwitchChannels: FC<ChannelSwitchProps> = ({ channel, data }) => {
 
 const SentimentScore = ({ data }: any) => {
     if (!data['result'] || !data.result['overall_sentiment']) return null
-    const { score, label } = data.result.overall_sentiment
+    const { score, label } = data.result.overall_sentiment || { score: 0, label: null }
 
     const getSentimentScore = (score: number) => {
         if (!score) return 0

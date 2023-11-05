@@ -49,7 +49,7 @@ const Channel: FC<{ channel: string }> = ({ channel }) => {
     channel = channel?.toLowerCase()
     if (['phone', 'messenger', 'whatsapp', 'webchat'].includes(channel)) return <ChannelPhone />
     if (['email'].includes(channel)) return <ChannelEmail />
-    if (['voicecallchat'].includes(channel)) return <ChannelChat />
+    if (['voicecallchat', 'voicecallchatoutbound'].includes(channel)) return <ChannelChat />
     return null
 }
 
@@ -115,8 +115,8 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
         setTotalPagecount((state) => data?.total ?? state)
         const iterator = isLoading ? [...Array(10)] : data?.data
         return iterator.map((data: any) => {
-            const sentimentLabel = data?.result?.overall_sentiment?.label ?? '-'
-            const confidenceScore = Math.ceil(data?.result?.overall_sentiment?.score * 100 ?? 0)
+            const { score, label } = data?.result?.overall_sentiment || { score: 0, label: '-' }
+            const confidenceScore = Math.ceil(score * 100)
             const labelColorScheme = (label: string) => {
                 if (label === 'positive') return 'text-[#008344]'
                 if (label === 'negative') return 'text-red-500'
@@ -131,13 +131,9 @@ export const Interactions: FC<InteractionsProps> = ({ ...props }) => {
                 channel: isLoading ? <PlaceHolder /> : <Channel channel={data['chatType']} />,
                 type: isLoading ? <PlaceHolder /> : <Type type={data['chatType']} />,
                 campaign_name: isLoading ? <PlaceHolder /> : <div className="text-[#015EB0]">CampaignX</div>,
-                overall_sentiment: isLoading ? <PlaceHolder /> : <Sentiment sentiment={sentimentLabel} />,
-                overall_call_rating: isLoading ? <PlaceHolder /> : <span className={cn('font-bold', labelColorScheme(sentimentLabel))}>4.0/5</span>,
-                ai_confidence_score: isLoading ? (
-                    <PlaceHolder />
-                ) : (
-                    <span className={cn('font-bold', labelColorScheme(sentimentLabel))}>{confidenceScore}%</span>
-                ),
+                overall_sentiment: isLoading ? <PlaceHolder /> : <Sentiment sentiment={label} />,
+                overall_call_rating: isLoading ? <PlaceHolder /> : <span className={cn('font-bold', labelColorScheme(label))}>4.0/5</span>,
+                ai_confidence_score: isLoading ? <PlaceHolder /> : <span className={cn('font-bold', labelColorScheme(label))}>{confidenceScore}%</span>,
                 happened_on: isLoading ? <PlaceHolder /> : <span>{dateTime(data['updated_at'])}</span>,
             }
         })

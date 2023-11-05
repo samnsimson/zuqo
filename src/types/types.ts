@@ -92,6 +92,7 @@ export type EditorReturnType = {
         addConnection: (sourceNode: ClassicPreset.Node, targetNode: ClassicPreset.Node) => Promise<void>
         addNotes: (label: NodeTypes) => NodeReturnType
         flowInfo: () => any
+        deleteNode: (id: string) => Promise<string | undefined>
     }
 }
 

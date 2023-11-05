@@ -1,5 +1,6 @@
 import { DashboardFooter } from '@/components/dashboardFooter'
 import { SidebarSmall } from '@/components/sidebarSmall'
+import { Toaster } from '@/components/ui/toaster'
 import { cn } from '@/lib/utils'
 import { FC, HTMLAttributes } from 'react'
 
@@ -15,6 +16,7 @@ export const SidebarLayout: FC<SidebarLayoutProps> = ({ className, children, ...
                 {children}
                 <DashboardFooter />
             </main>
+            <Toaster />
         </div>
     )
 }

@@ -1,3 +1,4 @@
+import { EditorReturnType } from '@/types/types'
 import { create } from 'zustand'
 import { combine, devtools, persist } from 'zustand/middleware'
 
@@ -6,6 +7,7 @@ interface StateProps {
     credentials: { username: string; password: string }
     sidebarActiveIconIndex: string
     activeModelIndex: number
+    editor: EditorReturnType['editor'] | null
 }
 
 const defaultCredentials = { username: 'admin', password: 'admin' }
@@ -15,6 +17,7 @@ const initialState: StateProps = {
     credentials: defaultCredentials,
     sidebarActiveIconIndex: '',
     activeModelIndex: 0,
+    editor: null,
 }
 
 export const useAppStore = create(
@@ -24,6 +27,7 @@ export const useAppStore = create(
                 authenticate: (value: boolean) => set(() => ({ authenticated: value })),
                 setSidebarIndex: (value: string) => set(() => ({ sidebarActiveIconIndex: value })),
                 setActiveModelIndex: (value: number) => set(() => ({ activeModelIndex: value })),
+                setEditor: (editor: EditorReturnType['editor']) => set(() => ({ editor })),
             })),
             {
                 name: 'AppStore',

@@ -1,3 +1,5 @@
+export const ERROR_TOAST_TITLE = 'We have ecountered an error'
+export const STUDIO_NOT_READY = 'Workflow studio is not ready'
 export const TYPE_FILTER_VALUES = [
     { label: 'Any', value: 'any', default: true },
     { label: 'Name', value: 'name' },

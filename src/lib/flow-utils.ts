@@ -1,16 +1,16 @@
-import { CustomSocket } from '@/components/ui/editor/socket'
-import { CustomNode } from '@/components/ui/editor/customNode'
+import { CustomSocket } from '@/components/editor/socket'
+import { CustomNode } from '@/components/editor/customNode'
 import { createRoot } from 'react-dom/client'
 import { NodeEditor, GetSchemes, ClassicPreset } from 'rete'
 import { AreaPlugin, AreaExtensions } from 'rete-area-plugin'
 import { ConnectionPlugin, Presets as ConnectionPresets } from 'rete-connection-plugin'
 import { HistoryExtensions, HistoryPlugin, Presets as HistoryPresets } from 'rete-history-plugin'
 import { ReactPlugin, Presets, ReactArea2D } from 'rete-react-plugin'
-import { CustomConnection } from '@/components/ui/editor/connection'
-import { StartNode } from '@/components/ui/editor/startNode'
-import { NotesNode } from '@/components/ui/editor/notes'
-import { ExitNode } from '@/components/ui/editor/exitNode'
-import { MenuNode } from '@/components/ui/editor/menuNode'
+import { CustomConnection } from '@/components/editor/connection'
+import { StartNode } from '@/components/editor/startNode'
+import { NotesNode } from '@/components/editor/notes'
+import { ExitNode } from '@/components/editor/exitNode'
+import { MenuNode } from '@/components/editor/menuNode'
 
 class Connection<N extends ClassicPreset.Node> extends ClassicPreset.Connection<N, N> {}
 
@@ -74,6 +74,7 @@ export class Editor {
         HistoryExtensions.keyboard(history)
         AreaExtensions.selectableNodes(area, AreaExtensions.selector(), { accumulating: AreaExtensions.accumulateOnCtrl() })
         AreaExtensions.simpleNodesOrder(area)
+        AreaExtensions.snapGrid(area, { size: 10 })
 
         return new Editor(container, socket, editor, area, connection, render, history)
     }
@@ -83,6 +84,7 @@ export class Editor {
     public addNode = async (label: string) => {
         const node = new ClassicPreset.Node(label)
         await this.editor.addNode(node)
+        await this.setNodePosition(node.id, 0, 0)
         return node
     }
 
@@ -100,4 +102,6 @@ export class Editor {
     public display = () => AreaExtensions.zoomAt(this.area, this.editor.getNodes())
 
     public flowInfo = () => ({ nodes: this.editor.getNodes(), connections: this.editor.getConnections() })
+
+    public deleteNode = async (id: string) => await this.editor.removeNode(id)
 }

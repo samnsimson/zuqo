@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Plus } from 'lucide-react'
 import { useEditor } from '@/hooks/useEditor'
+import { useAppStore } from '@/store'
 
 interface StudioProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any
@@ -15,11 +16,13 @@ interface StudioProps extends HTMLAttributes<HTMLDivElement> {
 export const Studio: FC<StudioProps> = ({ ...props }) => {
     const { search } = useLocation()
     const navigate = useNavigate()
+    const { setEditor } = useAppStore((state) => state)
     const params = new URLSearchParams(search)
     const intent = params.get('intent')
     const { ref, isEditorReady, editor } = useEditor()
 
     useEffect(() => {
+        setEditor(editor)
         editor.addNode('start', { output: true }).then((node) => console.log(node))
         editor.addNode('notes').then((node) => console.log(node))
     }, [isEditorReady])

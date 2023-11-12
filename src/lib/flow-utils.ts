@@ -18,7 +18,6 @@ type Schemes = GetSchemes<ClassicPreset.Node, Connection<ClassicPreset.Node>>
 type AreaExtra = ReactArea2D<Schemes>
 
 export class Editor {
-    protected flowObject: { [x: string]: any }
     constructor(
         protected container: HTMLElement,
         protected socket: ClassicPreset.Socket,
@@ -27,12 +26,7 @@ export class Editor {
         protected connection: ConnectionPlugin<Schemes, AreaExtra>,
         protected render: ReactPlugin<Schemes, AreaExtra>,
         protected history: HistoryPlugin<Schemes>
-    ) {
-        this.flowObject = {
-            nodes: [],
-            connection: [],
-        }
-    }
+    ) {}
 
     static init = async (container: HTMLElement) => {
         const socket = new ClassicPreset.Socket('socket')

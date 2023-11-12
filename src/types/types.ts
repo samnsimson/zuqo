@@ -93,6 +93,8 @@ export type EditorReturnType = {
         addNotes: (label: NodeTypes) => NodeReturnType
         flowInfo: () => any
         deleteNode: (id: string) => Promise<string | undefined>
+        addNodeInput: (id: string, key: string) => void
+        addNodeOutput: (id: string, key: string) => void
     }
 }
 

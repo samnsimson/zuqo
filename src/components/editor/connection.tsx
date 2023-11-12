@@ -10,7 +10,7 @@ import { Presets } from 'rete-react-plugin'
 
 // const Path = styled.path<{ styles?: (props: any) => any }>`
 //   fill: none;
-//   stroke-width: 5px;
+//   strokeWidth: 5px;
 //   stroke: black;
 //   pointer-events: auto;
 //   ${(props) => props.styles && props.styles(props)}

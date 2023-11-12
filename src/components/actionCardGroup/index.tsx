@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogDescription, DialogTrigger } from '../../u
 import { Button } from '../../ui/button'
 import { useAppStore } from '@/store'
 import { useNavigate } from 'react-router-dom'
+import { workflowId } from '@/lib/utils'
 
 interface ActionCardGroupProps {
     [x: string]: any
@@ -126,7 +127,7 @@ const ModelContentIndexFour: FC = () => {
                     <Button variant="ghost" onClick={() => setActiveModelIndex(activeModelIndex - 1)}>
                         Back
                     </Button>
-                    <Button variant="primary" className="text-white" onClick={() => navigate('workflow-studio/studio?intent=create')}>
+                    <Button variant="primary" className="text-white" onClick={() => navigate(`workflow-studio/studio?intent=create&id=${workflowId()}`)}>
                         Get Started
                     </Button>
                 </div>

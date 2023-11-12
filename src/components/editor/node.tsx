@@ -27,16 +27,22 @@ export const NodeContainer: FC<NodeContainerProps> = ({ children, ...props }) =>
 
 const NodeTitle: FC<NodeTitleProps> = ({ icon, label, ...props }) => {
     return (
-        <p
-            {...props}
-            className={cn('rounded-lg bg-gradient-to-b px-2.5 py-3 text-xs font-semibold uppercase text-white', 'flex items-center justify-start space-x-2', {
-                'from-[#929292] to-[#595959]': label === 'exit',
-                'from-[#C6F444] to-[#82A61C]': label === 'menu',
-                'from-[#00539F] to-[#BB1865]': label === 'start',
-            })}
-        >
-            {icon && <span>{icon}</span>} <span>{label}</span>
-        </p>
+        <div className="px-3">
+            <p
+                {...props}
+                className={cn(
+                    'rounded-lg bg-gradient-to-b px-2.5 py-3 text-xs font-semibold uppercase text-white',
+                    'flex items-center justify-start space-x-2',
+                    {
+                        'from-[#929292] to-[#595959]': label === 'exit',
+                        'from-[#C6F444] to-[#82A61C]': label === 'menu',
+                        'from-[#00539F] to-[#BB1865]': label === 'start',
+                    }
+                )}
+            >
+                {icon && <span>{icon}</span>} <span>{label}</span>
+            </p>
+        </div>
     )
 }
 
@@ -53,8 +59,8 @@ export const Node: FC<NodeProps> = ({ id, selected, label, className, children, 
     return (
         <div
             className={cn(
-                'min-w-[130px] rounded-lg border-[1px] border-gray-400 bg-white p-3 shadow-sm',
-                'flex flex-col space-y-2 font-semibold',
+                'min-w-[130px] rounded-lg border-[1px] border-gray-400 bg-white py-3 shadow-sm',
+                'relative flex flex-col space-y-2 font-semibold',
                 { 'border-sky-500 bg-sky-50 text-sky-500': selected },
                 className
             )}
@@ -63,9 +69,9 @@ export const Node: FC<NodeProps> = ({ id, selected, label, className, children, 
             {...props}
         >
             <NodeTitle label={label} onClick={() => console.log('clicked')} icon={icon} />
-            {children}
+            <div className="px-3">{children}</div>
             {!excludeNodeActionFor.includes(label) && (
-                <div className="flex items-center justify-end space-x-3">
+                <div className="flex items-center justify-end space-x-3 px-3">
                     <HexagonIcon size={18} className="cursor-pointer opacity-60" color="#4E545F" />
                     <TrashIcon size={18} className="cursor-pointer fill-red-100 stroke-red-500 font-bold" onPointerDown={handleClickOnActionMenu} />
                     <MoreVerticalIcon size={18} className="cursor-pointer opacity-60" color="#4E545F" />

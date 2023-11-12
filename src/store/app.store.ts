@@ -8,6 +8,7 @@ interface StateProps {
     sidebarActiveIconIndex: string
     activeModelIndex: number
     editor: EditorReturnType['editor'] | null
+    workflows: { [x: string]: any }
 }
 
 const defaultCredentials = { username: 'admin', password: 'admin' }
@@ -18,6 +19,7 @@ const initialState: StateProps = {
     sidebarActiveIconIndex: '',
     activeModelIndex: 0,
     editor: null,
+    workflows: [],
 }
 
 export const useAppStore = create(
@@ -28,6 +30,7 @@ export const useAppStore = create(
                 setSidebarIndex: (value: string) => set(() => ({ sidebarActiveIconIndex: value })),
                 setActiveModelIndex: (value: number) => set(() => ({ activeModelIndex: value })),
                 setEditor: (editor: EditorReturnType['editor']) => set(() => ({ editor })),
+                addToWorkflows: (flowInfo: any) => set(({ workflows }) => ({ workflows: { ...workflows, ...flowInfo } })),
             })),
             {
                 name: 'AppStore',

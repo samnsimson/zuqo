@@ -3,6 +3,7 @@ import { Card, CardContent } from '../../ui/card'
 import { Button } from '../../ui/button'
 import { AddCard } from '@/assets/svg/icons'
 import { Link } from 'react-router-dom'
+import { workflowId } from '@/lib/utils'
 
 interface NewWorkflowDialogProps extends HTMLAttributes<HTMLDivElement> {
     [x: string]: any
@@ -80,7 +81,7 @@ export const NewWorkflowDialog: FC<NewWorkflowDialogProps> = ({ ...props }) => {
                     <div className="text-center font-jakarta text-2xl font-bold leading-snug text-gray-600">How do you want to proceed for your IVR?</div>
                     <div className="grid grid-cols-3 gap-4">
                         <Link
-                            to="/workflow-studio/studio?intent=create"
+                            to={`/workflow-studio/studio?intent=create&id=${workflowId()}`}
                             className="group col-span-1 flex flex-col items-center space-y-6 rounded-lg border-t-4 border-transparent bg-white px-3 py-6 shadow hover:border-t-pink-700"
                         >
                             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#00539F] group-hover:bg-pink-700">

@@ -27,14 +27,24 @@ export const useEditor = (): EditorReturnType => {
         try {
             if (!editor) return
             const node = await editor.addNode(label)
-            if (options['input']) editor.addNodeInput('input', node)
-            if (options['output']) editor.addNodeOutput('output', node)
+            if (options['input']) editor.addNodeInput(node.id)
+            if (options['output']) editor.addNodeOutput(node.id)
             await editor.setNodePosition(node, Math.floor(Math.random() * 100) + 1, Math.floor(Math.random() * 100) + 1)
             editor.display()
             return node
         } catch (error: any) {
             toast({ variant: 'destructive', title: ERROR_TOAST_TITLE, description: error.message })
         }
+    }
+
+    const addNodeInput = (nodeId: string, key: string) => {
+        if (!editor) return
+        editor.addNodeInput(nodeId, key)
+    }
+
+    const addNodeOutput = (nodeId: string, key: string) => {
+        if (!editor) return
+        editor.addNodeOutput(nodeId, key)
     }
 
     const addConnection = async (sourceNode: ClassicPreset.Node, targetNode: ClassicPreset.Node) => {
@@ -66,5 +76,5 @@ export const useEditor = (): EditorReturnType => {
         setIsEditorReady(editor !== null)
     }, [editor])
 
-    return { ref, isEditorReady, editor: { addNode, addConnection, addNotes, flowInfo, deleteNode } }
+    return { ref, isEditorReady, editor: { addNode, addConnection, addNotes, flowInfo, deleteNode, addNodeInput, addNodeOutput } }
 }

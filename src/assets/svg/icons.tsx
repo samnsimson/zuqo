@@ -1053,9 +1053,9 @@ export const MenuBarIcon: FC<ISVG> = ({ fill = 'none', color, ...props }) => (
         <path
             d="M3 15L21 15M3 20H21M6 10H18C19.6569 10 21 8.65685 21 7C21 5.34315 19.6569 4 18 4L6 4C4.34315 4 3 5.34315 3 7C3 8.65685 4.34315 10 6 10Z"
             stroke={color || 'white'}
-            stroke-width="2"
+            strokeWidth="2"
             stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeLinejoin="round"
         />
     </svg>
 )

@@ -82,15 +82,24 @@ export class Editor {
         return node
     }
 
-    public addNodeInput = (key: string, node: ClassicPreset.Node) => node.addInput(key, new ClassicPreset.Input(this.socket))
+    public addNodeInput = (id: string, key: string = '') => {
+        const targetNode = this.editor.getNode(id)
+        if (!targetNode) return
+        targetNode.addInput(key, new ClassicPreset.Input(this.socket, key))
+    }
 
-    public addNodeOutput = (key: string, node: ClassicPreset.Node) => node.addOutput(key, new ClassicPreset.Output(this.socket))
+    public addNodeOutput = (id: string, key: string = '') => {
+        const targetNode = this.editor.getNode(id)
+        if (!targetNode) return
+        targetNode.addOutput(key, new ClassicPreset.Output(this.socket, key))
+    }
 
     public setNodePosition = async (node: any, x: number, y: number) => await this.area.translate(node.id, { x, y })
 
     public addConnection = async (source: ClassicPreset.Node, target: ClassicPreset.Node) => {
         await this.editor.addConnection(new ClassicPreset.Connection(source, source.id, target, target.id))
     }
+
     public getNodes = async () => Promise.resolve(this.editor.getNodes())
 
     public display = () => AreaExtensions.zoomAt(this.area, this.editor.getNodes())
@@ -98,4 +107,6 @@ export class Editor {
     public flowInfo = () => ({ nodes: this.editor.getNodes(), connections: this.editor.getConnections() })
 
     public deleteNode = async (id: string) => await this.editor.removeNode(id)
+
+    public addSocket = () => {}
 }

@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import moment from 'moment-timezone'
+import { v4 as uuid } from 'uuid'
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
@@ -40,3 +41,5 @@ export const dateTime = (dateTime: Date | string, timeZone: 'UTC' | 'IST' = 'UTC
     const tz = timeZone === 'UTC' ? 'Europe/London' : timeZone === 'IST' ? 'Asia/Kolkata' : 'Europe/London'
     return date.tz(tz).format(format)
 }
+
+export const workflowId = () => uuid()

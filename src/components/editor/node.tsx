@@ -3,6 +3,7 @@ import { FC, HTMLAttributes, PointerEvent, ReactNode, useState } from 'react'
 import { HexagonIcon, MoreVerticalIcon, TrashIcon } from 'lucide-react'
 import { useAppStore } from '@/store'
 import { ConfirmationPropUpComponent } from '../confirmationPopUp'
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '../ui/sheet'
 
 interface NodeProps extends HTMLAttributes<HTMLDivElement> {
     selected: boolean
@@ -48,6 +49,7 @@ const NodeTitle: FC<NodeTitleProps> = ({ icon, label, ...props }) => {
 
 export const Node: FC<NodeProps> = ({ id, selected, label, className, children, icon, ...props }) => {
     const { editor } = useAppStore((state) => state)
+    const [openSheet, setOpenSheet] = useState(false)
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
     const excludeNodeActionFor = ['start']
 
@@ -74,7 +76,19 @@ export const Node: FC<NodeProps> = ({ id, selected, label, className, children, 
                 <div className="flex items-center justify-end space-x-3 px-3">
                     <HexagonIcon size={18} className="cursor-pointer opacity-60" color="#4E545F" />
                     <TrashIcon size={18} className="cursor-pointer fill-red-100 stroke-red-500 font-bold" onPointerDown={handleClickOnActionMenu} />
-                    <MoreVerticalIcon size={18} className="cursor-pointer opacity-60" color="#4E545F" />
+                    <Sheet open={openSheet} onOpenChange={(open) => setOpenSheet(open)}>
+                        <SheetTrigger asChild>
+                            <MoreVerticalIcon size={18} className="cursor-pointer opacity-60" color="#4E545F" onPointerDown={() => setOpenSheet(!openSheet)} />
+                        </SheetTrigger>
+                        <SheetContent>
+                            <SheetHeader>
+                                <SheetTitle>Are you sure absolutely sure?</SheetTitle>
+                                <SheetDescription>
+                                    <pre>{editor && JSON.stringify(editor.getNode(id), null, 4)}</pre>
+                                </SheetDescription>
+                            </SheetHeader>
+                        </SheetContent>
+                    </Sheet>
                 </div>
             )}
             <ConfirmationPropUpComponent

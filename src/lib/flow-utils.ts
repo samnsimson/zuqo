@@ -100,6 +100,8 @@ export class Editor {
         await this.editor.addConnection(new ClassicPreset.Connection(source, source.id, target, target.id))
     }
 
+    public getNode = (id: string) => this.editor.getNode(id)
+
     public getNodes = async () => Promise.resolve(this.editor.getNodes())
 
     public display = () => AreaExtensions.zoomAt(this.area, this.editor.getNodes())

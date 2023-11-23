@@ -12,9 +12,10 @@ export const ExitNode = <Scheme extends ClassicScheme>(props: CustomNodeProps<Sc
 
     return (
         <NodeContainer className="relative flex flex-row items-center">
-            {inputs.map(([key, input]) => input && <Inputs key={key} input={input} nodeId={id} props={props} />)}
-            <Node label={label} id={id} selected={selected} {...props} />
-            {outputs.map(([key, output]) => output && <Outputs key={key} output={output} nodeId={id} props={props} />)}
+            <Node label={label} id={id} selected={selected} {...props}>
+                <Inputs inputs={inputs} nodeId={id} props={props} />
+                <Outputs outputs={outputs} nodeId={id} props={props} />
+            </Node>
             {controls.map(([key, control]) => (control ? <RefControl key={key} name="control" emit={props.emit} payload={control} /> : null))}
         </NodeContainer>
     )

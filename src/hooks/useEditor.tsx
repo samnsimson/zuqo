@@ -72,9 +72,14 @@ export const useEditor = (): EditorReturnType => {
         else return editor.flowInfo()
     }
 
+    const getNode = (id: string) => {
+        if (!editor) return
+        return editor.getNode(id)
+    }
+
     useEffect(() => {
         setIsEditorReady(editor !== null)
     }, [editor])
 
-    return { ref, isEditorReady, editor: { addNode, addConnection, addNotes, flowInfo, deleteNode, addNodeInput, addNodeOutput } }
+    return { ref, isEditorReady, editor: { addNode, addConnection, addNotes, flowInfo, deleteNode, addNodeInput, addNodeOutput, getNode } }
 }
